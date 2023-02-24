@@ -156,5 +156,17 @@ Rails.application.routes.draw do
       post :edit
     end
   end 
+  
+  resources :labels do
+    member do
+      post :edit
+    end
+  end 
+
+  resources :textes do
+    member do
+      post :edit
+    end
+  end 
 
 end

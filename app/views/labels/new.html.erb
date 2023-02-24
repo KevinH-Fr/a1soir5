@@ -1,0 +1,16 @@
+<%= turbo_frame_tag :modal do %>
+  <div data-controller="hidemodal" data-action="turbo:submit-end->hidemodal#submitEnd"> 
+  
+    <div class="bloc-entete-model">
+      <div class="card card-header entete-index">
+          <strong>Nouveau label</strong> 
+      </div>
+    </div>
+
+
+      <%= render "form", label: @label %>
+
+
+</div>
+<% end %>
+
