@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_meeting, only: %i[ show edit update destroy invite ]
   #skip_before_action :authenticate_user, only: :index #permet partage cal auto sans log
  

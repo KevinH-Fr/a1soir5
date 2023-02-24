@@ -31,8 +31,8 @@
     <% if signed_in? %>
 
       <%= render "shared/navbarHaute" %>
-      <%= link_to current_user.email, edit_user_registration_path %>
-      <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" } %>
+      <%#= link_to current_user.email, edit_user_registration_path %>
+      <%#= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" } %>
     
     <% else %>
        <%= render partial: "accueil_admin/demandeConnexion" %>

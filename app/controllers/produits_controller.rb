@@ -1,8 +1,6 @@
 class ProduitsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_produit, only: %i[ show edit update destroy ]
-
-
-
 
   def index
 

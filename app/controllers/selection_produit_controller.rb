@@ -1,5 +1,6 @@
 class SelectionProduitController < ApplicationController
-
+  before_action :authenticate_user!
+  
     def index
 
         @commandeId = params[:commandeId] 

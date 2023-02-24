@@ -1,5 +1,5 @@
 class CommandesController < ApplicationController
-
+  before_action :authenticate_user!
  # helper CommandesHelper #rendre disponible l'helper commande pour calculs synthese
     
   before_action :set_commande, only: %i[ show edit update destroy ]

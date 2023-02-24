@@ -1,4 +1,5 @@
 class AvoirrembsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_avoirremb, only: %i[ show edit update destroy ]
 
   # GET /avoirrembs or /avoirrembs.json
