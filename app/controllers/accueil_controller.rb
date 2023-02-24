@@ -74,13 +74,13 @@ class AccueilController < ApplicationController
     end
 
     def index
-      @texteContact = Texte.last.contact if Texte.last.present?
-      @texteHoraire = Texte.last.horaire if Texte.last.present?
-      @texteAdresse = Texte.last.adresse if Texte.last.present?
+   #   @texteContact = Texte.last.contact if Texte.last.present?
+   #   @texteHoraire = Texte.last.horaire if Texte.last.present?
+   #   @texteAdresse = Texte.last.adresse if Texte.last.present?
       
-      if Label.last.present?
-        @label = Label.last.principale
-      end
+   #   if Label.last.present?
+   #     @label = Label.last.principale
+   #   end
 
     end
 
