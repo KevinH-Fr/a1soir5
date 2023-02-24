@@ -1,0 +1,102 @@
+<div class="section-solidaire">
+
+    <h5 class="h5-doc"> SYNTHESE </h5>
+
+    <table class="table table-doc">
+        <thead>
+            <tr>
+                <th class="th-doc">Nature</th>
+                <th class="th-doc">Débit</th>
+                <th class="th-doc">Crédit</th>
+                <th class="th-doc">Solde</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr class="centered">
+                <td class="td-doc started">Prix</td>
+                <td class="td-doc"> <%= number_to_currency(du_prix(@commande), locale: :fr) %></td>
+                <td class="td-doc"> <%= number_to_currency(recu_prix(@commande), locale: :fr) %></td>
+                <td class="td-doc"> <%= number_to_currency(solde_prix_avant_avoirremb(@commande), locale: :fr) %></td>
+            </tr>
+
+            <tr class="centered">
+                <td class="td-doc started">Avoir</td>
+                <td class="td-doc"> <%= number_to_currency(0, locale: :fr) %></td>
+                <td class="td-doc"> <%= number_to_currency(avoir_deduit(@commande), locale: :fr) %></td>
+                <td class="td-doc"> <%= number_to_currency(-avoir_deduit(@commande), locale: :fr) %></td>
+            </tr>
+
+            <tr class="centered">
+                <td class="td-doc started">Remboursement</td>
+                <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> </td>
+                <td class="td-doc">  <%= number_to_currency(0, locale: :fr) %></td>
+                <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %></td>
+            </tr>
+
+            <tr class="bolded centered">
+                <td class="td-doc top-bottom-bordered started">Totaux</td>
+                <td class="td-doc top-bottom-bordered"> <%= number_to_currency(du_prix(@commande) + 0 + remb_deduit(@commande), locale: :fr) %> </td>
+                <td class="td-doc top-bottom-bordered">  <%= number_to_currency(recu_prix(@commande) + 0 + avoir_deduit(@commande), locale: :fr) %></td>
+            
+                <% if solde_prix_avant_avoirremb(@commande) + -avoir_deduit(@commande) + remb_deduit(@commande) == 0 %>
+                    <td class="td-doc top-bottom-bordered green-colored"> 
+                        <%= number_to_currency(solde_prix_avant_avoirremb(@commande) + 
+                        -avoir_deduit(@commande) + remb_deduit(@commande), locale: :fr) %>
+                    </td>
+                <% else %>
+                    <td class="td-doc top-bottom-bordered red-colored"> 
+                        <%= number_to_currency(solde_prix_avant_avoirremb(@commande) + 
+                        -avoir_deduit(@commande) + remb_deduit(@commande), locale: :fr) %>
+                    </td>
+                <% end %>
+            </tr>
+
+            <% if du_caution(@commande) || recu_caution(@commande) != 0 %>
+                <tr class="bolded centered">
+                    <td class="td-doc started">Caution</td>
+                    <td class="td-doc"> <%= number_to_currency(du_caution(@commande), locale: :fr) %></td>
+                    <td class="td-doc"> <%= number_to_currency(recu_caution(@commande), locale: :fr) %></td>
+                
+                        <% if solde_caution(@commande) == 0 %>
+                            <td class="td-doc green-colored"> 
+                                <%= number_to_currency(solde_caution(@commande), locale: :fr) %>
+                            </td>
+                        <% else %>
+                            <td class="td-doc red-colored"> 
+                                <%= number_to_currency(solde_caution(@commande), locale: :fr) %>
+                            </td>
+                        <% end %>
+                </tr>
+            <% end %>
+
+        </tbody>
+        
+    </table>
+</div>
+
+<% if @messagemail.commentairedoc? %>
+    <div class="cadre my-2">
+    <span class="bolded">Commentaires </span> 
+    <span class=""> <%= @messagemail.commentairedoc %> </span> <br>
+    <br>
+    </div>
+<% end %>
+
+<% @meeting = Meeting.where(commande_id: @commande.id).last %>
+<% if @meeting.present? && @meeting.start_time > DateTime.now %>
+<br>
+    <div class="cadre my-2">
+        <span class="bolded">Prochain rendez-vous: </span> <br>
+        <span class=""> 
+            <%= @meeting.name %> | 
+            <%= @meeting.start_time.strftime("%d/%m/%y" " à %H:%M") %> 
+        </span> <br>
+    </div>
+<% end %>
+
+<br>
+<div class="cadre my-2 bloc-mention mt-2">
+    Toute réservation est définitive. En cas d'annulation, un avoir pourra être émis. <br>
+    Pour tout retard de restitution de location, une somme forfaitaire de 15€/jour pourra être perçue.
+</div>

@@ -1,0 +1,69 @@
+<%= form_with(model: @ensemble) do |form| %>
+  <% if @ensemble.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@ensemble.errors.count, "error") %> prohibited this frieensemblend from being saved:</h2>
+
+      <ul>
+        <% @ensemble.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="card-body bloc-record">
+  
+  <div class="input-group mb-1">
+    <%= form.label :articleparent, class:"input-group-text label-with-format bg-secondary text-light" %>
+    <%= form.select :articleparent, Produit.type_ensemble.collect { |c| [ c.nom, c.id ]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+  <%# to do afficher suivant que si précédent est rempli %>
+
+  <div class="input-group mb-1">
+    <%= form.label :categorieenfant, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+  <div class="input-group mb-1">
+    <%= form.label :categorieenfant2, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant2, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+
+   <div class="input-group mb-1">
+    <%= form.label :categorieenfant3, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant3, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+  <div class="input-group mb-1">
+    <%= form.label :categorieenfant4, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant4, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+  <div class="input-group mb-1">
+    <%= form.label :categorieenfant5, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant5, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div>
+
+  <div class="input-group mb-1">
+    <%= form.label :categorieenfant6, class:"input-group-text label-with-format" %>
+    <%= form.select :categorieenfant6, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+        {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+  </div> 
+
+  <div class="float-end mt-2 mb-4">
+    <%= link_to "Fermer", "", data:{turbo_frame: "modal"}, 
+        class:"btn btn-sm btn-secondary" %>
+    <%= form.submit "Valider", class: "btn btn-success btn-sm" %>
+  </div><br><br>
+</div>
+
+<% end %>

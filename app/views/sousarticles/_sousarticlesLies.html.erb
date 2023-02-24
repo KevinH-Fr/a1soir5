@@ -1,0 +1,13 @@
+ 
+<div class="bloc-record">
+
+  <div id="sousarticles">
+    <%= render @sousarticles %>
+  </div>
+
+  <div class="text-end p-2">
+    <%= link_to "Nouveau", selection_produit_path(commandeId: params[:commandeId], articleId: @article), 
+             class:"btn btn-sm btn-primary fw-bold mt-0 mb-0" %>
+  </div>
+
+</div>

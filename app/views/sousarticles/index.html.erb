@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+
+  <h1>SOUS-ARTICLES</h1>
+
+  <div id="sousarticles">
+    <% @sousarticles.each do |sousarticle| %>
+      <%= render sousarticle %>
+      <p>
+        <%#= link_to "Show this sousarticle", sousarticle %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "New sousarticle", new_sousarticle_path %>
+
+<% end %>

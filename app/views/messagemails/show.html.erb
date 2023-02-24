@@ -1,0 +1,34 @@
+<%# if user_signed_in? %>
+
+    <div class="bloc-entete-model">
+      <div class="entete-show">
+        <strong>Document prêt pour l'édition</strong> 
+      </div>
+    </div>
+
+    <div class="">
+      <%= render @messagemail %>
+
+      <div class="bloc-record">
+        <div class="row">
+          <div class="col text-start">
+             <%= link_to "", edit_messagemail_path(@messagemail, commandeId: @messagemail.commande_id, clientId: @messagemail.client_id), 
+                class:"fa-regular fa-pen-to-square btn btn-secondary btn-action" %> 
+          </div>
+          <div class="col text-end">
+            <% if @messagemail.commande_id.present? %>
+            <%= link_to "", editer_pdf_messagemail_path(), title: "Editer PDF", 
+                class:"btn btn-danger fa-solid fa-file-pdf fw-bold" %>
+            <% end %>
+            <%= link_to "", editer_mail_messagemail_path(), title: "Envoyer mail",
+                  class:"btn btn-primary fa-solid fa-envelope fw-bold" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ </div>
+
+</div>
+
+<%# end %>

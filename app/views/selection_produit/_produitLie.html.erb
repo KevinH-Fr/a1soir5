@@ -1,0 +1,21 @@
+
+  <% if Produit.exists?(@produitId) %>
+
+    <div class="text-center">
+      <%= image_tag(Produit.find(@produitId).default_image, 
+            style:"width: 100px;", class:"img-fluid rounded-start bg-white") %> 
+    </div>
+
+      <div class="card-body text-dark mt-4">
+        <h5 class="card-title">
+          <%= Produit.find(@produitId).nom %> 
+        </h5>
+        <p class="card-text text-dark">
+          <%= Produit.find(@produitId).description %>
+        </p>
+        <p class="card-text text-dark"><small class="text-muted"> 
+          <%= Produit.find(@produitId).categorie %></small>
+        </p>
+      </div>
+
+<% end %>

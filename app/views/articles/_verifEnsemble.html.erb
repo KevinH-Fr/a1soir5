@@ -1,0 +1,47 @@
+<%
+=begin%>
+ test : <%=articleCourantPossibleEnsemble %> <br>
+existants : <%=articlesExistants %> <br>
+types existants : <%=typesArticlesExistants %> <br>
+types attendus : <%=typesAttendus %> <br>
+
+<%
+=end%>
+<%# voir pourquoi ensemble eventuel vide ?
+    rechercher avec or ?
+    pour tester enlever certains criteres et voir ou ca bloque
+%>
+
+
+<%# verif ensemble complet avec sous articles avec call helper %>
+
+<% if applicationArticleCourantEnsembleComplet === true %>
+
+    <div class="bloc-record">
+        <% if completudeEnsemble === true %>
+            <div class="text-success text-center fw-bold p-0">  
+            L'ensemble est complet 
+            </div>
+        <% else %>
+            <div class="text-danger p-0">  
+            <div class="fw-bold text-center"> éléments manquants</div>  <hr>
+               
+                <% elementsManquants.each do |element| %>
+                    <%= element %> <br>
+                <% end %>
+            </div>
+        <% end %> 
+    </div>
+<% end %>
+
+<hr>
+
+<%# verif tranformation possible en ensemble %>
+
+<% if articleCourantPossibleEnsemble.present? && ensembleEventuel.present? %>
+    <%= link_to "Transformer en ensemble", 
+            toggle_transformer_ensemble_article_path(), class:"btn btn-warning",  
+        method: :post, onclick: "return confirm('Certain(e) de transformer les articles en ensemble ?');"  %>
+<% end %>
+
+<br><br>

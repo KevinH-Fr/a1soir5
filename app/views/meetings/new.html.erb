@@ -1,0 +1,18 @@
+<%= turbo_frame_tag :modal do %>
+  <div data-controller="hidemodal" data-action="turbo:submit-end->hidemodal#submitEnd"> 
+  
+    <div class="bloc-entete-model">
+      <div class="card card-header entete-index">
+          <strong>Nouveau rendez-vous</strong> 
+      </div>
+    </div>
+
+    <div class="bloc-record">
+      <%= render "form", profile: @meeting %>
+    </div>
+
+
+</div>
+<% end %>
+
+

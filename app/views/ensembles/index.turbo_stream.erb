@@ -1,0 +1,13 @@
+<%= turbo_stream.append :ensembles do %>
+  <%= render @ensembles %>
+<% end %>
+
+<%= turbo_stream.replace :pagination do %>
+  <% if @pagy.next.present? %>
+     <%= turbo_stream.replace :pagination do %>
+        <%= turbo_frame_tag :pagination, loading: :lazy,
+                            src: ensembles_path(format: :turbo_stream,
+                            page: @pagy.next, q: params[:q]&.to_unsafe_h ) %>
+    <% end %>
+  <% end %>  
+<% end %>

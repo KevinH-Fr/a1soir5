@@ -1,0 +1,46 @@
+
+    <div class="bloc-entete-model">
+      <div class="card card-header entete-index">
+        <strong>RENDEZ-VOUS</strong> 
+      </div> 
+    </div>
+
+    <%= render @meeting %>
+
+    <% if @meeting.commande_id.present? %>
+      <div class="bloc-entete-model">
+        <div class="card card-header entete-index">
+          <strong>COMMANDE</strong> 
+        </div> 
+      </div>
+       <%= render @commande %>
+    <% end %>
+
+    <% if @meeting.client_id.present? %>
+      <div class="bloc-entete-model">
+        <div class="card card-header entete-index">
+          <strong>CLIENT</strong> 
+        </div> 
+      </div>
+       <%= render @client %>
+    <% end %>
+
+
+
+
+    <div class="fixed-bottom footer-index text-center bg-dark">
+      <div class="row justify-content-evenly">
+        <div class="col-4 text-start">
+          <%= link_to "", meetings_path, class:"fa-solid fa-rotate-left btn btn-sm btn-secondary" %> 
+        </div>
+        <div class="col-4 text-center">
+          <div class="badge bg-dark">
+            <%#== pagy_nav(@pagy) %>
+          </div>
+        </div>
+        <div class="col-4 text-end">
+          <%= link_to "", meetings_path, class:"fa-solid fa-file-export btn btn-sm btn-primary" %> 
+        </div>
+      </div>
+    </div>
+

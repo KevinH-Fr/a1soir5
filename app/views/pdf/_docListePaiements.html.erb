@@ -1,0 +1,44 @@
+<%# reparametrer les articles avec le param local commande passé depuis commande mailer %>
+<% @paiements = Paiement.commande_courante(@commande) %>
+
+<% if @paiements.present? %>
+
+  <div class="section-solidaire">
+
+    <h5 class="h5-doc"> PAIEMENTS </h5>
+
+    <table class="table table-doc">
+      <thead class="">
+        <tr>
+          <th class="th-doc">#</th>
+          <th class="th-doc">Type</th>
+          <th class="th-doc">Date</th>
+          <th class="th-doc">Montant</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @paiements.each_with_index do | paiement, i | %>
+          <tr>
+            <td class="td-doc centered"> <%= i + 1 %> </td>
+            <td class="td-doc centered"> <%= paiement.typepaiement %> </td>
+            <td class="td-doc centered"> <%= paiement.created_at.strftime("%d/%m/%y") %> </td>
+            <td class="td-doc centered">  <%= number_to_currency(paiement.montant , locale: :fr) %> </td>
+          </tr> 
+        <% end %>  
+      </tbody>
+      
+      <tfoot>
+        <tr>
+          <td colspan=3 class="tfoot-doc centered">  TOTAUX  </td>
+          <td class="tfoot-doc ended"> 
+            <%= number_to_currency(Paiement.commande_courante(@commande).sum_paiements, locale: :fr) %> 
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+  </div>
+
+<% end %>
+

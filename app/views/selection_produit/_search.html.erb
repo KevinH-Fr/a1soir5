@@ -1,0 +1,21 @@
+
+ <div>
+  <%= search_form_for(@q, url: url_for, method: :get, class:'d-flex') do |f| %>
+    <%= f.search_field :nom_or_description_cont, placeholder: "recherche...", 
+        class: "form-control form-control-sm my-1" %>
+
+     <%= hidden_field_tag :commandeId, params[:commandeId] %>
+     
+    <%= f.submit "Go!", class:"btn btn-sm btn-outline-primary m-1" %>
+
+    <%= link_to "Effacer", selection_produit_path(commandeId: params[:commandeId]), 
+       class:"btn btn-sm btn-outline-danger m-1" %> 
+
+
+    <%= link_to "", scanqr_path(commandeId: params[:commandeId], articleId: @articleId), 
+       class:"fa-solid fa-qrcode btn btn-sm btn-primary m-1 p-2", data: { turbo: false }  %> 
+       <%# desactiver turbo pour eviter conflit avec js %>
+
+  <% end %>
+
+</div>

@@ -1,0 +1,195 @@
+<%= form_with(model: messagemail) do |form| %>
+  <% if messagemail.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(messagemail.errors.count, "error") %> 
+        prohibited this messagemail from being saved:
+      </h2>
+
+      <ul>
+        <% messagemail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body bloc-record">
+      
+    <% if params[:clientId].present? %> 
+
+      <%#= "clientId existe : #{params[:clientId]} " %>
+      <% client =  Client.find(params[:clientId]) %>
+      <% mail = Client.find(client.id).mail %>
+      <% adressemail = "#{mail}"  %>
+
+    <% end %>
+
+     <% if params[:commandeId].present? %> 
+
+        <%#= "commandeId existe : #{params[:commandeId]} " %>
+        <% commande = params[:commandeId] %>
+        <% client = Commande.find(commande).client_id %>
+        <% mail = Client.find(client).mail %>
+        <% adressemail = "test mail commande #{mail}"  %>
+
+    <% end %>
+   
+    <% if params[:commandeId].present? %> 
+
+      <div data-controller="form-element">
+        <%= form.button "Validate", formaction: new_messagemail_path(commandeId: commande), 
+            formmethod: :get, data: { turbo_frame: :body_field, form_element_target: "submitbtn" } %>    
+
+          <div class="input-group mb-1">
+            <%= form.label :document, class:"input-group-text label-with-format" %>
+            <%= form.select :typedoc,  @typedocs, {include_blank: true}, 
+                  { data: { action: "change->form-element#remotesubmit"},  
+                  class:"form-control input-sized"} %>
+          </div>
+
+
+        <div class="form-check form-switch">
+          <div class="custom-control custom-switch">
+          
+            <%= form.check_box :editmail,
+            {data: { action: "change->form-element#remotesubmit"},  id: "editMail", class: "form-check-input"} %>
+
+            <label class="text-dark" for="editMail">mail</label>
+          </div>
+        </div>
+
+      </div>
+
+    <% end %>
+
+    <div>
+      <%= form.hidden_field :commande_id, value: params[:commandeId], class:"form-control text-center input-sized" %>
+      <%= form.hidden_field :client_id, value: params[:clientId], class:"form-control text-center input-sized" %>
+    </div>
+    
+    <%= turbo_frame_tag :body_field do %>
+     
+      <% if form.object.commande_id.present? %> 
+        <%#= "commandeId existe2 : #{params[:commandeId]} " %>
+
+        <% if Commande.find(form.object.commande_id).typeevenement.present? %>
+          <% @evenement = Commande.find(form.object.commande_id).typeevenement %> 
+        <% else %> 
+          <% @evenement = "événement" %> 
+        <% end %> 
+    
+        <% if Commande.find(form.object.commande_id).dateevenement.present? %> 
+          <% @dateEvent = " du #{Commande.find(form.object.commande_id).dateevenement.strftime("%d/%m/%y")}" %> 
+        <% else %> 
+          <% @dateEvent = "" %> 
+        <% end %> 
+       
+        <% @dateEvent = Commande.find(form.object.commande_id).dateevenement ? " du 
+            #{Commande.find(form.object.commande_id).dateevenement.strftime("%d/%m/%y")}" : "" %>
+        
+        <%# pour mail commande - sur edit %>
+        <% if messagemail.persisted? %>
+
+          <% typedoc =  messagemail.typedoc %>
+          <% sujetmail = messagemail.titre %>
+          <% bodymail = messagemail.bodymail %>
+          <% adressemail = messagemail.mail  %>
+
+        <% else %>
+          <%# pour nouveau messagemail commande %>
+          <% typedoc =  form.object.typedoc %>
+          <% sujetmail = "#{typedoc}_" "#{form.object.commande_id}"%>
+          
+          <% intituleClient = Client.find(Commande.find(form.object.commande_id).client_id).intitule_nom %>
+          <% intituleComplet = "Bonjour #{intituleClient}," %>
+
+          <% dateProchainRv = Meeting.find_by(commande_id: form.object.commande_id).start_time if Meeting.find_by(commande_id: form.object.commande_id).present? %>
+          <% if dateProchainRv.present? %>
+            <% prochainRv = " Votre prochain rendez-vous est prévu le  
+             #{dateProchainRv.strftime("%d/%m/%y")}." %> 
+          <% else %>
+            <% prochainRv = "" %>
+          <% end %>
+
+          <% bodymail = "#{intituleComplet} <br><br>Merci de trouver ci-attaché votre <strong>#{typedoc}</strong> 
+            pour votre  #{@evenement}#{@dateEvent}.
+            <br> #{prochainRv}           
+            "%>
+
+         <%# bodymail = "test body mail" %>
+
+          <% adressemail = Client.find(Commande.find(form.object.commande_id).client_id).mail  %>
+
+        <% end %>    
+
+      <% else %>
+      <%#= "commandeId n'existe pas2 : #{params[:commandeId]} " %>
+      <%# pour mail client sans commande - sur edit form pas sur new %>
+
+      <% if messagemail.persisted? %>
+        <% sujetmail = messagemail.titre %>
+
+        <% if params[:clientId].present? %>
+          <% adressemail = messagemail.mail  %>
+          <% bodymail = messagemail.bodymail  %>
+        <% end %>
+
+      <% else %> 
+        <%# pour nouveau messagemail client %>
+        <% sujetmail = "Message de A1soir" %>
+
+        <% if params[:clientId].present? %>
+          <% adressemail = Client.find(params[:clientId]).mail  %>
+          <% intituleClient = Client.find(params[:clientId]).intitule_nom %>
+          <% intituleComplet = "Bonjour #{intituleClient}," %>
+          <% bodymail = "#{intituleComplet} <br><br>Notre message pour vous." %>
+        <% end %>
+
+      <% end %>
+          
+      <% end %>
+
+        <% if form.object.typedoc.present? %> 
+          <div class="input-group mb-1">
+            <%= form.label :commentairedoc, class:"input-group-text label-with-format" %>
+            <%= form.text_area :commentairedoc, class:"form-control" %>
+          </div>
+          <% if form.object.typedoc == "facture_simple" %> 
+            <div class="input-group mb-1">
+              <%= form.label :commentairefasimple, class:"input-group-text label-with-format" %>
+              <%= form.text_area :commentairefasimple, class:"form-control" %>
+            </div>
+          <% end %>
+        <% end %>
+
+      <% if form.object.editmail == true || params[:clientId].present? %> 
+
+        <div class="input-group mb-1">
+          <%= form.label :mail, class:"input-group-text label-with-format" %>
+          <%= form.text_field :mail, value: adressemail, class:"form-control field-with-format" %>
+        </div>
+        
+        <div class="input-group mb-1">
+          <%= form.label :objet, class:"input-group-text label-with-format" %>
+          <%= form.text_field :titre, value: sujetmail, class:"form-control field-with-format" %>
+        </div>
+      
+          <%#= form.label :body, class:"input-group-text label-with-format" %>
+          <%#= form.text_area :body, value: bodymail, class:"form-control field-with-format-large" %>
+
+        <div class="input-group mb-1">
+          <%= form.label :message, class:"trix-button-row input-group-text label-with-format" %>
+          <%= form.rich_text_area :bodymail, value: bodymail, class:"bg-light w-100" %>
+        </div>
+
+      <% end %>
+
+    <% end %>
+
+      <div class="text-end">
+        <%= form.submit 'Valider', class: "btn btn-success btn-sm fw-bold"  %>
+      </div>
+
+  </div>
+
+<% end %>

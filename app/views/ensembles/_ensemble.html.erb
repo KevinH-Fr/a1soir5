@@ -1,0 +1,75 @@
+<div id="<%= dom_id ensemble %>">
+
+  <div class="bloc-record">
+
+    <div class="row align-items-center">
+      <div class="col m-0 p-2 text-start">
+
+         <% if ensemble.articleparent.present? %>
+          <p>
+            <strong>articleparent:</strong>
+            <%= Produit.find(ensemble.articleparent).nom %>
+          </p>
+        
+          <hr>
+        <% end %>
+        
+        <% if ensemble.categorieenfant.present? %>
+          <p>
+            <strong>categorieenfant:</strong>
+            <%= ensemble.categorieenfant %>
+          </p>
+        <% end %>
+
+        <% if ensemble.categorieenfant2.present? %>
+          <p>
+            <strong>categorieenfant2:</strong>
+            <%= ensemble.categorieenfant2 %>
+          </p>
+        <% end %>
+
+
+        <% if ensemble.categorieenfant3.present? %>
+          <p>
+            <strong>categorieenfant3:</strong>
+            <%= ensemble.categorieenfant3 %>
+          </p>
+        <% end %>
+
+
+        <% if ensemble.categorieenfant4.present? %>
+          <p>
+            <strong>categorieenfant4:</strong>
+            <%= ensemble.categorieenfant4 %>
+          </p>
+        <% end %>
+
+        <% if ensemble.categorieenfant5.present? %>
+          <p>
+            <strong>categorieenfant5:</strong>
+            <%= ensemble.categorieenfant5 %>
+          </p>
+        <% end %>
+
+        <% if ensemble.categorieenfant6.present? %>
+          <p>
+            <strong>categorieenfant6:</strong>
+            <%= ensemble.categorieenfant6 %>
+          </p>
+        <% end %> 
+
+      </div>
+
+      <div class="col m-0 p-2 text-end ">
+        <%= link_to '', ensemble_path(ensemble), 
+            class:"fa-regular fa-folder-open btn btn-sm btn-success mb-1" %> 
+        <%= button_to "", edit_ensemble_path(ensemble), 
+            class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary mb-1", method: :post %> 
+        <%= button_to '', ensemble_path(ensemble), 
+            class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete,
+            :onclick => "return confirm('Sûr ?')" %> 
+      </div>
+    </div>
+  </div>
+
+</div>

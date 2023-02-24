@@ -1,0 +1,65 @@
+
+  <div class="chartBox mx-auto">
+    <canvas id="myChartLineCa"></canvas>
+  </div>
+
+  <% @data = Article.group('DATE(created_at)').sum('total') %>
+
+
+<script>
+
+  var couleur1 = 'rgb(116, 159, 130)';
+  var couleur2 = 'rgb(66, 95, 87)';
+
+// CHART BAR
+    var dataLineCa = {
+      datasets: [{
+        data: <%= @data.to_json.html_safe %>,
+        fill: true,
+        backgroundColor: [couleur2, couleur1 ],
+        borderWidth: 1
+      }]
+    };
+
+    var delayedLineCa;
+
+    var configLineCa = {
+      type: 'line',
+      data: dataLineCa,
+      options: {
+
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        aspectRatio: 1,
+
+         animation: {
+                onComplete: () => {
+                    delayed = true;
+                },
+                delay: (context) => {
+                    let delay = 0;
+                    if (context.type === 'data' && context.mode === 'default' && !delayedLineCa) {
+                    delay = context.dataIndex * 2000  + context.datasetIndex * 10;
+                    }
+                    return delay;
+                },
+            },
+
+            borderColor:'rgb(0, 0, 0)',
+            pointBorderWidth: 1,
+            pointHoverBorderWidth: 20,
+            lineTension: 0.4,
+
+          }
+      };
+
+        // render init block
+    var myChartLineCa = new Chart(
+      document.getElementById('myChartLineCa'),
+      configLineCa
+    );
+  
+</script>

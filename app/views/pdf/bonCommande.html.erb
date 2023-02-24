@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <h4 class="h4-doc"> 
+      <%= @messagemail.typedoc %> 
+      <% @commande = Commande.find(@messagemail.commande_id) %>
+      <%= @commande.texte_record %>
+    </h4>
+
+    <%= render "pdf/docInfosCommande" %>
+    <%= render "pdf/docBlocAdresse" %>
+    <%= render "pdf/docListeArticles" %> 
+    <%= render "pdf/docListePaiements" %> 
+    <%= render "pdf/docListeAvoirrembs" %> 
+    <%= render "pdf/docListeSynthese" %> 
+
+</html>

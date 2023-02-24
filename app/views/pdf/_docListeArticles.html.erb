@@ -1,0 +1,115 @@
+
+<%# reparametrer les articles avec le param local commande passé depuis commande mailer %>
+<% @articles = Article.commande_courante(@commande) %>
+
+  <h4 class="h4-doc">
+    <% typedoc = @messagemail.typedoc %>
+  </h4>
+
+<% unless typedoc == "facture_simple" %>
+
+  <h5 class="h5-doc"> ARTICLES </h5>
+
+    <table class="table table-doc">
+      <thead class="table">
+        <tr>
+          <th class="th-doc">#</th>
+          <th colspan="2" class="th-doc">articles</th>
+          <th class="th-doc">quantité</th>
+          <th class="th-doc">prix</th>
+          <th class="th-doc">total</th>
+          <th class="th-doc">caution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% @articles.each_with_index do | article, i | %>
+            <td class="td-doc centered"> <%= i + 1 %> </td>
+            <td class="td-doc centered" style="width: 70px;"> 
+              <%= image_tag(Produit.find(article.produit_id).default_image, style: "width: 80px; display: block", 
+               class: "img-fluid rounded") %> 
+            </td>
+            <td class="td-doc-main"> <%= Produit.find(article.produit_id).nom %> </td>
+            <td class="td-doc centered"> <%= article.quantite %> </td>
+            <td class="td-doc ended"> <%= number_to_currency(article.prix, locale: :fr) %> </td>
+            <td class="td-doc ended"> <%= number_to_currency(article.total, locale: :fr) %> </td>
+            <td class="td-doc ended"> <%= number_to_currency(article.caution, locale: :fr) %> </td>
+          </tr> 
+
+            <% @sousarticles = Sousarticle.where(article_id: article.id) %>
+            <% @sousarticles.each do |sousarticle| %>
+              <tr>
+                <td></td>
+                <td class="td-doc-img-sousarticle"> 
+                  <%= image_tag(Produit.find(sousarticle.produit_id).default_image, style: "width: 40px; display: block", 
+                    class:"") if sousarticle.produit_id.present? %>
+                </td>
+                <td class="td-doc-italic fst-italic"> 
+                 <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> |
+                  <%= sousarticle.description %> 
+                
+                </td>
+                <td></td>
+                <td> </td>
+                <td class="td-doc ended">  
+                  <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr) if sousarticle.prix_sousarticle > 0 %> 
+
+                </td>
+              </tr>
+            <% end %>       
+        <% end %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan=3 class="centered tfoot-doc">  
+            TOTAUX
+          </td>
+          <td class="centered tfoot-doc">
+            <%= Article.commande_courante(@commande).compte_articles %>
+          </td>
+          <td class="tfoot-doc"></td>
+          <td class="ended tfoot-doc">
+            <%= number_to_currency(Article.commande_courante(@commande).sum_articles + 
+                Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles, locale: :fr) %>
+          </td>
+
+          <td class="ended tfoot-doc">
+            <%= number_to_currency(Article.commande_courante(@commande).sum_caution_articles, locale: :fr) %>
+          </td>
+
+        </tr>
+      </tfoot>
+    </table>
+
+<% else %> <%# facture simple : %>
+
+  <div class="cadre">
+      <% totalHt = (Article.commande_courante(@commande).sum_articles + 
+                Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles) / 1.2 %>
+      <% totalTva = totalHt * 0.2 %>
+
+     <% totalTtc = Article.commande_courante(@commande).sum_articles + 
+                Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles %>
+
+      <span> <%= @messagemail.commentairefasimple %>  </span> <br> <br>
+
+      <span>Total HT </span> 
+      <span class=""> 
+        <%= number_to_currency(totalHt, locale: :fr) %>
+      </span> <br>
+
+      <span>TVA </span> 
+      <span class=""> 
+        <%= number_to_currency(totalTva, locale: :fr) %>
+      </span> <br>
+     
+      <span>Total TTC </span> 
+      <span class="doc-important"> 
+         <%= number_to_currency(totalTtc, locale: :fr) %>
+      </span> <br>
+
+      <br>
+  </div>
+
+<% end %>

@@ -1,0 +1,33 @@
+
+<div id="<%= dom_id sousarticle %>">
+
+  <div class="cadre-interieur">
+    <div class="row p-0 m-0 text-dark align-items-center">
+
+      <div class="col-4 m-0">  
+         <%= image_tag(Produit.find(sousarticle.produit_id).default_image, 
+              style:"width: 50px;", class:"img-fluid rounded-start bg-white") %> 
+      </div>
+
+      <div class="col-5 m-0 ">  
+        <%= Produit.find(sousarticle.produit_id).nom %> | 
+        <%= sousarticle.prix_sousarticle %> |
+        <%= Produit.find(sousarticle.produit_id).taille %> 
+        <br>
+        <%= sousarticle.description %>
+      </div>
+
+      <%# @commandeId = Article.find(sousarticle.article_id).commande_id %>
+
+
+      <div class="col-3 p-0 m-0 text-end">
+        <%= button_to "", edit_sousarticle_path(sousarticle, articleId: sousarticle.article_id, produitId: sousarticle.produit_id), 
+              class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary", method: :post %>
+
+        <%= button_to '', sousarticle_path(sousarticle), 
+            class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete %> 
+      </div>
+    </div>
+  </div>
+
+</div>

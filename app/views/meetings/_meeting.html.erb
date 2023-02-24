@@ -1,0 +1,76 @@
+
+<div id="<%= dom_id meeting %>">
+  <div class="bloc-record">
+    <div class="row align-items-center">
+
+      <div class="col-11 m-0 p-2">
+        <p>
+          <strong>Nom:</strong>
+          <%= meeting.name %>
+        </p>
+
+        <% if meeting.commande_id.present? %>
+          <p>
+            <strong>Commande liée:</strong>
+            <%= Commande.find(meeting.commande_id).nom %>
+          </p>
+          <p>
+            <strong>Client lié:</strong>
+            <% clientId = Commande.find(meeting.commande_id).client_id %>
+            <%= Client.find(clientId).full_name %>
+          </p>
+
+        <% end %>
+
+        <% if meeting.client_id.present? %>
+          <p>
+            <strong>Client(e) lié(e):</strong>
+            <%= Client.find(meeting.client_id).full_name %>
+          </p>
+
+        <% end %>
+
+        <p>
+          <strong>Début:</strong>
+          <%= meeting.start_time.strftime("%d/%m/%y" " à %H:%M") if meeting.start_time.present? %> |
+
+          <strong>Fin:</strong>
+          <%= meeting.end_time.strftime("%d/%m/%y" " à %H:%M") if meeting.end_time.present? %>
+        </p>
+
+        <p>
+          <strong>Lieu:</strong>
+          <%= meeting.lieu %>
+        </p>
+
+        
+      </div> 
+      <div class="col-1 m-0 p-1 text-center">
+
+      <%= link_to '', meeting_path(meeting), 
+            class:"fa-regular fa-folder-open btn btn-sm btn-success mb-1" %> 
+        <%= button_to "", edit_meeting_path(meeting), 
+            class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary mb-1", method: :post %> 
+        <%= button_to '', meeting_path(meeting), 
+            class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete %> 
+      </div>
+
+      <div class=" m-0 p-1 text-end">
+
+       <%# pour envoyer mail depuis meeting path %>
+        <%#= link_to "", editer_mail_meeting_path(), title: "Envoyer mail",
+                  class:"btn btn-sm btn-primary fa-solid fa-envelope " %>
+
+       <%#= meeting.to_icalendar %> 
+
+       <%# pour ajouter un rdv unique %>
+       <%#= link_to "add to calendar", meeting_path(meeting, format: :ics) %> 
+
+       <%# pour envoyer une invitation par mail au rdv unique %>
+       <%#= button_to "send email invite", invite_meeting_path(meeting) %> 
+
+      </div>
+    </div>
+  </div>
+
+</div>

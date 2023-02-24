@@ -1,0 +1,62 @@
+
+
+<%= form_with(model: @meeting) do |form| %>
+  <% if @meeting.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+
+      <ul>
+        <% @meeting.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+  <div class="card-body bloc-record">
+    <div class="input-group mb-1">
+      <%= form.label :nom, class:"input-group-text label-with-format" %>
+      <%= form.text_field :name, class:"form-control field-with-format" %>
+    </div>
+
+   <% if @commandeId.present? %>
+    <div class="input-group mb-1">
+      <%= form.label :commande, class:"input-group-text label-with-format" %>
+      <%= form.select :commande_id, Commande.all.collect { |c| [ c.nom, c.id ]}, 
+            {class: 'form-control', include_blank: true, selected: @commandeId} %>
+    </div>
+  <% end %>
+
+    
+    <% if params[:clientId].present? %>
+      <div class="input-group mb-1">
+        <%= form.label :client, class:"input-group-text label-with-format" %>
+        <%= form.select :client_id, Client.all.collect { |c| [ c.nom, c.id ]}, 
+              {class: 'form-control', include_blank: true, selected: params[:clientId]} %>
+      </div>
+    <% end %>
+
+
+    <div class="input-group mb-1">
+      <%= form.label :début, class:"input-group-text label-with-format" %>
+      <%= form.datetime_field :start_time, required: true, class:"form-control field-with-format" %>
+
+      <%= form.label :fin, class:"input-group-text label-with-format" %>
+      <%= form.datetime_field :end_time, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :lieu, class:"input-group-text label-with-format" %>
+      <%= form.text_field :lieu, class:"form-control field-with-format" %>
+    </div>
+    
+    <div class="float-end mt-2 mb-4">
+      <%= link_to "Fermer", "", data:{turbo_frame: "modal"}, 
+          class:"btn btn-sm btn-secondary" %>
+      <%= form.submit "Valider", class: "btn btn-primary btn-sm" %>
+    </div><br><br>
+ 
+ 
+
+<% end %>

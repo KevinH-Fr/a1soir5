@@ -1,0 +1,28 @@
+<div id="<%= dom_id article %>">
+
+  <p>
+    <strong>Type:</strong>
+    <%= article.locvente %>
+  </p>
+
+  <p>
+    <strong>Quantite:</strong>
+    <%= article.quantite %>
+  </p>
+
+  <p>
+    <strong>prix:</strong>
+    <%= article.prix %>
+  </p>
+
+  <p>
+    <strong>total:</strong>
+    <%= article.total %>
+  </p>
+
+     <%= link_to "", edit_article_path(article, 
+                    produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
+                    class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> 
+
+
+</div>

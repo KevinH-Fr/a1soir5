@@ -1,0 +1,62 @@
+
+<div class="card-header bg-dark text-center text-light p-1">
+  <strong>Sélection</strong> 
+</div>
+
+  <div class="card-body p-0 m-0">
+   <div class="table-responsive m-0 p-0">
+
+    <table class="table table-light table-striped table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-center">Image</th>
+          <th class="text-center">Nom</th>
+          <th class="text-center">Dispo</th>
+          <th style="width:10px" class="text-center"> Actions</th>
+        </tr>
+      </thead>
+      <tbody class="fs-6">
+        <% @produits.each do | produit | %>
+          <tr>
+            <td class="text-center align-middle"> <%= produitId = produit.id %> </td>
+            <td class="text-center"> 
+              <%= image_tag(produit.default_image, style: "width: 50px", 
+                class: "img-fluid rounded text-center") %>
+            </td> 
+            <td class="align-middle"> <%= produit.nom %> </td>
+            
+            <td class="text-center align-middle"> 
+               <%= dispo = calcul_dispo(produit.id) %>
+            </td>
+
+            <td class="text-center align-middle"> 
+              <% if dispo > 0 %>
+
+              <%# to do : new article ou new sous article en fonction de l'url courante ? %>
+              <% articleId = params[:articleId] %>
+              <% commandeId = params[:commandeId] %>
+
+                <% if articleId.present? %> <%# alors sous article en cours de selection %>
+                  <%= link_to '', new_sousarticle_path(commandeId: commandeId, produitId: produit, articleId: articleId), 
+                      class:"fa-solid fa-cart-plus btn btn-primary btn-sm" %>  
+                <% else %> <%# alors  article en cours de selection %>
+                    <%= link_to '', new_article_path(commandeId: commandeId, produitId: produit), 
+                      class:"fa-solid fa-cart-plus btn btn-primary btn-sm" %>  
+                <% end %>
+
+
+              <% else %>
+              <%#= link_to '', new_article_path(), 
+                    class:"fa-solid fa-cart-plus btn disabled btn-primary btn-sm" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+

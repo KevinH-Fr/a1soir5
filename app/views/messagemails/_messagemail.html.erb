@@ -1,0 +1,62 @@
+<div id="<%= dom_id messagemail %>">
+  <div class="bloc-record">  
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-10 text-dark">  
+          <div class="text-record-main ms-2">
+
+            <% if messagemail.typedoc.present? %>
+              <p>
+                <strong>type doc:</strong>
+                <%= messagemail.typedoc %>
+              </p>
+              <p>
+                <strong>mail:</strong>
+                <%= messagemail.editmail %>
+              </p>
+              <p>
+                <strong>commentairedoc:</strong>
+                <%= messagemail.commentairedoc %>
+              </p>
+               <% if messagemail.typedoc == "facture_simple" %> 
+                <p>
+                  <strong>commentaire facture simple:</strong>
+                  <%= messagemail.commentairefasimple %>
+                </p>
+               <% end %>
+            <% end %>
+
+            <% if messagemail.editmail == true %>
+              <p>
+                <strong>adresse mail:</strong>
+                <%= messagemail.mail %>
+              </p>
+              <p>
+                <strong>Titre:</strong>
+                <%= messagemail.titre %>
+              </p>
+              <p>
+                <strong>Bodymail:</strong>
+                <%= messagemail.bodymail %>
+              </p>
+            <% end %>
+            
+            <% if messagemail.commande_id.present? %>
+              <p>
+                <strong>Commande:</strong>
+                <%= messagemail.commande_id %>
+              </p>
+            <% end %>
+            <% if messagemail.client_id.present? %>
+              <p>
+                <strong>Client:</strong>
+                <%= Client.find(messagemail.client_id).full_name %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

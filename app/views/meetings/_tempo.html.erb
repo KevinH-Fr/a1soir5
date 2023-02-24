@@ -1,0 +1,11 @@
+<strong>tempo meetings rappels </strong>
+
+liste des rdv à venir: 
+
+<hr>
+
+  <% @meetings_a_venir.each do |meeting| %>
+    <div class="card-title">
+        <%= meeting.name %>
+    </div>
+  <% end %>
