@@ -1,0 +1,54 @@
+<%# pas utilisé %>
+
+<div class="entete-show">
+        <strong>Editions</strong> 
+</div>
+
+<div class="bloc-record text-dark">
+        <% commandeId = params[:id]%>
+
+                <p>
+                        <% commandeId = params[:id]%>
+                        <% clientId = Commande.find(commandeId).client_id %>
+                        <% testParamDoc = "bonCommande" %>
+                        Destinaire : <%= Client.find(clientId).intitule_nom %> - 
+                                        <%= Client.find(clientId).mail %> <br> 
+                        Objet :  <%= "Commande #{@commande.full_name}" %> <br> 
+                </p>
+
+                <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Commande
+                        </button>
+                        <% typedoc = "commande" %>
+                        <% session[:typedoc] = typedoc %>
+
+                        <ul class="dropdown-menu">
+                                <li>
+                                        <%= link_to 'pdf', generate_pdf_commande_path(typedoc: "commande"),  class:"dropdown-item" %>
+                                </li>
+                                <li>
+                                        <%= link_to 'mail', send_commande_mail_commande_path(typedoc: "commande", typeedition: "pdf"),  class:"dropdown-item" %>
+                                </li>
+                        </ul>
+                </div>
+
+                <div class="btn-group">
+                        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Facture
+                        </button>
+                        <% typedoc = "facture" %>
+                        <% session[:typedoc] = typedoc %>
+
+                        <ul class="dropdown-menu">
+                                <li>
+                                        <%= link_to 'pdf', generate_pdf_commande_path(typedoc: typedoc),  class:"dropdown-item" %>
+                                </li>
+                                <li>
+                                        <%= link_to 'mail', send_commande_mail_commande_path(typedoc: typedoc),  class:"dropdown-item" %>
+                                </li>
+                        </ul>
+                </div>
+        
+</div>

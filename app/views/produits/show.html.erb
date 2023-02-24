@@ -1,0 +1,32 @@
+
+<% if user_signed_in? %>
+
+    <div class="bloc-entete-model">
+      <div class="card card-header entete-index">
+        <strong>PRODUIT</strong> 
+      </div>
+    </div>
+
+    <div class="">
+      <%= render "details" %>
+      <%= render "stock" %>
+    </div>
+
+      <%#= render "produits/etiquette" %>
+
+    <div class="fixed-bottom footer-index bg-dark">
+      <div class="row">
+        <div class="col text-start">
+          <%= link_to "", produits_path(), 
+            class:"fa-solid fa-arrow-rotate-left btn btn-sm btn-secondary",
+            title: "Retour" %> 
+        </div>
+        <div class="col text-end">
+          <%= link_to "", produit_path(format: :pdf), 
+            class:"fa-solid fa-file-export btn btn-sm btn-primary",
+            title: "Editer étiquette" %> 
+        </div>
+      </div>
+    </div>
+  
+<% end %>

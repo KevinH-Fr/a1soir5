@@ -1,0 +1,93 @@
+<div id="<%= dom_id @produit %>">
+
+  <div class="bloc-record">
+
+    <div class="row">
+      <div class="col-5">
+        <%= image_tag(@produit.default_image, class:"img-fluid rounded-start image-produit-sized-large")  %> 
+      </div>
+      <div class="col-7">
+        <div class="card-body text-center">
+          <h5 class="card-title text-dark me-4 text-center">
+            <span class="text-left text-dark fw-bold">
+              <%= @produit.nom %>
+            </span>
+          </h5>
+          
+          <p class="card-text text-dark"><%= @produit.description %></p>
+          
+          <span class="badge bg-primary"><%= @produit.categorie %></span>
+          <span class="badge bg-primary"><%= @produit.taille %></span>
+          <span class="badge bg-primary"><%= @produit.couleur %></span>
+          <span class="badge bg-primary"><%= @produit.quantite %></span>
+          <span class="badge bg-primary"><%= @produit.prix %></span>
+
+          <div class="container-fluid m-2 p-2 align-items-center">
+              <%= image_tag(@produit.qr_code, class:"rounded-start image-qr-cb-large-sized") if @produit.qr_code.attached? %>
+          </div>
+
+          <div class="row g-0 text-start text-dark p-4">
+
+            <span class="ms-4 text-start">
+              <% if @produit.vitrine == true %>
+                <i class="fa-solid fa-globe iconcolor-true"></i>
+                <span> Diffusé sur site vitrine  </span> <br>
+              <% else %>
+                <i class="fa-solid fa-globe iconcolor-false"></i>
+                <span> Non-diffusé sur site vitrine  </span> <br>
+              <% end %>
+      
+              <% if @produit.eshop == true %>
+                <i class="fa-solid fa-cart-shopping iconcolor-true"></i>
+                <span> Diffusé sur site marchand  </span> <br>
+              <% else %>
+                <i class="fa-solid fa-cart-shopping iconcolor-false"></i>
+                <span> Non-diffusé sur site marchand  </span> <br>
+              <% end %>
+            </span>
+
+            <% if user_signed_in? && current_user.admin? %>
+              <br>
+
+              <span class="card-text my-2">
+                <small class="text-muted">
+                  Ref frs: <%= @produit.reffrs %>
+                  Nom frs:<%= @produit.nomfrs %>
+                  Date achat:<%= @produit.dateachat.strftime("%d/%m/%y") if @produit.dateachat.present? %>
+                  Prix achat: <%= @produit.prixachat %>
+                </small>
+              </span>
+            <% end %>
+
+            <div class="">  
+              <% @produitsIdentiques = Produit.where.not(id: @produit.id, taille: @produit.taille)
+                                        .where(nom: @produit.nom) %> 
+              
+              <% unless @produitsIdentiques.empty? %>
+                <span> Ce produit existe aussi en : </span>
+                  <% @produitsIdentiques.each do |produit| %>
+                      <%= link_to produit.taille, produit_path(produit.id), class:"text-primary fw-bold" %>
+                  <% end %>
+                <% end %>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    
+    <div class="container-fluid text-end">
+     
+        <% if user_signed_in? && current_user.admin? %>
+          <%= button_to '', edit_produit_path(@produit), 
+              class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary", 
+              method: :post %> 
+        <% end %>
+
+    </div>
+  </div>
+
+</div>

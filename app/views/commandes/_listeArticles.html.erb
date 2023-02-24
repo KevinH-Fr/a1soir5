@@ -1,0 +1,113 @@
+
+
+
+  <div class="card-body p-0 m-0">
+   <div class="table-responsive m-0 p-0">
+    <table class="table table-light table-striped table-bordered table-hover table-articles">
+        <thead class="table-secondary">
+          <tr style="">
+            <th class="th-list-articles">#</th>
+            <th class="th-list-articles" colspan="2">produit</th>
+            <th class="th-list-articles">type</th>
+            <th class="th-list-articles">qté</th>
+            <th class="th-list-articles">prix</th>
+            <th class="th-list-articles">total</th>
+            <th class="th-list-articles">caution</th>
+            <th class="th-list-articles" colspan=2> Actions</th>
+          </tr>
+        </thead>
+
+        <tbody class="align-middle">
+          <% @articles.each_with_index do | article, i | %>
+            <tr>
+              <td class="text-center"> 
+                <%= i + 1 %> 
+              </td>
+              <td class="text-center"> 
+                <%= link_to image_tag(Produit.find(article.produit_id).default_image, style: "width: 100%; display: block", 
+                    class: "img-min-size"),
+                    edit_article_path(article, produitId: article.produit_id, commandeId: article.commande_id, articleId: article) %> 
+              </td>
+              <td class=""> 
+                <%= link_to Produit.find(article.produit_id).nom,
+                      edit_article_path(article, produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
+                      class:"text-dark fw-bold" %> 
+              </td>
+              <td class=""> 
+                <%= article.locvente %> 
+              </td>
+              <td class="text-center"> 
+                <%= article.quantite %> 
+              </td>
+              <td class="text-end"> 
+                <%= number_to_currency(article.prix, locale: :fr)  %> 
+              </td>
+              <td class="text-end fw-bold">
+                 <%= number_to_currency(article.total, locale: :fr)  %> 
+              </td>
+              <td class="text-end"> 
+                <%= number_to_currency(article.caution, locale: :fr)  %> 
+              </td>
+              <td class="p-0 m-0 text-center"> 
+                <%= link_to "", edit_article_path(article, 
+                    produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
+                    class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> 
+              </td> 
+              <td class="p-0 m-0 text-center"> 
+                <%= button_to '', article, class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete, :onclick => "return confirm('Sûr ?')" %>  
+              </td> 
+            </tr> 
+
+            <% @sousarticles = Sousarticle.where(article_id: article.id) %>
+          
+            <% @sousarticles.each do |sousarticle| %>
+              <tr>
+                <td></td>
+                <td class="text-end">
+                   <%= image_tag(Produit.find(sousarticle.produit_id).default_image, style: "width: 50%; display: block", 
+                    class: "img-min-size-50") if sousarticle.produit_id.present? %>
+                </td>
+                <td colspan="1" class="fst-italic"> 
+                  <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> |
+                  <%= sousarticle.description %>
+                </td>
+                <td></td>
+                <td></td>
+                <td class="text-end"> </td>
+                <td class="text-end fw-bold">   <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr)  %> </td>
+                <td></td>
+                <td style=""> <%#= link_to "", edit_sousarticle_path(sousarticle, articleId: article.id), class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> </td> 
+                <td style=""> <%#= button_to '', sousarticle, class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete, :onclick => "return confirm('Sûr ?')" %>  </td> 
+              </tr>
+            <% end %>   
+          <% end %>
+        </tbody>
+        <tfoot class="table-dark fw-bold p-0 m-0">
+         
+            <td class="text-start" colspan=2> 
+              <%= link_to "Nouveau", selection_produit_path(commandeId: @commande), 
+             class:"btn btn-sm btn-primary fw-bold mt-0 mb-0" %>
+             </td>
+
+            <td class="text-center text-light" colspan=2> totaux </td>
+            <td class="text-center text-light"> <%= Article.commande_courante(@commande).compte_articles %> </td>
+            <td></td>
+            <td class="text-end text-light">
+              <%= number_to_currency(
+                    Article.commande_courante(@commande).sum_articles + 
+                    Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles, locale: :fr)  %> 
+            </td>
+            <td class="text-end text-light">
+              <%= number_to_currency(
+                    Article.commande_courante(@commande).sum_caution_articles, locale: :fr)  %> 
+            </td>
+            <td colspan=2>
+           
+             </td>
+         
+        </tfoot>
+
+      </table>
+
+  </div>
+</div>

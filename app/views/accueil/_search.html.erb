@@ -1,0 +1,10 @@
+
+<%= search_form_for @q, url: request.url, class: 'd-flex' do |f| %>
+  <%= f.search_field :nom_or_reffrs_or_categorie_or_couleur_cont, 
+        autofocus: false, 
+        autocomplete: 'off',
+        class: "form-control border-secondary form-control-sm me-1 my-0" %>
+
+ <button class="btn btn-sm btn-primary fw-bold" type="submit">Chercher</button>
+<% end %>
+

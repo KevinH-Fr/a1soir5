@@ -1,0 +1,46 @@
+
+<table class="table-etiquette">
+  <thead> 
+    <tr>
+      <th class="th-etiquette shadowed" colspan="3">
+        <%= @produit.nom %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody> 
+    <tr>
+      <td class="td-etiquette shadowed" rowspan="2">
+        <%= image_tag(@produit.default_image, class:"img-etiquette") %> 
+      </td>
+
+      <td class="td-etiquette-description middled centered shadowed" colspan="2">
+         <div><%= @produit.description %></div>
+      </td>
+    </tr>
+    
+    <td class="td-etiquette middled shadowed">
+      <div>catégorie: <%= @produit.categorie %></div> <br>
+      <div>taille: <%= @produit.taille %></div><br>
+      <div>couleur: <%= @produit.couleur %></div><br>
+      <div>quantité: <%= @produit.quantite %></div><br>
+      <div>prix: <%= @produit.prix %></div>
+      
+      <% @produitsIdentiques = Produit.where.not(id: @produit.id).where(nom: @produit.nom) %> 
+      <% unless @produitsIdentiques.empty? %>
+        <span> Ce produit existe aussi en : </span>
+        <% @produitsIdentiques.each do |produit| %>
+          <%= produit.taille %>
+        <% end %>
+      <% end %>
+
+    </td>
+
+      <td class="td-etiquette middled centered shadowed">
+        <%= image_tag(@produit.qr_code, class:"img-qr-etiquette") if @produit.qr_code.attached? %>
+      </td>
+
+   </tr>
+  </tbody>
+
+</table>

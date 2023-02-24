@@ -1,0 +1,12 @@
+<% if user_signed_in? && current_user.admin? %>
+  <h1>Editer produit</h1>
+
+  <%= render "form", produit: @produit %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this produit", @produit %> |
+    <%= link_to "Back to produits", produits_path %>
+  </div>
+<% end %>

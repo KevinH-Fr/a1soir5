@@ -1,0 +1,28 @@
+
+  <%# message label paramétré par admin %>
+  <% if @label.present? %> 
+    <div class="text-center m-4 p-2">  
+      <%= render "labelPrincipale" %> 
+    </div>
+  <% end %>
+
+  <div class="container mx-auto">
+    <%= render "accueil/slideshow" %>
+  </div>
+
+  <div class="container-fluid mt-4">  
+    <%= render "accueil/footer" %>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            alert("jQuery is working perfectly.");
+        });      
+    });
+  </script>
+
+ <button type="button">Test jQuery Code</button>
+
+
+<hr><hr>

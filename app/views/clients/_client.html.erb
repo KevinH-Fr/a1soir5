@@ -1,0 +1,75 @@
+<div id="<%= dom_id client %>">
+
+<div class="cadre-index mx-auto">
+  <div class="bloc-record">
+    <div data-controller="dropdown" data-action="turbo:submit-end->dropdown#submitEnd">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-11 text-dark">  
+            <div class="text-record-main fw-bold ms-2">
+              <%= link_to highlight(client.full_name, params.dig(:q, :nom_or_prenom_or_mail_cont)), client_path(client), class:"text-dark" %>
+            </div>
+            <% if client.tel.present? %>
+              <div class="badge-infos">
+                <i class="fa fa-square-phone mx-2"></i>
+                <%= client.tel %>
+              </div>
+            <% end %>
+            <% if client.mail.present? %>
+              <div class="badge-infos">
+                <i class="fa fa-at mx-2"></i>
+                <%= highlight(client.mail, params.dig(:q, :nom_or_prenom_or_mail_cont)) %>
+              </div>  
+            <% end %>  
+            <% if client.ville.present? %>
+              <div class="badge-infos">
+                <i class="fa fa-location-dot mx-2"></i>
+                <%= highlight(client.ville, params.dig(:q, :nom_or_prenom_or_mail_cont)) %>
+              </div>  
+            <% end %>  
+
+            <div data-dropdown-target="dropdownContent">
+              <% if Commande.client_courant(client).present? %>
+                <div class="card card-header bg-dark mt-4 p-1 text-light">
+                  Commande(s) liée(s)
+                </div>
+                <div class="card border border-dark text-dark"> 
+                  <table class="table table-striped table-light table-hover", style="line-height: 0.5">
+                    <% Commande.client_courant(client).each do |c| %>
+                      <tr>
+                        <td> <%= link_to c.texte_record, commande_path(c), class:"text-dark" %> </td>
+                      </tr>
+                    <% end %>
+                  </table>    
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+        <div class="col-1 m-0 p-1 text-center">
+  
+          <%= link_to "", client_path(client), 
+                class:"fa-regular fa-folder-open btn btn-success btn-action" %> 
+          <br>
+
+          <div role="button" data-action="click->dropdown#openDropdown" 
+              data-dropdown-target="openButton", class="fa-solid fa-eye btn btn-outline-primary btn-action">
+          </div>
+          <div role="button" data-action="click->dropdown#closeDropdown" 
+            data-dropdown-target="closeButton", class="fa-solid fa-eye-slash btn btn-outline-primary btn-action">
+          </div>
+          
+          <%= button_to "", edit_client_path(client), 
+                class:"fa-regular fa-pen-to-square btn btn-secondary btn-action", method: :post %> 
+          <%= button_to '', client_path(client), 
+                class:"fa-solid fa-trash-can btn btn-danger btn-action", method: :delete,
+                 :onclick => "return confirm('Etes-vous certain de vouloir supprimer le client ?')" %> 
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

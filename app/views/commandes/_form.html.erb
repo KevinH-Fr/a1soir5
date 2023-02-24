@@ -1,0 +1,89 @@
+<%= form_with(model: commande) do |form| %>
+  <% if commande.errors.any? %>
+    <div>
+      <h2 class="text-danger"><%= pluralize(commande.errors.count, "erreur") %> 
+          empêche cette commande d'être enregistrée:</h2>
+      <ul>
+        <% commande.errors.each do |error| %>
+          <li  class="text-danger"><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body bloc-record">
+
+        <%#= form.label :nom, class:"input-group-text label-with-format" %>
+        <%= form.hidden_field :nom, value: commande.auto_short_name, class: 'form-control field-with-format' %>
+ 
+      <div class="input-group mb-1">
+        <%= form.label :profile_id, class:"input-group-text label-with-format" %>
+        <%= form.select :profile_id, Profile.all.collect { |p| [ p.full_name, p.id ]},
+           {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
+      </div>
+
+      <div class="input-group mb-1">
+        <%= form.label :client_id, class:"input-group-text label-with-format" %>
+        <% if commande.persisted? %>
+          <%= form.select :client_id, Client.all.collect { |c| [ c.nom, c.id ]}, 
+              {required: true}, {class: 'form-select field-with-format'} %>
+        <% else %>
+          <% if @clientId.present? %> <%# nouvelle commande associée à client %>
+            <%= form.select :client_id, Client.all.collect { |c| [ c.nom, c.id ]}, 
+                {required: true, selected: @clientId}, {class: 'form-select field-with-format'} %>
+          <% else %> <%# nouvelle commande sans client %>
+             <%= form.select :client_id, Client.all.collect { |c| [ c.nom, c.id ]}, 
+                {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>         
+          <% end %>
+        <% end %>
+      </div>
+
+
+<%# to do 
+- apres la saisie de debut location : 
+passer fin location au même jour,
+mettre message validation : attention, la date de fin est la même que la date de
+%>
+      <div class="input-group mb-1">
+        <%= form.label :début_location, class:"input-group-text label-with-format" %>
+        <%= form.date_field :debutloc, class: 'form-control field-with-format' %>
+        
+        <%= form.label :fin_location, class:"input-group-text label-with-format" %>
+        <%= form.date_field :finloc, class: 'form-control field-with-format', include_blank: true %>
+      </div>
+      
+      <div class="input-group mb-1">
+        <%= form.label :type_événement, class:"input-group-text label-with-format" %>
+        <%= form.select(:typeevenement, Commande.typeevents.keys, {include_blank: true},
+             class: 'form-select field-with-format') %>
+
+        <%= form.label :evenement, class:"input-group-text label-with-format" %>
+        <%= form.date_field :dateevenement, class: 'form-control field-with-format', 
+            include_blank: true %>
+      </div>
+      
+      <div class="input-group mb-1">
+        <%= form.label :statut, class:"input-group-text label-with-format" %>
+        <%#= form.text_field :statutarticles, class:"form-control field-with-format" %>
+        <%= form.select(:statutarticles, Commande.statutarticleses.keys,  {include_blank: false},
+          class:"form-select field-with-format") %> 
+      </div>
+  
+      <div class="float-end mt-2 mb-4">
+
+      <%# if current_page?("/commandes/new") %>
+        <%# if @clientId.present? %>
+          <%#= link_to "Fermer", client_path(@clientId), class:"btn btn-sm btn-secondary" %>
+        <%# else %>
+          <%#= link_to "Fermer", commandes_path(), class:"btn btn-sm btn-secondary" %>
+        <%# end %>
+      <%# else %>
+        <%#= link_to "Fermer", "", data:{turbo_frame: "modal"}, 
+          class:"btn btn-sm btn-secondary" %>
+      <%# end %>
+        <%= form.submit "Valider", class: "btn btn-success btn-sm" %>
+      </div><br><br>
+
+    </div>
+
+<% end %>

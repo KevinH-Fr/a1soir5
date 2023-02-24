@@ -1,0 +1,31 @@
+<div class="class entete-show p-2">
+
+  <div data-controller="nouveau", class="text-start my-0">
+    <div role="button" data-action="click->nouveau#openNouveau" data-nouveau-target="openNouveau", 
+        class="btn btn-sm btn-primary fw-bold", style="inline;">
+          Nouveau
+    </div>
+    <div role="button" data-action="click->nouveau#closeNouveau" data-nouveau-target="closeNouveau", 
+        class="btn btn-sm btn-danger m-0", style="inline;">
+          Fermer nouveau
+    </div>
+
+    <span class="mx-4 text-end">
+      <span class="m-3 format-totaux"> 
+        Avoir: <%= number_to_currency(avoir_deduit(@commande), locale: :fr) %> 
+      </span> 
+      <span class="m-3 format-totaux"> 
+        Remboursement: <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> 
+      </span> 
+    </span>
+
+
+    <div id="new_paiement">
+      <div data-nouveau-target="nouveauContent">
+        <br>
+        <%= render partial: "avoirrembs/form", locals: {avoirremb: Avoirremb.new} %>
+      </div>
+    </div>
+
+  </div>
+</div>

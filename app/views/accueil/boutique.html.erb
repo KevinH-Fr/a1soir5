@@ -1,0 +1,29 @@
+
+<div>
+  <% if @label.present? %> <%# message label paramétré par user %>
+    <div class="label-categorie"> 
+      <%= render "labelPrincipale" %>  <hr>
+    </div>
+  <% end %>
+</div>
+
+<h5 class="titre-categorie">Boutique</h5>
+
+<div class="row m-4 p-4">
+  <div class="col w-25 text-center p-2">
+    <%= image_tag("equipe1.jpg", class:"img-fluid") %>
+  </div>
+  <div class="col w-25 text-center p-2">
+    <%= image_tag("equipe2.jpg", class:"img-fluid") %>
+  </div>
+</div>
+
+
+
+<div class="text-center m-4 p-4">
+  <%= @texteBoutique %>
+</div>
+
+<%= render "infos" %>
+
+<%= render "map" %>

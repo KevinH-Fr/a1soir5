@@ -1,0 +1,13 @@
+<h5>page détails produit</h5>
+
+<h6> index du produit </h6>
+<%= @produit %>
+<br>    
+
+<% if Produit.where(id: @produit).present? %>
+    le produit existe dans la bdd
+<% else %>
+    le produit n'existe pas dans la bdd
+<% end %>
+
+<%#= link_to "home", root_path %>

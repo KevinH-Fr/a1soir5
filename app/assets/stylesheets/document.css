@@ -1,0 +1,207 @@
+
+.a1soir-colored {
+  color: rgb(143, 31, 70);
+}
+
+.cadre {
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(249, 237, 237);
+  color: rgb(0, 0, 0);
+}
+
+.bloc-adresse {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  background-color: rgb(249, 237, 237);
+  color: rgb(0, 0, 0);
+  position: absolute; 
+  top: 120px;
+  left: 650px;
+}
+
+.bloc-mention{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  background-color: rgb(249, 237, 237);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-style: italic;
+}
+
+.doc-important{
+  color: rgb(171, 38, 84);
+  font-size: large;
+  font-weight: bold;
+}
+
+.h4-doc{
+  color: rgb(171, 38, 84);
+  text-align: left;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.h5-doc{
+  background-color: rgb(230, 106, 127);
+  color: white;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  font-weight: bold;
+  line-height: 30px;
+  margin-bottom: 0px;
+}
+
+
+.h6-doc{
+  color: rgb(143, 31, 70);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  font-weight: bold;
+}
+
+.table-doc{
+  width: 100%;
+  background-color: rgb(249, 237, 237);
+  border-color: white;
+}
+
+.table-invisible{
+  background-color: rgb(249, 237, 237);
+  border-color:  rgb(249, 237, 237);
+
+}
+
+.th-doc, .tfoot-doc{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color:  rgb(227, 148, 161);
+  color: white;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.td-doc{
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: medium;
+  vertical-align: middle;
+  padding: 5px 10px 5px 10px;
+
+}
+
+.centered{
+  text-align: center;
+}
+
+.started{
+  text-align: left;
+}
+
+.ended{
+  text-align: right;
+}
+
+.td-doc-main{
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: medium;
+  vertical-align: middle;
+  padding: 20px;
+  font-weight: bold;
+}
+
+
+.td-doc-italic{
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: medium;
+  vertical-align: middle;
+  padding-left: 40px;
+  font-style: italic;
+
+}
+
+.td-doc-img-sousarticle{
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  padding-left: 40px;
+
+}
+
+.bolded{
+  font-weight: bold;
+}
+
+.section-solidaire{
+  page-break-inside: avoid;
+}
+
+.top-bottom-bordered{
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: white;
+
+}
+
+
+.green-colored{
+  color: green;
+}
+
+.red-colored{
+  color: red;
+}
+
+.table-etiquette{
+  width: 100%;
+  background-color: rgb(232, 226, 226);
+  border-color: white;
+}
+
+.th-etiquette{
+  background-color: rgb(139, 133, 133);
+  color: rgb(255, 255, 255);
+  font-size: xx-large;
+  padding: 20px;
+  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.td-etiquette{
+  font-size: large;
+  padding: 20px;
+  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.td-etiquette-description{
+  font-size: large;
+  padding: 20px;
+  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.img-etiquette{
+  width: 300px;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.img-qr-etiquette{
+  width: 200px;
+  vertical-align: middle;
+}
+
+.middled{
+  vertical-align: middle;
+}
+
+.shadowed{
+  border-radius: .2em;
+  box-shadow: 2px 3px 4px rgba(165, 163, 163, 0.8);
+}

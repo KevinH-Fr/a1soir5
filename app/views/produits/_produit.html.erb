@@ -1,0 +1,69 @@
+<div id="<%= dom_id produit %>">
+
+  <div class="cadre-index mx-auto">
+    <div class="bloc-record">
+      <div class="row">
+        <div class="col-2">
+          <%#= image_tag(produit.image1, class:"img-fluid rounded-start image-produit-sized") if produit.image1.present? %> 
+          <%= link_to image_tag(produit.default_image, class:"img-fluid rounded-start image-produit-sized"), produit_path(produit)  %> 
+        </div>
+
+        <div class="col-2 text-center">
+          <% if produit.vitrine == true %>
+            <i class="fa-solid fa-globe iconcolor-true my-1"></i>
+          <% else %>
+            <i class="fa-solid fa-globe iconcolor-false my-1"></i>
+          <% end %>
+          <br> 
+          <% if produit.eshop == true %>
+            <i class="fa-solid fa-cart-shopping iconcolor-true mt-2 my-1"></i>
+          <% else %>
+            <i class="fa-solid fa-cart-shopping iconcolor-false mt-2 my-1"></i>
+          <% end %>
+        </div>
+
+        <div class="col-7 m-0 p-0">
+          <div class="card-body m-0 p-0">
+            <h6 class="card-title text-black m-0 p-0"><%= link_to highlight(produit.nom, 
+              params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), produit_path(produit),
+              class:"titre-record" %></h6>
+            <p class="card-text text-dark p-0 m-0"><%= produit.description %></p>
+
+            <span class="card-text"><small class="text-muted">
+              <%= highlight(produit.reffrs, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
+            </span>
+
+            <span class="card-text"><small class="text-muted">
+              <%= highlight(produit.categorie, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
+            </span>
+            <span class="card-text"><small class="text-muted">
+              <%= highlight(produit.taille, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
+            </span>
+            <span class="card-text"><small class="text-muted">
+              <%= highlight(produit.couleur, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
+            </span>
+            <span class="card-text"><small class="text-muted">
+              <%= produit.prix %></small>
+            </span>
+      
+          </div>
+        </div>
+        
+        <div class="col-1 m-0 p-0 text-center">
+            <%= link_to '', produit_path(produit), 
+                class:"fa-regular fa-folder-open btn btn-sm btn-primary mb-1 p-1" %> 
+
+            <% if user_signed_in? && current_user.admin? %>
+              <%= button_to '', edit_produit_path(produit), 
+                  class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary mb-1 p-1", 
+                  method: :post %> 
+              <%= button_to '', produit_path(produit), 
+                  class:"fa-solid fa-trash-can btn btn-danger btn-sm p-1", method: :delete,
+                  :onclick => "return confirm('Etes-vous certain de vouloir supprimer le produit ?')" %>  
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

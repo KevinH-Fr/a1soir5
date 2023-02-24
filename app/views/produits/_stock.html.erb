@@ -1,0 +1,36 @@
+
+<div class="bloc-record">
+  <div class="cadre-interieur">
+
+    <strong> STOCK </strong> <br>
+    <% @produitId = params[:id]%>
+    <% locations = Article.produit_courant(@produitId).articlesLoues.compte_articles %> 
+    <% ventes = Article.produit_courant(@produitId).articlesVendus.compte_articles %> 
+  
+    <% louesTermines = Commande.termine.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
+    <% louesAvenir = Commande.a_venir.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
+
+    initial : <%= initial = Produit.find(@produitId).quantite %> /
+    restant : <%= initial.to_i - louesAvenir.to_i - ventes.to_i %> <br>
+  
+    nb locations : <%= locations %> 
+    nb ventes : <%= ventes %> <br>
+  
+    loc terminées: <%= louesTermines  %> /
+    loc à venir: <%= louesAvenir %> <br>
+
+  </div>
+</div>
+
+<div class="bloc-record text-dark">
+  <div class="row my-2">
+    <div class="col-6 m-0 p-0">
+      <%= render "charts/chartPieProduit" %>
+    </div>
+    <div class="col-6 m-0 p-0">
+      <%= render "charts/chartPieProduitLoc" %>
+    </div>
+  </div>
+</div>
+
+<hr>  

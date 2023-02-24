@@ -1,0 +1,81 @@
+
+<div class="bloc-entete-model">
+  <div class="card card-header entete-index">
+    <div class="row m-0 p-0">
+      <div class="col ms-1">
+        <strong>Stocks</strong> 
+      </div>
+      <div class="col">
+        <span id="produit_counter" class="position-absolute top-0 start-100 
+            translate-middle badge rounded-pill bg-warning text-dark">
+          <%= @produits.sum(:quantite) %> 
+        </span>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<div class="list-stock">
+  <div class="bloc-record text-dark">
+    total : <%= total = @produits.sum(:quantite) %> <br>
+    loués : <%= loues = Article.articlesLoues.compte_articles %><br>
+    vendus : <%= vendus = Article.articlesVendus.compte_articles %><br>
+    restants : <%= restant = total - loues - vendus %><br>
+  </div>
+
+  <div class="bloc-record text-dark">
+    non retirés : 
+    <%= nonRetires = Commande.non_retire.joins(:articles).sum(:quantite) %> <br>
+    retirés : 
+    <%= retires = Commande.retire.joins(:articles).sum(:quantite) %> <br>
+    rendus : 
+    <%= rendus = Commande.rendu.joins(:articles).sum(:quantite) %> <br>
+  </div>
+
+  <div class="bloc-record text-dark">
+    loués non retirés : 
+    <%= louesNonRetires = Commande.non_retire.joins(:articles).merge(Article.articlesLoues).sum(:quantite) %> <br>
+    vendus non retirés :
+    <%= vendusNonRetires = Commande.non_retire.joins(:articles).merge(Article.articlesVendus).sum(:quantite) %> <br>
+  </div>
+
+
+
+  <div class="bloc-record text-dark">
+    <strong>  disponibilité </strong> <br>
+    stock avec non retirés:
+    <%= restant + louesNonRetires + vendusNonRetires %> <br>
+    stock sans non retirés:
+    <%= restant %> <br>
+    à venir: <%= louesAvenir = Commande.a_venir.joins(:articles).merge(Article.articlesLoues).sum(:quantite) %> <br>
+    terminées: <%= louesTermines = Commande.termine.joins(:articles).merge(Article.articlesLoues).sum(:quantite) %> <br>
+  </div>
+
+
+  <div class="bloc-record text-dark">
+    <i class="fa-solid fa-globe iconcolor-true"></i> 
+      site vitrine : <%= Produit.showed_vitrine.compte_produits %><br>
+    <i class="fa-solid fa-cart-shopping iconcolor-true"></i> 
+      site eshop : <%= Produit.showed_eshop.compte_produits %><br>
+  </div>
+  
+</div> 
+
+ <div class="footer-index">
+  <div class="row m-0 p-0">
+    <div class="col-6">
+       item1
+       item2
+       item3
+    </div>
+    <div class="col-6">
+      <div class="position-relative">
+        <div class="position-absolute end-0">
+          <div class="badge bg-dark">
+            <%== pagy_nav(@pagy) %>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>A1soir public</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>  
+    <script src="https://kit.fontawesome.com/ab64641e90.js" crossorigin="anonymous"></script>
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "public", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <%= favicon_link_tag asset_path('logo3.png'), :rel => 'icon', :type =>  'image/png' %>
+
+  </head>
+
+ <div class="cadre-main mx-auto mt-2">
+  <header> 
+    <%= render partial: "accueil/header" %>
+    <%= render partial: "shared/navbarPublic" %>
+  </header>
+
+  <body class="body-public">
+    <div class="cadre-index mx-auto">
+      <main class="m-0 p-1"> 
+        <div id="flash" style="position:absolute; z-index: 2; right: 10px;">
+          <%= render partial: "layouts/flash" %>
+        </div>
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+
+  <footer>  
+    <br><hr>
+    <%= render partial: "shared/footerPublic" %>
+  </footer>
+
+
+</div>
+
+</html>

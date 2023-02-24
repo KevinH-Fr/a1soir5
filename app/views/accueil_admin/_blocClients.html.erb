@@ -1,0 +1,38 @@
+<div class="card bloc-dashboard">
+  <div class="header-bloc-dashboard"> 
+    <div class="row align-items-center m-0 p-0">
+
+      <div class="col format-titre-dashboard text-start">
+        <i class="fa iconcolor fa-user ms-1 me-1"></i>
+      </div>
+      
+      <div class="col format-titre-dashboard text-center">
+        <%= link_to "CLIENTS", clients_path, class:"format-titre-dashboard text-center" %> 
+      </div>
+
+      <div class="col text-end m-0 p-0">
+         <%#  <div class="badge rounded-pill counter-model-dashboard"><%= Client.count %>
+         <%# ouvrir index clients puis modal new %>
+        <%= link_to "", new_client_path(), class:"fa fa-add add-dashboard btn btn-sm" %>
+
+        <%#= link_to "Open Modal", clients_path, data: { action: "modal#open" } %>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-body body-bloc-dashboard"> 
+    <table class="table bloc-table table-primary table-striped table-hover m-0 p-0">
+      <tbody class="table-light table-dashboard">
+        <% @clients.limit(6).order(updated_at: :desc).each do | client | %>
+          <tr> 
+            <td> 
+              <%= link_to client.full_name, client_path(client), class:"text-dark crop", style:"text-decoration: none;" %> 
+            </td>
+          </tr> 
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<%= search_form_for @q, class:'d-flex', data: {turbo_frame: :results} do |f| %>
+    <%#= f.label :nom_or_prenom_or_mail_cont %>
+    <%= f.search_field :nom_or_reffrs_or_categorie_or_couleur_cont, 
+                        oninput: 'this.form.requestSubmit()',
+                        autofocus: false ,
+                        autocomplete: 'off',
+                        id: "myInputField",
+                        class: "form-control border-secondary form-control-sm mx-2 my-1" %>
+    <%#= f.submit %>
+    <%= link_to "Nouveau", new_produit_path, data:{turbo_frame: "modal"}, 
+                class:"btn btn-sm btn-warning m-1 p-1 fw-bold" %>
+<% end %>
+
+<script>    
+/*window.addEventListener('load', function() {
+  var inputField = document.getElementById('myInputField');
+  inputField.focus();
+  inputField.setSelectionRange(inputField.value.length, inputField.value.length);
+})*/;
+
+
+</script>

@@ -1,0 +1,18 @@
+<div>
+  <% if @label.present? %> <%# message label paramétré par user %>
+    <div class="label-categorie"> 
+      <%= render "labelPrincipale" %>  <hr>
+    </div>
+  <% end %>
+</div>
+
+<h5 class="titre-categorie">Informations</h5>
+
+<%= render "infos" %>
+
+<%= render "map" %>
+
+<div>
+  <%= @texteBoutique %>
+</div>
+

@@ -1,0 +1,67 @@
+<% if user_signed_in? %>
+
+<div class="cadre-index mx-auto">
+  <div class="bloc-entete-model">
+    <div class="entete-show">
+      <strong>Client</strong> 
+    </div>
+  </div>
+
+  <div class="">
+    <%= render @client %> 
+      <%#= render "details" %>
+  </div>
+
+  <div class="text-end">
+    <%#= link_to "Nouvelle commande", toggle_commande_client_commande_path(clientId: @client), 
+          class:"btn btn-sm btn-warning mb-2 fw-bold" %>
+  
+   <%#= link_to "mail", send_client_mail_client_path(), class:"btn btn-sm btn-dark" %>
+    <%#= link_to "", new_messagemail_path(clientId: @client), 
+       class:"btn btn-sm btn-primary fa-solid fa-file-invoice fw-bold" %>
+ 
+</div>
+
+    <% if Commande.client_courant(@client).present? %>
+      <div class="entete-show">
+        <strong>Commandes</strong> 
+      </div>
+
+      <div class="">
+        <%= render @commandes %>
+      </div>
+    <% end %>
+
+    <div class="text-end">
+      <%#= link_to "Nouveau rendez-vous", toggle_rendezvous_client_meeting_path(clientId: @client), 
+          class:"btn btn-sm btn-warning mb-2 fw-bold" %>
+    </div>
+    
+    <% if Meeting.client_courant(@client).present? %>
+      <div class="entete-show">
+        <strong>Rendez-vous</strong> 
+      </div>
+
+      <div class="">
+        <%= render @meetings %>
+      </div>
+    <% end %>
+
+</div>
+
+    <div class="fixed-bottom footer-index bg-dark">
+      <div class="row">
+        <div class="col text-start">
+          <%= link_to "", toggle_rendezvous_client_meeting_path(clientId: @client), 
+            class:"btn btn-sm btn-light fa-solid fa-calendar", title: "Nouveau RDV" %>
+          <%= link_to "", new_messagemail_path(clientId: @client), 
+            class:"btn btn-sm btn-primary fa-solid fa-envelope", title: "Nouveau mail" %>
+        </div>
+        <div class="col text-end">
+          <%= link_to "", toggle_commande_client_commande_path(clientId: @client), 
+            class:"btn btn-sm btn-success fa-solid fa-file-invoice", title: "Nouvelle commande" %>
+        </div>
+      </div>
+    </div>
+
+<% end %>

@@ -1,0 +1,41 @@
+ 
+<div class="container-fluid centered bg-light">
+  <div class="row">
+    <div class="col">
+      <%= link_to "", "infos", class:"fa fa-circle-info btn-categorie-large zoom",
+        title: "Informations" %> 
+    </div>
+    <div class="col">
+      <%= link_to "", root_path, class:"fa fa-house btn-categorie-large zoom",
+        title: "Contact" %> 
+    </div>
+    <div class="col">
+      <%= link_to "", "boutique", class:"fa-solid fa-shop btn-categorie-large zoom",
+        title: "Boutique" %>
+    </div>
+    <div class="col">
+       <%= link_to "", root_path, class:"fa-solid fa-cart-shopping btn-categorie-large zoom",
+        title: "Eshop" %>
+    </div>
+  </div>
+</div>
+
+<br><br>
+  <%= render "infos" %>
+
+  
+<div class="container-fluid bg-light my-2 p-0">
+  <%= render partial: "accueil/reseaux" %>
+</div>
+
+<div class="container-fluid centered my-4">
+  <small class="verysmall-text">Copyright Autour d’un soir</small> <br> <hr>
+
+  <small class="verysmall-text fw-bold">
+    Réalisation  <%= link_to " Scenario-Original", "www.scenario-original.com", class:"" %>
+    <%= Time.now.strftime("%Y") %>
+  </small>
+
+</div>
+
+<br>

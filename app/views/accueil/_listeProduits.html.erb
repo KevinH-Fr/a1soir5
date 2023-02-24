@@ -1,0 +1,34 @@
+
+ <% if @produits.present?%>
+  <table class="table table-light text-center">
+    <% @produits.each do | produit| %> 
+      <tr>
+        <td class="w-50"> 
+          <%= image_tag(produit.default_image, 
+              class: "img-fluid rounded text-center img-produit")   %> 
+        </td>
+        <td class="w-50 text-center align-middle "> 
+          <div class="fw-bold fs-4 my-2">
+            <%= produit.nom %> <br> 
+          </div>
+          <div class="fs-5">
+            <%= produit.description %>
+          </div>
+          <div class="fs-6 text-primary my-3">
+            taille: <%= produit.taille %> <br>
+            couleur: <%= produit.couleur %>
+          </div>
+        </td>
+       
+      </tr>
+    <% end %>
+  </table> 
+<% end %>
+
+
+<div class="col text-center">
+  <div class="badge text-dark fs-6 wordspaced">
+    <%== render partial: 'shared/pagy_navbar_custom', locals: {pagy: @pagy} %>
+  </div>
+</div>
+  

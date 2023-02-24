@@ -1,0 +1,67 @@
+
+
+<div class="bloc-entete-model">
+  <div class="card card-header entete-index">
+    <div class="row m-0 p-0">
+      <div class="col-6 text-start mt-1">
+        <strong> Commande </strong>
+      </div>
+      <div class="col-6 text-end mt-1">
+        <%= render "toggles_statut" %>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <%= render @commande %> 
+  </div>
+</div>
+
+    <div class="entete-show">
+      <strong class="">Client</strong> 
+    </div>
+    
+    <div class="">
+      <%= render @client %>  
+    </div>
+
+    <div class="entete-show">
+      <strong>Articles</strong> 
+    </div>
+
+    <%= render "listeArticles" %>
+
+    <div class="entete-show">
+      <strong>Paiements</strong> 
+    </div>
+
+    <div class="mt-1">
+      <%= render @paiements %>
+      <%= render "nouveauPaiement" %> 
+    </div>    
+    <br>
+
+    <div class="entete-show">
+      <strong>Avoirs / Remboursements</strong> 
+    </div>
+
+    <div class="mt-1">
+      <%= render @avoirrembs %>
+      <%= render "nouveauAvoirremb" %> 
+    </div>    
+    <br>
+
+    <div class="entete-show">
+      <strong>Rendez-vous</strong> 
+    </div>
+
+    <div class="mt-1">
+      <%= render @meetings %>
+      <%= render "nouveauMeeting" %> 
+    </div> 
+
+    <br><br>
+
+<div class="fixed-bottom footer-index bg-dark">
+  <%= render "syntheseCommande" %> 
+</div>
+

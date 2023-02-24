@@ -1,0 +1,34 @@
+<div class="card bloc-dashboard">
+  <div class="header-bloc-dashboard"> 
+    <div class="row align-items-center m-0 p-0">
+
+      <div class="col format-titre-dashboard text-start">
+        <i class="fa iconcolor fa-file-invoice ms-1 me-1"></i>
+      </div>
+      
+      <div class="col format-titre-dashboard text-center">
+        <%= link_to "COMMANDES", commandes_path, class:"format-titre-dashboard text-center" %> 
+      </div>
+
+      <div class="col text-end m-0 p-0">
+        <%# <div class="badge rounded-pill counter-model-dashboard"><%= Commande.count %>
+        <%= link_to "", new_commande_path(), class:"fa fa-add add-dashboard btn btn-sm" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body body-bloc-dashboard"> 
+    <table class="table bloc-table table-primary table-striped table-hover  m-0 p-0">
+      <tbody class="table-light table-dashboard">
+        <% @commandes.limit(6).order(updated_at: :desc).each do | commande | %>
+          <tr> 
+            <td> 
+              <%= link_to commande.texte_record_nom_client, commande_path(commande), class:"text-dark crop", style:"text-decoration: none;" %> 
+            </td>
+          </tr> 
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

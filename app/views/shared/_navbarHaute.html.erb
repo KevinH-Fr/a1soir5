@@ -1,0 +1,91 @@
+<nav class="navbar sticky-top navbar-dark navbar-expand-lg  bg-dark">
+    <div class="container-fluid">
+        <span class="text-left">
+            <%= link_to image_tag('logo2.png', class: 'fit-image text-center'), accueil_admin_path %>
+        </span>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                <ul class="navbar-nav mb-2">
+
+                    <li class="nav-item">
+                      <%= link_to(accueil_admin_path, class:"middled btn") do %>
+                        <i class="fa fa-house iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          ACCUEIL 
+                        </span>
+                      <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(clients_path, class:"middled btn") do %>
+                        <i class="fa fa-user iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          CLIENTS 
+                        </span>
+                      <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(produits_path, class:"middled btn") do %>
+                        <i class="fa fa-shirt iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          PRODUITS 
+                        </span>
+                      <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(commandes_path, class:"middled btn") do %>
+                        <i class="fa fa-file-invoice iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          COMMANDES 
+                        </span>
+                      <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(meetings_path, class:"middled btn") do %>
+                        <i class="fa fa-calendar iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          CALENDRIER 
+                        </span>
+                        <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(analyses_path, class:"middled btn") do %>
+                        <i class="fa fa-chart-line iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          ANALYSES 
+                        </span>
+                        <% end %>
+                    </li>
+
+                    <li class="nav-item">
+                      <%= link_to(marketing_path, class:"middled btn") do %>
+                        <i class="fa fa-bullhorn iconcolor-nav"></i>
+                        <span class="text-light fw-bold middled"> 
+                          MARKETING 
+                        </span>
+                        <% end %>
+                    </li>
+
+                </ul>
+                    
+
+            </div>
+        
+        </div>
+
+
+    </div>
+</nav>
+

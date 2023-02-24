@@ -1,0 +1,16 @@
+
+<div>
+  <% if @label.present? %> <%# message label paramétré par user %>
+    <div class="label-categorie"> 
+      <%= render "labelPrincipale" %>  <hr>
+    </div>
+  <% end %>
+</div>
+
+<h5 class="titre-categorie">Costumes & Déguisements</h5>
+
+<%= render "search" %>
+
+<div class="my-2 mx-0">
+  <%= render partial: "listeProduits" %>
+</div>
