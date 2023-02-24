@@ -17,7 +17,7 @@ class MeetingsController < ApplicationController
       format.html
       format.ics do
         cal = Icalendar::Calendar.new
-        cal.x_wr_calname = 'A1soir_app'
+        cal.x_wr_calname = 'A1soir_new_app'
 
         #event_start = DateTime.new 2023, 01, 24, 8, 0, 0
         #event_end = DateTime.new 2023, 01, 24, 11, 0, 0
@@ -80,8 +80,8 @@ class MeetingsController < ApplicationController
        # render plain: @meeting.to_icalendar
       #  send_data  @meeting.to_icalendar, filename: "#{@meeting.name}.ics"
       
-      meeting_ics = Meetings::IcalendarEvent.new(meeting: @meeting).call
-      send_data  meeting_ics, filename: "#{@meeting.name}.ics"
+        meeting_ics = Meetings::IcalendarEvent.new(meeting: @meeting).call
+        send_data  meeting_ics, filename: "#{@meeting.name}.ics"
 
       end   
 

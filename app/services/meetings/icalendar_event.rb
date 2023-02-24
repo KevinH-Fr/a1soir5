@@ -34,7 +34,7 @@ class Meetings::IcalendarEvent
             end
             
             cal.publish
-            #cal.ip_method = "REQUEST"
+            cal.ip_method = "REQUEST"
             cal.to_ical
         
         end 
