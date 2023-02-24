@@ -64,7 +64,7 @@
        <%#= meeting.to_icalendar %> 
 
        <%# pour ajouter un rdv unique %>
-       <%#= link_to "add to calendar", meeting_path(meeting, format: :ics) %> 
+       <%= link_to "add to calendar", meeting_path(meeting, format: :ics) %> 
 
        <%# pour envoyer une invitation par mail au rdv unique %>
        <%#= button_to "send email invite", invite_meeting_path(meeting) %> 
