@@ -1,39 +1,44 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-    # partie publique
+  # partie publique
 
-
-   root 'accueil#index' 
-
+  root 'accueil#index' 
    
-   get 'home', to: 'home#index'
+  get 'home', to: 'home#index'
 
-   get 'contact', to: 'accueil#contact'
-   get 'infos', to: 'accueil#infos'
-   get 'boutique', to: 'accueil#boutique'
+  get 'contact', to: 'accueil#contact'
+  get 'infos', to: 'accueil#infos'
+  get 'boutique', to: 'accueil#boutique'
  
-   get 'robes_soirees', to: 'accueil#soirees'
-   get 'robes_mariees', to: 'accueil#mariees'
-   get 'costumes_hommes', to: 'accueil#costumes'
-   get 'accessoires', to: 'accueil#accessoires'
-   get 'costumes_deguisements', to: 'accueil#deguisements'
+  get 'robes_soirees', to: 'accueil#soirees'
+  get 'robes_mariees', to: 'accueil#mariees'
+  get 'costumes_hommes', to: 'accueil#costumes'
+  get 'accessoires', to: 'accueil#accessoires'
+  get 'costumes_deguisements', to: 'accueil#deguisements'
    
-   get 'plan', to: 'accueil#plan'
+  get 'plan', to: 'accueil#plan'
    
-   # partie admin
-   get 'accueil_admin', to: 'accueil_admin#index'
-   get 'search', to: 'search#index'
-   get 'marketing', to: 'accueil_admin#marketing'
-   get 'analyses', to: 'accueil_admin#analyses'
-   get 'listeSelection', to: 'accueil_admin#listeSelection'
-   get 'stock', to: 'accueil_admin#stock'
+  # partie admin
+  get 'accueil_admin', to: 'accueil_admin#index'
+  get 'search', to: 'search#index'
+  get 'marketing', to: 'accueil_admin#marketing'
+  get 'analyses', to: 'accueil_admin#analyses'
+  get 'listeSelection', to: 'accueil_admin#listeSelection'
+  get 'stock', to: 'accueil_admin#stock'
 
-   get 'selection_produit', to: 'selection_produit#index'
-   get 'scanqr', to: 'selection_produit#scanqr'
+  get 'selection_produit', to: 'selection_produit#index'
+  get 'scanqr', to: 'selection_produit#scanqr'
 
+  devise_for :users
    
-   resources :clients do
+  resources :users do
+    member do
+      get :toggle_status
+      get :editer_mail
+    end
+  end
+
+  resources :clients do
     member do
       get :send_client_mail, 
           to: 'clients#send_client_mail', 

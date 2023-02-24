@@ -1,4 +1,6 @@
 class AccueilAdminController < ApplicationController
+  
+  before_action :authenticate_user!
 
     def index
       @clients = Client.all

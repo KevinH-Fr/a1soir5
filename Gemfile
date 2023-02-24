@@ -21,6 +21,8 @@ gem "ransack", "~> 3.2"
 gem 'cloudinary'
 gem "pagy", "~> 5.10"
 
+gem 'devise'
+
 gem "letter_opener", group: :development
 
 gem 'wicked_pdf'
