@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   #config/environments/production.rb:
-  config.action_mailer.default_url_options = {host:'a1soir4.herokuapp.com', protocol: "https"}
+  config.action_mailer.default_url_options = {host:'a1soir-new.herokuapp.com', protocol: "https"}
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
