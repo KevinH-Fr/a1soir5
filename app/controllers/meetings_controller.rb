@@ -48,7 +48,7 @@ class MeetingsController < ApplicationController
             e.summary     = name 
             e.description = details
             e.location    = meeting.lieu  # remplacer par un champ dans la base
-            e.uid         = "rdvid:#{meeting.id.to_s}"
+            e.uid         = "meetingid:#{meeting.id.to_s}"
             e.sequence    = Time.now.to_i
           end
         end
@@ -66,10 +66,6 @@ class MeetingsController < ApplicationController
     redirect_to @meeting, notice: "invite send"
   end 
 
-  def full_invite
-    MeetingMailer.with(meeting: @meeting).full_invite.deliver_now
-    redirect_to @meeting, notice: "invite send"
-  end 
 
   def show
     if @meeting.commande_id.present?
