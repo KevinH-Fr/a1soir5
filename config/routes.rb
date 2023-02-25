@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       get :editer_mail
       get :rappel_rdv
       post :invite
+
     end
   end 
 

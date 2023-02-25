@@ -1,5 +1,6 @@
 class MeetingsController < ApplicationController
-  before_action :authenticate_user!
+#  before_action :authenticate_user!
+
   before_action :set_meeting, only: %i[ show edit update destroy invite ]
   #skip_before_action :authenticate_user, only: :index #permet partage cal auto sans log
  
@@ -62,6 +63,11 @@ class MeetingsController < ApplicationController
 
   def invite
     MeetingMailer.with(meeting: @meeting).invite.deliver_now
+    redirect_to @meeting, notice: "invite send"
+  end 
+
+  def full_invite
+    MeetingMailer.with(meeting: @meeting).full_invite.deliver_now
     redirect_to @meeting, notice: "invite send"
   end 
 

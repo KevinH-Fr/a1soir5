@@ -1,7 +1,7 @@
 #Meetings::IcalendarEvent.new(meeting: Meeting.first).call
 
 class Meetings::IcalendarEvent
-    require 'icalendar'
+    require 'icalendar/tzinfo'
 
     include Rails.application.routes.url_helpers
 

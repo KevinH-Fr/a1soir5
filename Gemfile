@@ -15,6 +15,7 @@ gem "bootsnap", require: false
 
 gem "simple_calendar", "~> 2.4"
 gem "icalendar"
+gem 'add_to_calendar'
 
 gem 'sassc', '~> 2.2'
 gem 'jquery-ui-rails'
