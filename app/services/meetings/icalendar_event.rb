@@ -14,7 +14,6 @@ class Meetings::IcalendarEvent
         
         # plus utilisé car remplacé par le lien vers ajout du calendrier partagé, donc génération du ics avec export pas utile pour le moement 
         
-        
         cal = Icalendar::Calendar.new
     
 

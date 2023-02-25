@@ -47,9 +47,16 @@ class MeetingsController < ApplicationController
             e.dtend       = meeting.end_time #"20230124T171500Z"
             e.summary     = name 
             e.description = details
-            e.location    = meeting.lieu  # remplacer par un champ dans la base
-            e.uid         = "meetingid:#{meeting.id.to_s}"
+
+            e.ip_class    = "PUBLIC" # PRIVATE
+            e.location    = "adresse"
+            e.uid         = "rdvid:#{@meeting.id.to_s}"
             e.sequence    = Time.now.to_i
+            e.url         = meeting_url(meeting)
+            e.organizer   = Icalendar::Values::CalAddress.new("mailto:#{ApplicationMailer.default_params[:from]}", cn: 'A1 soir app') 
+            e.attendee    = Icalendar::Values::CalAddress.new("mailto:kevin.hoffman.france@gmail.com", partstat: 'accepted') 
+
+          
           end
         end
         

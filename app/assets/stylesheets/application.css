@@ -722,3 +722,7 @@ input:invalid {
 }
 
 
+.daterangepicker td.active, 
+  .daterangepicker td.active:hover {
+    background-color: rgb(130, 19, 56);
+  }
