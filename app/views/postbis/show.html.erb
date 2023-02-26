@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @postbi %>
+
+<div>
+  <%= link_to "Edit this postbi", edit_postbi_path(@postbi) %> |
+  <%= link_to "Back to postbis", postbis_path %>
+
+  <%= button_to "Destroy this postbi", @postbi, method: :delete %>
+</div>

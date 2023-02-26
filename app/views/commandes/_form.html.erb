@@ -1,4 +1,4 @@
-<%= form_with(model: commande) do |form| %>
+<%= form_with(model: commande, id:"my-form") do |form| %>
   <% if commande.errors.any? %>
     <div>
       <h2 class="text-danger"><%= pluralize(commande.errors.count, "erreur") %> 
@@ -38,37 +38,15 @@
         <% end %>
       </div>
 
-
-
-
       <div class="input-group mb-1">
-        <%#= form.label :début_location, class:"input-group-text label-with-format" %>
-        <%#= form.date_field :debutloc, id: 'start_date', class: 'form-control field-with-format', include_blank: true %>
-        <%#= form.label :fin_location, class:"input-group-text label-with-format" %>
-        <%#= form.date_field :finloc, id: 'end_date', class: 'form-control field-with-format', include_blank: true %>
-    
-
-        <%#= form.label :Periode_location, class:"input-group-text label-with-format" %>
-       
-          <%#= text_field_tag :daterange,  "", id: 'daterange', class: 'form-control', data: { behavior: 'daterangepicker' } %>
-
-          <%#= form.text_field :debutloc, class: 'form-control', data: { behavior: 'daterangepicker' }, value: "value" %>
-
-        <%#= render "shared/dateRangePicker" %>
-
-  <%= text_field_tag :debutloc, id: "datepicker" %>
-
-<script>
-  $( "#datepicker" ).datepicker();
-</script>
-    
+        <%= form.label :Periode_location, class:"input-group-text label-with-format" %>
+        <%= form.date_field :debutloc, id: 'start_date', class: 'form-control field-with-format', placeholder: "test" %>
+        <%= form.date_field :finloc, id: 'end_date', class: 'form-control field-with-format', include_blank: true %>
       </div>
 
-      <%# to do 
-      - apres la saisie de debut location : 
-      passer fin location au même jour,
-      mettre message validation : attention, la date de fin est la même que la date de
-      %>
+      <%# apres la saisie de debut location passer fin location au même jour,
+          message confirmation si memes dates %>
+      <%= render "shared/periodeLocation" %>
 
       <div class="input-group mb-1">
         <%= form.label :type_événement, class:"input-group-text label-with-format" %>

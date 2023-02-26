@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Postbis</h1>
+
+<div id="postbis">
+  <% @postbis.each do |postbi| %>
+    <%= render postbi %>
+    <p>
+      <%= link_to "Show this postbi", postbi %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New postbi", new_postbi_path %>

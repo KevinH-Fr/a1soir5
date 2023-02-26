@@ -1,0 +1,34 @@
+ <script>
+    $(document).ready(function() {
+      $('#start_date').change(function() {
+        var startDate = new Date($(this).val()); // get value from startDate field
+        if (!$('#end_date').val()) { // check if end_date is empty
+          $('#end_date').val(formatDate(startDate)); // if empty pass the value of start field
+        }
+      });
+    });
+
+    function formatDate(date) {
+      var year = date.getFullYear();
+      var month = (date.getMonth() + 1).toString().padStart(2, '0');
+      var day = date.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    // confirmation de validation si dates sont identiques
+    $(document).ready(function() {
+      $('#my-form').submit(function(event) {
+        var debutloc = new Date($('#start_date').val());
+        var finloc = new Date($('#end_date').val());
+
+        if (debutloc.getTime() === finloc.getTime()) {
+          var confirmMsg = 'Les dates de début et de fin sont identiques, êtes-vous sûr(e) de vouloir continuer ?';
+          var result = confirm(confirmMsg);
+
+          if (!result) {
+            event.preventDefault();
+          }
+        }
+      });
+    });
+</script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_11_133002) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_132525) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -129,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_11_133002) do
     t.integer "profile_id"
     t.text "commentairesdoc"
     t.text "textefasimpledoc"
+    t.boolean "location"
     t.index ["client_id"], name: "index_commandes_on_client_id"
     t.index ["profile_id"], name: "index_commandes_on_profile_id"
   end
@@ -238,6 +239,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_11_133002) do
     t.string "moyenpaiement"
     t.text "commentaire"
     t.index ["commande_id"], name: "index_paiements_on_commande_id"
+  end
+
+  create_table "postbis", force: :cascade do |t|
+    t.text "body"
+    t.string "access"
+    t.string "passcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|

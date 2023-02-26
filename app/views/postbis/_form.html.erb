@@ -1,0 +1,43 @@
+<%= form_with(model: postbi) do |form| %>
+  <% if postbi.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(postbi.errors.count, "error") %> prohibited this postbi from being saved:</h2>
+
+      <ul>
+        <% postbi.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div data-controller="form-element">
+    <%= form.button "Validate", formaction: new_postbi_path, 
+      formmethod: :get, data: {form_element_target: "submitbtn"} %>    
+
+      
+    <div>
+      <%= form.label :access, style: "display: block" %>
+      <%= form.select :access, Postbi.accesses, {include_blank: true},
+        {data: {action: "change->form-element#remotesubmit"}} %>
+    </div>
+
+  </div>
+
+  <%= postbi.passcode_protected? %>
+  <% if postbi.passcode_protected? %>
+    <div>
+      <%= form.label :passcode, style: "display: block" %>
+      <%= form.text_field :passcode %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

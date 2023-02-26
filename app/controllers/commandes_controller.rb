@@ -40,6 +40,8 @@ class CommandesController < ApplicationController
     @commande = Commande.new 
     @clients = Client.all
     @clientId = params[:clientId]
+
+    
   end
 
   def edit
@@ -214,7 +216,7 @@ class CommandesController < ApplicationController
     end
 
     def commande_params
-      params.fetch(:commande, {}).permit(:nom, :montant, :client_id, :debutloc, :finloc, 
+      params.fetch(:commande, {}).permit(:nom, :montant, :client_id, :location, :debutloc, :finloc, 
         :dateevenement, :typeevenement, :statutarticles, :profile_id, :commentairesdoc, :textefasimpledoc)
     end
 end
