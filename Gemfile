@@ -17,8 +17,14 @@ gem "simple_calendar", "~> 2.4"
 gem "icalendar"
 #gem 'add_to_calendar'
 
+gem 'rails-i18n'
+
+
 gem 'sassc', '~> 2.2'
 gem 'jquery-ui-rails'
+
+gem "rails-bootstrap-daterangepicker"
+
 
 gem "ransack", "~> 3.2"
 gem 'cloudinary'

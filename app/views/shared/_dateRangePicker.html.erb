@@ -1,0 +1,71 @@
+
+<script>  
+
+  $('#daterange').daterangepicker({
+   
+   // startDate: moment().add(0, 'day'),
+   // endDate: moment().add(7, 'day'),
+
+   // startDate: "",
+   // endDate: "",
+
+
+
+    "locale": {
+      "format": "DD/MM/YYYY",
+      "separator": " - ",
+      "applyLabel": "Valider",
+      "cancelLabel": "Annuler",
+      "fromLabel": "De",
+      "toLabel": "à",
+      "customRangeLabel": "Custom",
+      "daysOfWeek": [
+        "Dim",
+        "Lun",
+        "Mar",
+        "Mer",
+        "Jeu",
+        "Ven",
+        "Sam"
+      ],
+      "monthNames": [
+        "Janvier",
+        "Février",
+        "Mars",
+        "Avril",
+        "Mai",
+        "Juin",
+        "Juillet",
+        "Août",
+        "Septembre",
+        "Octobre",
+        "Novembre",
+        "Décembre"
+      ],
+      "firstDay": 1
+    },
+  }, function(start, end, label) {
+    // this function is called when the date range changes
+    var startDate = start.format('YYYY-MM-DD');
+    var endDate = end.format('YYYY-MM-DD');
+
+    // validate that the start date and end date are not the same
+    if (startDate === endDate) {
+      const options = {
+        message: 'Les dates de début et de fin sont identiques, êtes-vous sûr(e) de vouloir continuer ?',
+        ok: 'Continuer',
+        cancel: 'Annuler',
+      };
+      
+      if (!window.confirm(options.message, options.ok, options.cancel)) {
+        return;
+      }
+    }
+
+    $('#start_date').val(startDate);
+    $('#end_date').val(endDate);
+
+
+
+  });
+</script>
