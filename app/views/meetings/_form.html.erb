@@ -40,11 +40,14 @@
 
     <div class="input-group mb-1">
       <%= form.label :début, class:"input-group-text label-with-format" %>
-      <%= form.datetime_field :start_time, required: true, class:"form-control field-with-format" %>
+      <%= form.datetime_field :start_time, id: 'start_time', required: true, class:"form-control field-with-format" %>
 
       <%= form.label :fin, class:"input-group-text label-with-format" %>
-      <%= form.datetime_field :end_time, class:"form-control field-with-format" %>
-    </div>
+      <%= form.datetime_field :end_time,  id: 'end_time', class:"form-control field-with-format" %>
+   </div>
+
+      <%# apres la saisie de debut meeting passer fin meeting au même jour +1h %>
+      <%= render "shared/periodeMeeting" %>
 
     <div class="input-group mb-1">
       <%= form.label :lieu, class:"input-group-text label-with-format" %>
@@ -56,7 +59,6 @@
           class:"btn btn-sm btn-secondary" %>
       <%= form.submit "Valider", class: "btn btn-primary btn-sm" %>
     </div><br><br>
- 
  
 
 <% end %>
