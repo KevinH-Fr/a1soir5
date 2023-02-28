@@ -26,14 +26,8 @@
             </div>
             <div class="card-body"> 
               <p class="card-text">
-                <% if meeting.start_time.present? %>
-                  De: <%= meeting.start_time.strftime('%I:%M %p') %>
-                <% end %>
-              </p>
-              <p class="card-text">
-               <% if meeting.end_time.present? %>
-                à: <%= meeting.end_time.strftime('%I:%M %p') if meeting.end_time.present? %>
-               <% end %>
+                <%= meeting.start_time.strftime("%H:%M") if meeting.start_time.present? %>
+                <%= meeting.end_time.strftime('%H:%M') if meeting.end_time.present? %>
               </p>
             </div>
         <% end %>
@@ -42,19 +36,11 @@
       <hr>
       <div class="text-end">
        <%= link_to "S'abonner au calendrier", meetings_url(protocol: :webcal, format: :ics), 
-        class:"btn btn-sm btn-primary" %>
-
-
-        
+        class:"btn btn-sm btn-primary fw-bold" %>
       </div>
      <br> <br> <br>
 
     </div>
 
-    
-      <%= render "meetings/footer" %>
+    <%= render "meetings/footer" %>
    
-
-
-
-

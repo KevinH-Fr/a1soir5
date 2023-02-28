@@ -32,10 +32,10 @@
 
         <p>
           <strong>Début:</strong>
-          <%= meeting.start_time.strftime("%d/%m/%y" " à %H:%M") if meeting.start_time.present? %> |
+          <%= meeting.start_time.strftime("%d/%m/%y à %H:%M") if meeting.start_time.present? %> |
 
           <strong>Fin:</strong>
-          <%= meeting.end_time.strftime("%d/%m/%y" " à %H:%M") if meeting.end_time.present? %>
+          <%= meeting.end_time.strftime("%d/%m/%y à %H:%M") if meeting.end_time.present? %>
         </p>
 
         <p>
@@ -64,12 +64,10 @@
        <%#= meeting.to_icalendar %> 
 
        <%# pour ajouter un rdv unique %>
-       <%= link_to "add to calendar", meeting_path(meeting, format: :ics) %> 
-
-
+       <%#= link_to "add to calendar", meeting_path(meeting, format: :ics) %> 
 
        <%# pour envoyer une invitation par mail au rdv unique %>
-       <%= button_to "send email invite", invite_meeting_path(meeting) %> 
+       <%#= button_to "send email invite", invite_meeting_path(meeting) %> 
 
       </div>
     </div>

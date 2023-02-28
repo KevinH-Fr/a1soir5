@@ -18,45 +18,33 @@ class MeetingsController < ApplicationController
       format.html
       format.ics do
         cal = Icalendar::Calendar.new
-        cal.x_wr_calname = 'A1soir_new_app'
-
-        #event_start = DateTime.new 2023, 01, 24, 8, 0, 0
-        #event_end = DateTime.new 2023, 01, 24, 11, 0, 0
-
-        #tzid = "Europe/Paris"
-        #tz = TZInfo::Timezone.get tzid
-        #timezone = tz.ical_timezone event_start
-        #cal.add_timezone timezone
-
+        cal.x_wr_calname = 'A1soir_new_app1'
 
         @meetings.each do | meeting |
-          details = ""
-          name = meeting.name 
+           details = ""
+           name = meeting.name 
           if meeting.client_id.present?
-            name  = "#{meeting.name} - #{Client.find(meeting.client_id).full_name}"
-            details = "#{Client.find(meeting.client_id).full_name} - #{Client.find(meeting.client_id).tel}"
+            @client = Client.find(meeting.client_id)
+            name  = "#{meeting.name} - #{@client.full_name}"
+            details = "#{@client.full_name} - #{@client.tel}"
           end 
           if meeting.commande_id.present?
-            name = "#{meeting.name} - #{Client.find(Commande.find(meeting.commande_id).client_id).full_name}" 
-            details = "#{Client.find(Commande.find(meeting.commande_id).client_id).full_name} - 
-            #{Client.find(Commande.find(meeting.commande_id).client_id).tel}"
+            @commande = Commande.find(meeting.commande_id)
+            @client = Client.find(@commande.client_id)
+
+            name = "#{meeting.name} - #{@commande.auto_short_name} - #{@client.full_name}" 
+            details = "#{@client.full_name} - 
+            #{@client.tel}"
           end 
 
           cal.event do |e|
-            e.dtstart     = meeting.start_time #Icalendar::Values::DateTime.new(DateTime.new(meeting.start_time), 'tzid' => tzid)
-            e.dtend       = meeting.end_time #"20230124T171500Z"
+            e.dtstart     = meeting.start_time 
+            e.dtend       = meeting.end_time 
             e.summary     = name 
             e.description = details
-
-            e.ip_class    = "PUBLIC" # PRIVATE
-            e.location    = "adresse"
-            e.uid         = "rdvid:#{@meeting.id.to_s}"
+            e.location    = meeting.lieu
+            e.uid         = "UNIQUE#{meeting.id.to_s}"
             e.sequence    = Time.now.to_i
-            e.url         = meeting_url(meeting)
-            e.organizer   = Icalendar::Values::CalAddress.new("mailto:#{ApplicationMailer.default_params[:from]}", cn: 'A1 soir app') 
-            e.attendee    = Icalendar::Values::CalAddress.new("mailto:kevin.hoffman.france@gmail.com", partstat: 'accepted') 
-
-          
           end
         end
         
