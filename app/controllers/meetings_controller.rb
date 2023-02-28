@@ -21,27 +21,12 @@ class MeetingsController < ApplicationController
         cal.x_wr_calname = 'A1soir_new_app1'
 
         @meetings.each do | meeting |
-           details = ""
-           name = meeting.name 
-          if meeting.client_id.present?
-            @client = Client.find(meeting.client_id)
-            name  = "#{meeting.name} - #{@client.full_name}"
-            details = "#{@client.full_name} - #{@client.tel}"
-          end 
-          if meeting.commande_id.present?
-            @commande = Commande.find(meeting.commande_id)
-            @client = Client.find(@commande.client_id)
-
-            name = "#{meeting.name} - #{@commande.auto_short_name} - #{@client.full_name}" 
-            details = "#{@client.full_name} - 
-            #{@client.tel}"
-          end 
 
           cal.event do |e|
             e.dtstart     = meeting.start_time 
             e.dtend       = meeting.end_time 
-            e.summary     = name 
-            e.description = details
+            e.summary     = meeting.full_name 
+            e.description = meeting.full_details
             e.location    = meeting.lieu
             e.uid         = "UNIQUE#{meeting.id.to_s}"
             e.sequence    = Time.now.to_i
