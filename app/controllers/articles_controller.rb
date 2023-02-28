@@ -26,17 +26,23 @@ class ArticlesController < ApplicationController
     @typelocvente = ["location", "vente"]
     @quantite = 1
     
+
+
     if Produit.exists?(@produitId)
       @ProdExist = true
       if @produitId.present?
-        @valPrix = Produit.find(@produitId).prix
-        @valCaution = 10
+        @valPrixInitial = Produit.find(@produitId).prix
+        @valPrixLocationInitial = Produit.find(@produitId).prixlocation
+        @valCaution = Produit.find(@produitId).caution
       else
         @valPrix = 0
       end 
     else
       @ProdExist = false
     end
+
+
+
     
     if @quantite.present? && @valPrix.present? 
       @valTotal =  @quantite * @valPrix 

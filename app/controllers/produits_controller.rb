@@ -129,7 +129,7 @@ class ProduitsController < ApplicationController
     end
 
     def produit_params
-      params.require(:produit).permit(:nom, :prix, :caution, :description, :categorie, 
+      params.require(:produit).permit(:nom, :prix, :prixlocation, :caution, :description, :categorie, 
           :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :dateachat, :prixachat, :typearticle)
     end
 end

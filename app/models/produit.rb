@@ -66,5 +66,6 @@ class Produit < ApplicationRecord
         end 
     end
 
+
 end
 

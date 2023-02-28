@@ -11,90 +11,43 @@
     </div>
   <% end %>
 
-  <div>
-    <% form.label :commande_id, style: "display: block" %>
-    <%#= form.select :commande_id, Commande.all.collect { |c| [ c.nom, c.id ] },  include_blank: true, selected: @commandeId %>
-    <%= form.hidden_field(:commande_id, value: @commandeId) %>
-  </div>
-
-  <div>
-    <% form.label :produit_id, style: "display: block" %>
-    <%#= form.select :produit_id, Produit.all.collect { |p| [ p.nom, p.id ] },  include_blank: true, selected: @produitId %>
-    <%= form.hidden_field(:produit_id, value: @produitId) %>
-  </div>
-
-  <% if @produitId.present? %> 
-  
-    <div class="bloc-entete-model">
-      <div class="card-body p-1">
-        <div class="row p-0 m-0">
-          <div class="col cadre-interieur">
-            <%= render "selection_produit/produitLie" %> <br>
-          </div>
-          <div class="col cadre-interieur"> 
-            <div data-controller="form-element">
-              <%= form.button "Validate", formaction: new_article_path(commandeId: @commandeId, produitId: @produitId), 
-                    formmethod: :get, data: { turbo_frame: :total_field, form_element_target: "submitbtn" } %>    
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                <%= form.label :type, class:"input-group-text bg-primary text-light label-sized"%>
-                <%= form.select :locvente,  @typelocvente, {include_blank: true}, 
-                    { data: { action: "change->form-element#remotesubmit"},  
-                      class:"form-control text-center input-sized"} %>
-              </div>
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                 <%= form.label :quantite, class:"input-group-text bg-secondary text-light label-sized" %>
-                 <%= form.number_field :quantite, { data: { action: "change->form-element#remotesubmit"},  
-                       class:"form-control text-center input-sized"} %>
-              </div>
-     
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                  <%= form.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
-                  <%= form.number_field :prix, { data: { action: "change->form-element#remotesubmit"}, 
-                      value: @valPrix, class:"form-control text-center input-sized"} %>
-              </div>
-            </div>
-
-  <% end %>
-                
-                    <%= turbo_frame_tag :total_field do %>
-                      <% valQuantite = form.object.quantite %>
-                      <% valPrix = form.object.prix.to_d %>
-                      <% produitId = form.object.produit_id %>
-                      <% typeLocVente = form.object.locvente %>
+  <%= form.hidden_field(:commande_id, value: @commandeId) %>
+  <%= form.hidden_field(:produit_id, value: @produitId) %>
 
 
-                        <% if produitId.present? %> 
-                          <div class="input-group input-group-sm mb-1 justify-content-center">
-                            <%= form.label :total, class:"input-group-text bg-dark text-light label-sized" %>
-                            <%= form.number_field :total, value:  valQuantite * valPrix, 
-                              class:"form-control bg-dark text-white text-center input-sized" %>
-                          </div>
+      <div data-controller="totalupdate">
+      
+          <%= form.number_field :prixlocation, name:'prixlocationInitial', value: 1 %> <br>
+          <%= form.number_field :prixvente, name:'prixVenteInitial', value: 2 %>
 
-                            <% if typeLocVente == "location" %>
-                              <% valCaution = Produit.find(produitId).caution %>
-                               <div class="input-group input-group-sm mb-1 justify-content-center"> 
-                                 <%= form.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
-                                 <%= form.number_field :caution, value: valCaution, 
-                                      class:"form-control bg-secondary text-white text-center input-sized" %>
-                               </div>
-                            <% end %>
-                            
-                          <div class="text-center text-bottom p-2 me-3">
-                          
-                              <%= link_to 'Annuler', new_article_path(commandeId: @commandeId), class:"btn btn-outline-danger btn-sm" %>
-                              <%= form.submit "Créer", class: 'btn btn-sm btn-success' %>
+          <hr>  
 
-                          </div>
-                        <% end %>  
-                      </div>
-                    <% end %>
-                </div>
-              </div>
-        </div> 
+          
+          <%= form.label :type %>
+          <%= form.select :locvente,  @typelocvente, {include_blank: true}, 
+                {name: "locvente",  data: { action: "change->totalupdate#setInitialPrix"}} %> <br>
+
+          <%= form.label :quantite %>
+          <%= form.number_field :quantite, { name: "quantite", data: { action: "change->totalupdate#updateTotal" } } %> <br>
 
 
-    </div>
+         <%#= form.number_field :prixtest, name: "prixtest", data: { action: "change->totalupdate#updateTotal" } %>
 
-  <% end %>
+
+
+
+          <%= form.label :prix %>
+          <%= form.number_field :prix, { name: "prix", data: { action: "change->totalupdate#updateTotal" } } %> <br>
+
+
+          <%= form.label :total %>
+          <%= form.number_field :total, { name: "total", data: { action: "change->totalupdate#updateTotal" } } %>
+
+        
+
+   </div>
+
+ 
+ <% end %>
 
 

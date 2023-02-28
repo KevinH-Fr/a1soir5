@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_132525) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_165611) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -277,6 +277,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_132525) do
     t.datetime "dateachat"
     t.decimal "prixachat"
     t.string "typearticle"
+    t.decimal "prixlocation"
   end
 
   create_table "profiles", force: :cascade do |t|
