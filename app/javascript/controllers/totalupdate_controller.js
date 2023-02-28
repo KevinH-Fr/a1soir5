@@ -3,66 +3,56 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="totalupdate"
 export default class extends Controller {
 
-  static targets = ["submitbtn", "prix", "total"]
+  static targets = ["prix", "locvente", "quantite", "total"]
   connect() {
-    console.log('hello from totalupdate ctrler')
-    this.updateTotal
-   
+    console.log('connect from totalupdate ctrler')   
   } 
 
   setInitialPrix(){
-   
-    const typeLocVenteField = this.element.querySelector("select[name='locvente']").value;
-    let prixInitial;
+    console.log("call set initial prix " )
+    const typeLocVenteField = this.locventeTarget.value; //this.element.querySelector("select[name='locvente']").value;
+    console.log("type: " + typeLocVenteField )
 
+
+
+    let prixInitial;
     if (typeLocVenteField == "location") {
       prixInitial = this.element.querySelector("input[name='prixlocationInitial']").value;
     } else {
       prixInitial = this.element.querySelector("input[name='prixVenteInitial']").value;
     }
     
-    console.log("call set initial prix "  + prixInitial + "  " + typeLocVenteField)
-    
     this.changePrix(prixInitial)
-
-
     this.updateTotal()
 
- 
-
-   // if (!isNaN(prixInitial)) {
-   
-   // }
   }
 
   changePrix(prixInitial) {
-    console.log("call change prix")
+  //  console.log("call change prix")
     setTimeout(() => {
-      this.element.querySelector("input[name='prix']").value = prixInitial;
+      this.prixTarget.value = prixInitial; // this.element.querySelector("input[name='prix']").value 
     }, 0);
-
   }
 
   updateTotal() {
-    console.log("call update total")
-    const quantiteField = this.element.querySelector("input[name='quantite']");
-    const prixField = this.element.querySelector("input[name='prix']");
-  //  const totalField = this.totalTarget;
 
-    const quantite = parseInt(quantiteField.value);
-    const prix = parseFloat(prixField.value);
+    setTimeout(() => {
 
-   // if (!isNaN(quantite) && !isNaN(prix)) {
-   //   totalField.value = (quantite * prix).toFixed(2);
-   // } else {
+      let quantite;
+      quantite = this.quantiteTarget.value; // this.element.querySelector("input[name='quantite']").value
    
-   if (!isNaN(quantite) && !isNaN(prix)) {
-      this.element.querySelector("input[name='total']").value = (quantite * prix).toFixed(2);
-   } else {
-      this.element.querySelector("input[name='total']").value = 0;
-   }
+      let prix;
+      prix =  this.prixTarget.value; //this.element.querySelector("input[name='prix']").value
+      
+      if (!isNaN(quantite) && !isNaN(prix)) {
+          //console.log("call update total - qté:" + quantite + " prix:" + prix)
+         // this.element.querySelector("input[name='total']").value 
+         this.totalTarget.value = (quantite * prix).toFixed(2);
+
+        } else {
+          //this.element.querySelector("input[name='total']").value
+          this.totalTarget.value = 0;
+        }     
+    }, 0);
   }
-
-
-
 }
