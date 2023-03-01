@@ -20,19 +20,23 @@
                 <td class="td-doc"> <%= number_to_currency(solde_prix_avant_avoirremb(@commande), locale: :fr) %></td>
             </tr>
 
-            <tr class="centered">
-                <td class="td-doc started">Avoir</td>
-                <td class="td-doc"> <%= number_to_currency(0, locale: :fr) %></td>
-                <td class="td-doc"> <%= number_to_currency(avoir_deduit(@commande), locale: :fr) %></td>
-                <td class="td-doc"> <%= number_to_currency(-avoir_deduit(@commande), locale: :fr) %></td>
-            </tr>
+            <% if avoir_deduit(@commande)  != 0  %>
+                <tr class="centered">
+                    <td class="td-doc started">Avoir</td>
+                    <td class="td-doc"> <%= number_to_currency(0, locale: :fr) %></td>
+                    <td class="td-doc"> <%= number_to_currency(avoir_deduit(@commande), locale: :fr) %></td>
+                    <td class="td-doc"> <%= number_to_currency(-avoir_deduit(@commande), locale: :fr) %></td>
+                </tr>
+            <% end %>
 
-            <tr class="centered">
-                <td class="td-doc started">Remboursement</td>
-                <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> </td>
-                <td class="td-doc">  <%= number_to_currency(0, locale: :fr) %></td>
-                <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %></td>
-            </tr>
+            <% if remb_deduit(@commande) != 0 %>
+                <tr class="centered">
+                    <td class="td-doc started">Remboursement</td>
+                    <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> </td>
+                    <td class="td-doc">  <%= number_to_currency(0, locale: :fr) %></td>
+                    <td class="td-doc"> <%= number_to_currency(remb_deduit(@commande), locale: :fr) %></td>
+                </tr>
+            <% end %>
 
             <tr class="bolded centered">
                 <td class="td-doc top-bottom-bordered started">Totaux</td>

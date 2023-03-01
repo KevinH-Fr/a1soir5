@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="totalupdate"
 export default class extends Controller {
 
-  static targets = ["prix", "locvente", "quantite", "total", "containerCaution", "caution"]
+  static targets = ["prix", "locvente", "quantite", "total", "containerCaution", "containerLongueduree", "longueduree", "caution"]
   connect() {
     console.log('connect from totalupdate ctrler')   
     this.setTypeLocVente();
@@ -23,20 +23,34 @@ export default class extends Controller {
     this.hideCaution(typeLocVente);
   }
 
+  setLongueDuree(){
+    const valLongueDuree = this.longuedureeTarget.checked;
+
+    let prix = this.prixTarget.value;
+    if (valLongueDuree == true) {
+      prix *= 1.2; 
+    } else {
+      prix /= 1.2; 
+    }
+    this.prixTarget.value = prix; 
+    this.updateTotal();
+  }
+
   hideCaution(typeLocVente){
     console.log('connect hide caution')   
     if (typeLocVente == "location") {
       this.containerCautionTarget.hidden = false;
+      this.containerLonguedureeTarget.hidden = false;
     } else {
     this.containerCautionTarget.hidden = true;
+    this.containerLonguedureeTarget.hidden = true;
     }
   }
 
   setInitialPrix(){
     const typeLocVenteField = this.locventeTarget.value; 
     let typeLocVente;
-    // to do : remplacer par un else if pour verifier que bien vente
-    // verifier pas d'erreur quand valeur vide 
+
     let prixInitial;
     let cautionInitial;
 

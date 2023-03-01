@@ -40,6 +40,25 @@
 
             </div>
 
+            <div class="input-group input-group-sm mb-2 justify-content-center"  data-totalupdate-target="containerLongueduree">
+              <div class="form-check form-switch">
+                <div class="custom-control custom-switch">
+
+                  <%= form.check_box :longueduree, {
+                    id: "longueduree",
+                    class: "form-check-input",
+                    data: { 
+                      action: "change->totalupdate#setLongueDuree",
+                      target: "totalupdate.longueduree",
+                      totalupdate_target: "longueduree"
+                    } 
+                  } %>
+
+                  <label class="text-dark" for="longueduree">longue durée</label>
+                </div>
+              </div>
+            </div>
+
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :quantite, class:"input-group-text bg-primary text-light label-sized" %>
               <%= form.number_field :quantite, { 
