@@ -29,16 +29,11 @@ class ArticlesController < ApplicationController
 
 
     if Produit.exists?(@produitId)
-      @ProdExist = true
       if @produitId.present?
         @valPrixInitial = Produit.find(@produitId).prix
         @valPrixLocationInitial = Produit.find(@produitId).prixlocation
-        @valCaution = Produit.find(@produitId).caution
-      else
-        @valPrix = 0
+        @valPrixCautionInitial = Produit.find(@produitId).caution
       end 
-    else
-      @ProdExist = false
     end
 
 
@@ -79,15 +74,15 @@ class ArticlesController < ApplicationController
     @produitId = params[:produitId]
     @typelocvente = ["location", "vente"]
     @sousarticles = Sousarticle.article_courant(@article)
-    @quantite = Article.find(@article.id).quantite
-    @valPrix = Article.find(@article.id).prix
-
-    if @quantite.present? && @valPrix.present? 
-      @valTotal =  @quantite * @valPrix 
-    else
-      @valTotal = 0  
+  
+    if Produit.exists?(@produitId)
+      if @produitId.present?
+        @valPrixInitial = Produit.find(@produitId).prix
+        @valPrixLocationInitial = Produit.find(@produitId).prixlocation
+        @valPrixCautionInitial = Produit.find(@produitId).caution
+      end 
     end
-    
+
   end
 
   def create

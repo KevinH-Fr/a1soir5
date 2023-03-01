@@ -28,31 +28,51 @@
           
             <%= form.hidden_field :prixlocation, name:'prixlocationInitial', value: @valPrixLocationInitial %> <br>
             <%= form.hidden_field :prixvente, name:'prixVenteInitial', value: @valPrixInitial %>
+            <%= form.hidden_field :prixcaution, name:'prixCautionInitial', value: @valPrixCautionInitial %>
 
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :type, class:"input-group-text bg-primary text-light label-sized" %>
            
-              <%= form.select :locvente,  @typelocvente, {include_blank: true}, 
-                { data: { action: "change->totalupdate#setInitialPrix", target: "totalupdate.locvente" },  
-                  class:"form-control text-center input-sized" } %>
+              <%= form.select :locvente,  @typelocvente, {include_blank: true}, { 
+                  class:"form-control text-center input-sized",
+                  data: { action: "change->totalupdate#setInitialPrix", 
+                  target: "totalupdate.locvente", totalupdate_target: "locvente" }  } %>
 
             </div>
 
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :quantite, class:"input-group-text bg-primary text-light label-sized" %>
-              <%= form.number_field :quantite, { data: { action: "change->totalupdate#updateTotal", target: "totalupdate.quantite" }, 
-                    class:"form-control text-center input-sized" } %> <br>
+              <%= form.number_field :quantite, { 
+                  class:"form-control text-center input-sized",
+                  data: { action: "change->totalupdate#updateTotal", 
+                  target: "totalupdate.quantite", totalupdate_target: "quantite" } } %> <br>
             </div>
 
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
-              <%= form.number_field :prix, { data: { action: "change->totalupdate#updateTotal", target: "totalupdate.prix"  },  
-                        class:"form-control text-center input-sized" } %> <br>
-           
+              <%= form.number_field :prix, { 
+                 class:"form-control text-center input-sized",
+                 data: { action: "change->totalupdate#updateTotal", 
+                         target: "totalupdate.prix",  totalupdate_target: "prix" } } %> <br>
+
+            <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerCaution">
+              <%= form.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
+              <%= form.number_field :caution,  { 
+                  class:"form-control bg-secondary text-white text-center input-sized",
+                  data: { target: "totalupdate.caution", totalupdate_target: "caution" } } %> <br>
+
+            </div>
+
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :total, class:"input-group-text bg-dark text-light label-sized" %>
-              <%= form.number_field :total, { data: { action: "change->totalupdate#updateTotal", target: "totalupdate.total" }, 
+              <%#= form.number_field :total, { data: { action: "change->totalupdate#updateTotal", target: "totalupdate.total" }, 
                         class:"form-control bg-dark text-white text-center input-sized" } %>
+
+              <%= form.number_field :total, { 
+                  class: "form-control bg-dark text-white text-center input-sized", 
+                  data: { action: "change->totalupdate#updateTotal", 
+                          target: "totalupdate.total", totalupdate_target: "total"  } } %>
+
             </div>
           
           </div>
