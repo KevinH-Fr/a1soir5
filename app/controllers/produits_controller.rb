@@ -44,6 +44,14 @@ class ProduitsController < ApplicationController
 
   def new
     @produit = Produit.new  
+
+        # valeur si duplicaiton produit 
+        if params[:produitbase].present? 
+          @produitbase = Produit.find(params[:produitbase]) 
+        
+          @produit.image1.attach(@produitbase.image1.blob) if @produitbase&.image1&.attached?
+        end
+
   end
 
   def edit
@@ -60,6 +68,8 @@ class ProduitsController < ApplicationController
 
   def create
     @produit = Produit.new(produit_params)
+
+
   
     respond_to do |format|
       if @produit.save
@@ -121,6 +131,33 @@ class ProduitsController < ApplicationController
     #  format.json { head :no_content }
     end
   end
+
+
+  def dupliquer
+
+    @produit = Produit.find(params[:id])
+
+    if params[:produitbase].present?
+      @produitBase = Produit.find(params[:produitbase]) 
+
+      # préparer un nouveau produit qui contient les memes datas que le courant
+      #tester full duplication
+      original = @produitBase
+      copy = original.dup
+      copy.nom = "#{original.nom}_new" # append "new" to the original name
+      copy.image1.attach \
+        :io           => StringIO.new(original.image1.download),
+        :filename     => original.image1.filename,
+        :content_type => original.image1.content_type
+
+      copy.save!
+
+    end
+
+      redirect_to produits_path(),
+      notice: "Duplication du produit !"
+
+  end 
 
   private
   

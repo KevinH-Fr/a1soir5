@@ -46,7 +46,7 @@
               <% end %>
             </span>
 
-            <%# if user_signed_in? && current_user.admin? %>
+            <% if user_signed_in? && current_user.admin? %>
               <br>
 
               <span class="card-text my-2">
@@ -57,7 +57,7 @@
                   Prix achat: <%= @produit.prixachat %>
                 </small>
               </span>
-            <%# end %>
+            <% end %>
 
             <div class="">  
               <% @produitsIdentiques = Produit.where.not(id: @produit.id, taille: @produit.taille)
@@ -80,12 +80,15 @@
 
     
     <div class="container-fluid text-end">
-     
-        <%# if user_signed_in? && current_user.admin? %>
+
+      <%= link_to "", dupliquer_produit_path(produitbase: @produit), 
+          class: "fa-solid fa-copy btn btn-sm btn-dark" %>
+    
+        <% if user_signed_in? && current_user.admin? %>
           <%= button_to '', edit_produit_path(@produit), 
               class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary", 
               method: :post %> 
-        <%# end %>
+        <% end %>
 
     </div>
   </div>
