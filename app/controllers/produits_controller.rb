@@ -68,8 +68,6 @@ class ProduitsController < ApplicationController
 
   def create
     @produit = Produit.new(produit_params)
-
-
   
     respond_to do |format|
       if @produit.save
