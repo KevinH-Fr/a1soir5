@@ -7,13 +7,13 @@ development:
   static_file_support: false
 
 production:
-  cloud_name: ENV['CLOUDINARY_NAME']
-  api_key: ENV['CLOUDINARY_KEY']
-  api_secret: ENV['CLOUDINARY_SECRET']
+  cloud_name: <%= ENV['CLOUDINARY_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_SECRET'] %>
   enhance_image_tag: true
   static_file_support: true
   secure: true
-  
+
 test:
   cloud_name: ENV['cloud_name']
   api_key: ENV['api_key']
