@@ -50,7 +50,7 @@
         <div class="col-1 m-0 p-1 text-center">
   
           <%= link_to "", client_path(client), 
-                class:"fa-regular fa-folder-open btn btn-success btn-action" %> 
+                class:"fa-regular fa-folder-open btn btn-success btn-action", data: { turbo: false }  %> 
           <br>
 
           <div role="button" data-action="click->dropdown#openDropdown" 
