@@ -1,20 +1,20 @@
 ---
 development:
-  cloud_name: dukne3lhz
-  api_key: '489226175322946'
-  api_secret: 3FtQv5zeIFvlhpWu_sWsccjopr0
+  cloud_name: ENV['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
   enhance_image_tag: true
   static_file_support: false
 production:
-  cloud_name: dukne3lhz
-  api_key: '489226175322946'
-  api_secret: 3FtQv5zeIFvlhpWu_sWsccjopr0
+  cloud_name: ENV['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
   enhance_image_tag: true
   static_file_support: true
   secure: true
 test:
-  cloud_name: dukne3lhz
-  api_key: '489226175322946'
-  api_secret: 3FtQv5zeIFvlhpWu_sWsccjopr0
+  cloud_name: ENV['cloud_name']
+  api_key: ENV['api_key']
+  api_secret: ENV['api_secret']
   enhance_image_tag: true
   static_file_support: false
