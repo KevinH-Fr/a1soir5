@@ -62,9 +62,9 @@
             <div class="">  
               <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
                 <span> Ce produit existe aussi en : </span>
-                  <% taillesAutresProduits.each do |produit| %>
-                      <%= link_to produit.taille, produit_path(produit.id), class:"text-primary fw-bold" %>
-                  <% end %>
+                <% taillesAutresProduits.distinct.group_by(&:taille).each do |taille, produits| %>
+                  <%= link_to taille, produit_path(produits.first.id), class:"text-primary fw-bold" %>
+                <% end %>
               <% end %>
             </div>
 

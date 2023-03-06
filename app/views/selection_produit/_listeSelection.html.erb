@@ -18,24 +18,37 @@
       </thead>
       <tbody class="fs-6">
         <% @produits.each do | produit | %>
+          <% dispo = calcul_dispo(produit.id) %>
+          <% articleId = params[:articleId] %>
+          <% commandeId = params[:commandeId] %>
+
           <tr>
             <td class="text-center align-middle"> <%= produitId = produit.id %> </td>
             <td class="text-center"> 
-              <%= image_tag(produit.default_image, style: "width: 50px", 
-                class: "img-fluid rounded text-center") %>
+
+              <% if dispo > 0 %>
+
+                <% if articleId.present? %> <%# alors sous article en cours de selection %>
+                  <%= link_to image_tag(produit.default_image, style: "width: 50px", 
+                    class: "img-fluid rounded text-center"), new_sousarticle_path(commandeId: commandeId, produitId: produit, articleId: articleId) %>
+                <% else %> <%# alors  article en cours de selection %>
+                  <%= link_to image_tag(produit.default_image, style: "width: 50px", 
+                   class: "img-fluid rounded text-center"), new_article_path(commandeId: commandeId, produitId: produit) %>
+                <% end %>
+           
+              <% end %>
+            
+
             </td> 
-            <td class="align-middle"> <%= produit.nom %> </td>
+
+            <td class="align-middle"> <%= produit.nom_couleur_taille %> </td>
             
             <td class="text-center align-middle"> 
-               <%= dispo = calcul_dispo(produit.id) %>
+               <% calcul_dispo(produit.id) %>
             </td>
 
             <td class="text-center align-middle"> 
               <% if dispo > 0 %>
-
-              <%# to do : new article ou new sous article en fonction de l'url courante ? %>
-              <% articleId = params[:articleId] %>
-              <% commandeId = params[:commandeId] %>
 
                 <% if articleId.present? %> <%# alors sous article en cours de selection %>
                   <%= link_to '', new_sousarticle_path(commandeId: commandeId, produitId: produit, articleId: articleId), 
@@ -44,11 +57,7 @@
                     <%= link_to '', new_article_path(commandeId: commandeId, produitId: produit), 
                       class:"fa-solid fa-cart-plus btn btn-primary btn-sm" %>  
                 <% end %>
-
-
-              <% else %>
-              <%#= link_to '', new_article_path(), 
-                    class:"fa-solid fa-cart-plus btn disabled btn-primary btn-sm" %>
+           
               <% end %>
             </td>
           </tr>

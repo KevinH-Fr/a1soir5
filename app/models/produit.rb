@@ -50,6 +50,10 @@ class Produit < ApplicationRecord
         }
     end
 
+    def nom_couleur_taille 
+        "#{nom} | #{couleur} | #{taille}"
+    end 
+
     def default_image
         if self.image1.filename.to_s.length > 0 
             image1

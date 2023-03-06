@@ -1,14 +1,4 @@
 
-<%
-=begin%>
- <% if session[:commandeId].present? %>
-  <% @commandeId = session[:commandeId] %>
-<% else %>
-  <%= @commandeId = params[:commandeId] %>
-<% end %> 
-<%
-=end%>
-
 <% @clientId = Commande.find(@commandeId).client_id if @commandeId.present? %>
 
 <div class="bloc-entete-model">
@@ -17,23 +7,10 @@
   </div>
 </div>
 
-<%
-=begin%>
- <div class="card"> <%= render "selection_produit/search" %> </div>
-<div class="card my-1"> <%= render "selection_produit/choixCategorie" %> </div>
- 
-<%
-=end%>
 <%# liste des produits pour selection %>
 <div class="bloc-record">
-  <%# unless @produitId.present? %> 
-    <%#= render "listeSelection" %>
-  <%# end %>
   <%= render "form", article: @article %>
 </div>
-
-<%#= javascript_import_module_tag "hellobis" %>
-
 
 <% if @produitId.present? && @ProdExist == false %>
   <div class="bloc-record container text-center">

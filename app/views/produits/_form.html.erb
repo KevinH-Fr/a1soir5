@@ -59,12 +59,10 @@
 
   <div class="input-group mb-1">
     <%= form.label :couleur, class:"input-group-text label-with-format" %>
-    <%= form.select(:couleur, Produit.couleurs.keys, {include_blank: true}, 
-          class:"form-select field-with-format") %> 
+    <%= form.text_field :couleur, class:"form-control field-with-format" %> 
 
     <%= form.label :taille, class:"input-group-text label-with-format" %>
-    <%= form.select(:taille, Produit.tailles.keys, {include_blank: true}, 
-          class:"form-select field-with-format") %> 
+    <%= form.text_field :taille, class:"form-control field-with-format" %> 
   </div>
 
   <div class="input-group mb-1">
@@ -111,7 +109,7 @@
 
 
   <div class="float-end mt-2 mb-4">
-    <%= form.submit "Valider", class: "btn btn-primary btn-sm" %>
+    <%= form.submit "Valider", class: "btn btn-primary btn-sm fw-bold" %>
   </div><br> <br>
 
 </div>

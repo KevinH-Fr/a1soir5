@@ -2,7 +2,7 @@ module ProduitHelper
 
     def produitsIdentiques 
     
-        Produit.where.not(id: @produit.id, taille: @produit.taille)
+        Produit.where.not(taille: @produit.taille)
         .where(reffrs: @produit.reffrs, couleur: @produit.couleur)
         .where.not(reffrs: [nil, ""])
  
