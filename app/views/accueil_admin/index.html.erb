@@ -1,10 +1,29 @@
 
-  <%# if user_signed_in? %>
+<div class="container-fluid m-0 p-0 container-dashboard">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0">
+      <%= render "blocClients" %>
+    </div>
+    <div class="col-6 m-0 p-0">
+      <%= render "blocCommandes" %>
+    </div>
+  </div>
 
-    <%= render "dashboard" %>
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0">
+      <%= render "blocProduits" %>
+    </div>
+    <div class="col-6 m-0 p-0">
+      <%= render "blocCalendrier" %>
+    </div>
+  </div>
 
-  <%# else %>
+  <div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0">
+      <%= render "blocLarge" %>
+    </div>
+  </div>
 
-      <%#= render partial: "demandeConnexion" %>
+</div>
 
-  <%# end %>
+<%= render "footer" %>

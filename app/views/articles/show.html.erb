@@ -49,6 +49,10 @@
       </div>
 
       <div class="col-2 text-end">
+        <%= link_to "", selection_produit_path(commandeId: @commandeId), 
+              class:"fa-solid fa-square-plus btn btn-sm btn-primary",
+              title: "Nouvel article" %> 
+
         <%= link_to "", commande_path(@commandeId), class:"fa-solid fa-square-check btn btn-sm btn-success" %> 
       </div>
 

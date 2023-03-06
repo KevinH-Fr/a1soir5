@@ -26,13 +26,14 @@
       <div>quantité: <%= @produit.quantite %></div><br>
       <div>prix: <%= @produit.prix %></div>
       
-      <% @produitsIdentiques = Produit.where.not(id: @produit.id).where(nom: @produit.nom) %> 
-      <% unless @produitsIdentiques.empty? %>
-        <span> Ce produit existe aussi en : </span>
-        <% @produitsIdentiques.each do |produit| %>
-          <%= produit.taille %>
+      <div class="">  
+        <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
+          <span> Ce produit existe aussi en : </span>
+            <% taillesAutresProduits.each do |produit| %>
+                <%= link_to produit.taille, produit_path(produit.id), class:"text-primary fw-bold" %>
+            <% end %>
         <% end %>
-      <% end %>
+      </div>
 
     </td>
 

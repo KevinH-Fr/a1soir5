@@ -31,18 +31,18 @@
             <span class="ms-4 text-start">
               <% if @produit.vitrine == true %>
                 <i class="fa-solid fa-globe iconcolor-true"></i>
-                <span> Diffusé sur site vitrine  </span> <br>
+                <span> Diffusé sur site public  </span> <br>
               <% else %>
                 <i class="fa-solid fa-globe iconcolor-false"></i>
-                <span> Non-diffusé sur site vitrine  </span> <br>
+                <span> Non-diffusé sur site public  </span> <br>
               <% end %>
       
               <% if @produit.eshop == true %>
                 <i class="fa-solid fa-cart-shopping iconcolor-true"></i>
-                <span> Diffusé sur site marchand  </span> <br>
+                <span> Proposé à la vente en ligne  </span> <br>
               <% else %>
                 <i class="fa-solid fa-cart-shopping iconcolor-false"></i>
-                <span> Non-diffusé sur site marchand  </span> <br>
+                <span> Non-proposé à la vente en ligne  </span> <br>
               <% end %>
             </span>
 
@@ -60,15 +60,12 @@
             <% end %>
 
             <div class="">  
-              <% @produitsIdentiques = Produit.where.not(id: @produit.id, taille: @produit.taille)
-                                        .where(nom: @produit.nom) %> 
-              
-              <% unless @produitsIdentiques.empty? %>
+              <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
                 <span> Ce produit existe aussi en : </span>
-                  <% @produitsIdentiques.each do |produit| %>
+                  <% taillesAutresProduits.each do |produit| %>
                       <%= link_to produit.taille, produit_path(produit.id), class:"text-primary fw-bold" %>
                   <% end %>
-                <% end %>
+              <% end %>
             </div>
 
           </div>

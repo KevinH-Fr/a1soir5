@@ -4,9 +4,7 @@ class SelectionProduitController < ApplicationController
     def index
 
         @commandeId = params[:commandeId] 
-
         @articleId = params[:articleId] 
-   
         @clientId = Commande.find(@commandeId).client_id
 
         @categories = Produit.categories.keys 
