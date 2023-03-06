@@ -25,9 +25,11 @@
 
         <div class="col-7 m-0 p-0">
           <div class="card-body m-0 p-0">
-            <h6 class="card-title text-black m-0 p-0"><%= link_to highlight(produit.nom, 
+            <h6 class="card-title text-black m-0 p-0">
+              <%= link_to highlight(produit.nom, 
               params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), produit_path(produit),
-              class:"titre-record" %></h6>
+              class:"titre-record", data: { turbo: false } %>
+            </h6>
             <p class="card-text text-dark p-0 m-0"><%= produit.description %></p>
 
             <span class="card-text"><small class="text-muted">
