@@ -18,13 +18,13 @@ module EnsembleHelper
     end 
 
     def categoriesAttendues
-        [self.ensembleApplicable.categorieenfant, 
-         self.ensembleApplicable.categorieenfant2,
-         self.ensembleApplicable.categorieenfant3,
-         self.ensembleApplicable.categorieenfant4,
-         self.ensembleApplicable.categorieenfant5,
-         self.ensembleApplicable.categorieenfant6
-        ].select {|e| e.present?}  #sans valeur nil
+        [self.ensembleApplicable&.categorieenfant, 
+         self.ensembleApplicable&.categorieenfant2,
+         self.ensembleApplicable&.categorieenfant3,
+         self.ensembleApplicable&.categorieenfant4,
+         self.ensembleApplicable&.categorieenfant5,
+         self.ensembleApplicable&.categorieenfant6
+        ].select(&:present?)  #sans valeur nil
     end
 
     def sousArticlesExistants

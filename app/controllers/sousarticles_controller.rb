@@ -24,6 +24,20 @@ class SousarticlesController < ApplicationController
       @valPrix = Produit.find(@produitId).prix
     end
 
+    categorieVal = params[:categorieVal]
+    couleurVal = params[:couleurVal]
+
+    if categorieVal.present?
+      @produits = Produit.categorie_selected(categorieVal)
+      @couleurs = Produit.categorie_selected(categorieVal).distinct.pluck(:couleur)
+        if couleurVal.present?
+          @produits = Produit.categorie_selected(categorieVal).couleur_selected(couleurVal)
+        end
+    else
+      @produits = Produit.all 
+    end
+    
+
   end
 
   def edit
