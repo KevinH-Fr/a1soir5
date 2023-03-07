@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   get 'selection_produit', to: 'selection_produit#index'
   get 'scanqr', to: 'selection_produit#scanqr'
 
+  #tempo test etiquette
+  get 'etiquette', to: 'produits#etiquette'
+
   devise_for :users
    
   resources :users do

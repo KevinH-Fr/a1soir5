@@ -1,47 +1,45 @@
 
+<%# tempo poru test html %>
+
+<% @produit = Produit.find(29)%>
+
 <table class="table-etiquette">
   <thead> 
     <tr>
-      <th class="th-etiquette shadowed" colspan="3">
-        <%= @produit.nom %>
+      <th class="th-etiquette shadowed" colspan="2">
+        <%= image_tag(@produit.default_image, class:"img-etiquette") %> 
       </th>
     </tr>
   </thead>
 
   <tbody> 
     <tr>
-      <td class="td-etiquette shadowed" rowspan="2">
-        <%= image_tag(@produit.default_image, class:"img-etiquette") %> 
-      </td>
 
-      <td class="td-etiquette-description middled centered shadowed" colspan="2">
-         <div><%= @produit.description %></div>
-      </td>
-    </tr>
-    
-    <td class="td-etiquette middled shadowed">
-      <div>catégorie: <%= @produit.categorie %></div> <br>
-      <div>taille: <%= @produit.taille %></div><br>
-      <div>couleur: <%= @produit.couleur %></div><br>
-      <div>quantité: <%= @produit.quantite %></div><br>
-      <div>prix: <%= @produit.prix %></div>
+      <td class="td-etiquette middled shadowed" colspan="1">
+        <h4 class="bolded"> <%= @produit.nom %> </h4> 
       
-      <div class="">  
-        <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
-          <span> Ce produit existe aussi en : </span>
-            <% taillesAutresProduits.each do |produit| %>
-                <%= link_to produit.taille, produit_path(produit.id), class:"text-primary fw-bold" %>
-            <% end %>
-        <% end %>
-      </div>
-
-    </td>
+        <span>Location : <%= number_to_currency(@produit.prixlocation, locale: :fr, precision: 0) %></span> /
+        <span>Vente : <%= number_to_currency(@produit.prix, locale: :fr, precision: 0) %></span>
+       
+        <div class="td-etiquette middled centered">  
+          Taille(s) :
+          <span class="taille-active"> <%= @produit.taille %></span>
+          <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
+            <span class="taille-alternative"> 
+              <% taillesAutresProduits.each do |produit| %>
+                  <%= produit.taille %>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+      </td>
 
       <td class="td-etiquette middled centered shadowed">
         <%= image_tag(@produit.qr_code, class:"img-qr-etiquette") if @produit.qr_code.attached? %>
       </td>
 
-   </tr>
+    </tr>
+    
   </tbody>
-
+  
 </table>
