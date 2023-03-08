@@ -3,25 +3,13 @@
     <canvas id="myChartPieProduit"></canvas>
   </div>
 
-  <% @produitId = params[:id]%>
-  <% initial = Produit.find(@produitId).quantite %> 
-  <% @locations = Article.produit_courant(@produitId).articlesLoues.compte_articles %> 
- 
-  <% louesTermines = Commande.termine.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
-  <% louesAvenir = Commande.a_venir.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
- 
- <% @ventes = Article.produit_courant(@produitId).articlesVendus.compte_articles %> 
- <% @restant = initial - @locations - @ventes %> 
-
   <% @data = [@locations, @ventes] %>
-
-  
 
 <script>
   var couleur1 = 'rgb(116, 159, 130)';
   var couleur2 = 'rgb(66, 95, 87)';
 
-  var restant = <%= @restant %>;
+  var nbTotal = <%= @nbTotal %>;
 
   var centerTextDoghnutProduit = {
     id: 'centerTextDoghnutProduit',
@@ -30,7 +18,7 @@
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = "bold 12px sans-serif";
-      const text = "dispo " + restant ;
+      const text = "total " + nbTotal ;
       const textWidth = ctx.measureText(text).width;
       const x = chart.getDatasetMeta(0).data[0].x;
       const y = chart.getDatasetMeta(0).data[0].y;

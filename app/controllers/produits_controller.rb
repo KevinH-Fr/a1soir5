@@ -17,6 +17,39 @@ class ProduitsController < ApplicationController
     @produitId = params[:id]
     session[:produitId] = @produitId
 
+    #filtres analyses
+    datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+    datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+    @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+    @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+
+    @initial = Produit.find(@produitId).quantite
+
+    if datedebut.present? && datefin.present? 
+      # ajotuer les osus articles car les produits peuvent passer en sous article ?
+      @nbTotal = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).compte_articles
+      @locations = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesLoues.compte_articles
+      @ventes = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesVendus.compte_articles
+   
+      @valTotal = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).sum_articles
+      @valLocations = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesLoues.sum_articles
+      @valVentes = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesVendus.sum_articles
+      @groupedByDateProduit = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).group('DATE(created_at)').sum('total')
+
+    else
+        # ajotuer les osus articles car les produits peuvent passer en sous article ?
+      @nbTotal = Article.produit_courant(@produitId).compte_articles
+      @locations = Article.produit_courant(@produitId).articlesLoues.compte_articles
+      @ventes = Article.produit_courant(@produitId).articlesVendus.compte_articles
+   
+      @valTotal = Article.produit_courant(@produitId).sum_articles
+      @valLocations = Article.produit_courant(@produitId).articlesLoues.sum_articles
+      @valVentes = Article.produit_courant(@produitId).articlesVendus.sum_articles
+      @groupedByDateProduit = Article.produit_courant(@produitId).group('DATE(created_at)').sum('total')
+
+    end
+
+
     respond_to do |format|
       format.html
       format.pdf do
