@@ -183,6 +183,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.fetch(:article, {}).permit(:quantite, :commande_id, :produit_id, :prix, :caution, :total, :locvente, :longueduree)
+      params.fetch(:article, {}).permit(:quantite, :commande_id, :produit_id, :prix, :caution, :total, :totalcaution, :locvente, :longueduree)
     end
 end

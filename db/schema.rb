@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_204516) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_103332) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_204516) do
     t.string "locvente"
     t.decimal "caution"
     t.boolean "longueduree"
+    t.decimal "totalcaution"
     t.index ["commande_id"], name: "index_articles_on_commande_id"
     t.index ["produit_id"], name: "index_articles_on_produit_id"
   end

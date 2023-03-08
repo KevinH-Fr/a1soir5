@@ -24,38 +24,38 @@
 
   <div class="input-group mb-1">
     <%= form.label :categorieenfant, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+    <%= form.select :categorieenfant, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div>
 
   <div class="input-group mb-1">
     <%= form.label :categorieenfant2, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant2, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+    <%= form.select :categorieenfant2, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div>
 
 
    <div class="input-group mb-1">
     <%= form.label :categorieenfant3, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant3, Produit.typearticle_exists.collect { |c| [ c.typearticle ]}, 
+    <%= form.select :categorieenfant3, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div>
 
   <div class="input-group mb-1">
     <%= form.label :categorieenfant4, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant4, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+    <%= form.select :categorieenfant4, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div>
 
   <div class="input-group mb-1">
     <%= form.label :categorieenfant5, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant5, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+    <%= form.select :categorieenfant5, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div>
 
   <div class="input-group mb-1">
     <%= form.label :categorieenfant6, class:"input-group-text label-with-format" %>
-    <%= form.select :categorieenfant6, Produit.typearticle_exists.collect { |c| [ c.typearticle]}, 
+    <%= form.select :categorieenfant6, Produit.typearticle_exists, 
         {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>
   </div> 
 

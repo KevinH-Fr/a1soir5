@@ -78,21 +78,31 @@
               <%= form.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
               <%= form.number_field :caution,  { 
                   class:"form-control bg-secondary text-white text-center input-sized",
-                  data: { target: "totalupdate.caution", totalupdate_target: "caution" } } %> <br>
+                  data: { action: "change->totalupdate#updateTotal", target: "totalupdate.caution", totalupdate_target: "caution" } } %> <br>
 
             </div>
 
+
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :total, class:"input-group-text bg-dark text-light label-sized" %>
-              <%#= form.number_field :total, { data: { action: "change->totalupdate#updateTotal", target: "totalupdate.total" }, 
-                        class:"form-control bg-dark text-white text-center input-sized" } %>
 
               <%= form.number_field :total, { 
                   class: "form-control bg-dark text-white text-center input-sized", 
                   data: { action: "change->totalupdate#updateTotal", 
-                          target: "totalupdate.total", totalupdate_target: "total"  } } %>
+                          target: "totalupdate.total", totalupdate_target: "total" } } %>
 
             </div>
+
+            
+            <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerTotalCaution">
+              <%= form.label :totalcaution, class:"input-group-text bg-dark text-light label-sized" %>
+
+              <%= form.number_field :totalcaution, { 
+                  class: "form-control bg-dark text-white text-center input-sized", 
+                  data: { action: "change->totalupdate#updateTotal", 
+                          target: "totalupdate.totalcaution", totalupdate_target: "totalcaution" } } %>   
+            </div>
+
           
           </div>
         </div>

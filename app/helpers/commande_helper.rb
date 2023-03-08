@@ -4,7 +4,8 @@ module CommandeHelper
         Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles
     end
     def du_caution(commande)
-        duCaution = Article.commande_courante(@commande).sum_caution
+        duCaution = Article.commande_courante(@commande).sum_caution_articles
+        # ajouter sum caution sous articles?
     end 
     def recu_prix(commande)
         recuPrix = Paiement.commande_courante(@commande).prix_only.sum_paiements

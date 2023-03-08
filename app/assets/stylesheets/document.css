@@ -113,6 +113,13 @@
   font-weight: bold;
 }
 
+.td-doc-normal{
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: medium;
+  vertical-align: middle;
+  padding: 20px;
+}
 
 .td-doc-italic{
   font-family: Arial, Helvetica, sans-serif;

@@ -30,8 +30,10 @@ class Produit < ApplicationRecord
     scope :type_ensemble, -> { where("typearticle = ?", "Ensemble") }
 
     # articles dont typearticle existe et pas Ensemble
-    scope :typearticle_exists, -> { where.not("typearticle = ?", "[nil, ""]"). where.not("typearticle = ?", "Ensemble") }
+   # scope :typearticle_exists, -> { where.not("typearticle = ?", "[nil, ""]"). where.not("typearticle = ?", "Ensemble") }
+   scope :typearticle_exists, -> { where.not(typearticle: [nil, "", "Ensemble"]).pluck(:typearticle).uniq }
 
+   
     scope :categorie_selected, ->  (categorieVal) { where("categorie = ?", categorieVal)}
     scope :couleur_selected, ->  (couleurVal) { where("couleur = ?", couleurVal)}
     scope :taille_selected, ->  (tailleVal) { where("taille = ?", tailleVal)}

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'scanqr', to: 'selection_produit#scanqr'
 
   #tempo test etiquette
-  get 'etiquette', to: 'produits#etiquette'
+  #get 'etiquette', to: 'produits#etiquette'
 
   devise_for :users
    

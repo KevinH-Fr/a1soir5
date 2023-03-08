@@ -3,7 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="totalupdate"
 export default class extends Controller {
 
-  static targets = ["prix", "locvente", "quantite", "total", "containerCaution", "containerLongueduree", "longueduree", "caution"]
+  static targets = ["prix", "locvente", "quantite", "totalcaution", "total", "containerCaution", "containerTotalCaution", 
+    "containerLongueduree", "longueduree", "caution"]
   connect() {
     console.log('connect from totalupdate ctrler')   
     this.setTypeLocVente();
@@ -40,9 +41,11 @@ export default class extends Controller {
     console.log('connect hide caution')   
     if (typeLocVente == "location") {
       this.containerCautionTarget.hidden = false;
+      this.containerTotalCautionTarget.hidden = false;
       this.containerLonguedureeTarget.hidden = false;
     } else {
     this.containerCautionTarget.hidden = true;
+    this.containerTotalCautionTarget.hidden = true;
     this.containerLonguedureeTarget.hidden = true;
     }
   }
@@ -82,9 +85,13 @@ export default class extends Controller {
   
     let prix;
     prix =  this.prixTarget.value; 
+
+    let caution;
+    caution =  this.cautionTarget.value;
     
     if (!isNaN(quantite) && !isNaN(prix)) {
       this.totalTarget.value = (quantite * prix).toFixed(2);
+      this.totalcautionTarget.value = (quantite * caution).toFixed(2);
     } else {
       this.totalTarget.value = 0;
     }     

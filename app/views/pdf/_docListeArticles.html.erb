@@ -29,11 +29,19 @@
               <%= image_tag(Produit.find(article.produit_id).default_image, style: "width: 80px; display: block", 
                class: "img-fluid rounded") %> 
             </td>
-            <td class="td-doc-main"> <%= Produit.find(article.produit_id).nom %> </td>
+
+            <td> 
+              <div class="td-doc-main"> <%= Produit.find(article.produit_id).nom %> </div>
+              <span class="td-doc-normal"> 
+                taille: <%= Produit.find(article.produit_id).taille %>  
+                <%= "location longue durée" if article.longueduree == true %>  
+              </span>
+            </td>
+
             <td class="td-doc centered"> <%= article.quantite %> </td>
             <td class="td-doc ended"> <%= number_to_currency(article.prix, locale: :fr) %> </td>
             <td class="td-doc ended"> <%= number_to_currency(article.total, locale: :fr) %> </td>
-            <td class="td-doc ended"> <%= number_to_currency(article.caution, locale: :fr) %> </td>
+            <td class="td-doc ended"> <%= number_to_currency(article.totalcaution, locale: :fr) %> </td>
           </tr> 
 
             <% @sousarticles = Sousarticle.where(article_id: article.id) %>
@@ -45,8 +53,8 @@
                     class:"") if sousarticle.produit_id.present? %>
                 </td>
                 <td class="td-doc-italic fst-italic"> 
-                 <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> |
-                  <%= sousarticle.description %> 
+                  <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> 
+                  taille: <%= Produit.find(sousarticle.produit_id).taille %>  
                 
                 </td>
                 <td></td>
