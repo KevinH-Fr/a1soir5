@@ -1,29 +1,30 @@
 
   <div class="chartBox mx-auto">
-    <canvas id="myChartLine"></canvas>
+    <canvas id="myChartLinePaiements"></canvas>
   </div>
 
+  <%# @data = Article.group('DATE(created_at)').sum('total') %>
+
 <script>
-   
-  var couleur1 = 'rgb(233, 119, 119)';
-  var couleur2 = 'rgb(255, 159, 159)';
+
+  var couleur1 = 'rgb(213, 155, 19)';
+  var couleur2 = 'rgb(240, 214, 83)';
 
 // CHART BAR
-    var dataLineCommande = {
-     
+    var dataLinePaiements = {
       datasets: [{
-        data: <%= @groupedByDate.to_json.html_safe %>,
+        data: <%= @groupedByDatePaiements.to_json.html_safe %>,
         fill: true,
-        backgroundColor: [couleur2, couleur1 ],
+        backgroundColor: [couleur1, couleur2 ],
         borderWidth: 1
       }]
     };
 
-    var delayedLine;
+    var delayedLinePaiements;
 
-    var configLine = {
+    var configLinePaiements = {
       type: 'line',
-      data: dataLineCommande,
+      data: dataLinePaiements,
       options: {
 
         plugins: {
@@ -39,7 +40,7 @@
                 },
                 delay: (context) => {
                     let delay = 0;
-                    if (context.type === 'data' && context.mode === 'default' && !delayedLine) {
+                    if (context.type === 'data' && context.mode === 'default' && !delayedLineCa) {
                     delay = context.dataIndex * 2000  + context.datasetIndex * 10;
                     }
                     return delay;
@@ -55,11 +56,9 @@
       };
 
         // render init block
-    var myChartLine = new Chart(
-      document.getElementById('myChartLine'),
-      configLine
+    var myChartLinePaiements = new Chart(
+      document.getElementById('myChartLinePaiements'),
+      configLinePaiements
     );
   
-
-
 </script>

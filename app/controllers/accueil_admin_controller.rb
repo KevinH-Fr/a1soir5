@@ -22,6 +22,8 @@ class AccueilAdminController < ApplicationController
   def analyses 
     datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
     datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+    @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+    @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
 
     if datedebut.present? && datefin.present? 
       # commandes :
@@ -45,6 +47,13 @@ class AccueilAdminController < ApplicationController
       # en l'etat les sous articles passent que à la vente dans le calcul?
       @totalVente = Article.articlesVendus.filtredatedebut(datedebut).filtredatefin(datefin).sum_articles 
       @groupedByDateCa = Article.filtredatedebut(datedebut).filtredatefin(datefin).group('DATE(created_at)').sum('total')
+   
+      # paiements 
+      @totalPaiements = Paiement.filtredatedebut(datedebut).filtredatefin(datefin).sum_paiements
+      @totalPrix = Paiement.filtredatedebut(datedebut).filtredatefin(datefin).prix_only.sum_paiements
+      @totalCaution = Paiement.filtredatedebut(datedebut).filtredatefin(datefin).caution_only.sum_paiements
+      @groupedByDatePaiements = Paiement.filtredatedebut(datedebut).filtredatefin(datefin).group('DATE(created_at)').prix_only.sum_paiements
+
     else
       # commandes :
       @nbTotal = Commande.count
@@ -65,6 +74,12 @@ class AccueilAdminController < ApplicationController
       # en l'etat les sous articles passent que à la vente dans le calcul?
       @totalVente = Article.articlesVendus.sum_articles 
       @groupedByDateCa = Article.group('DATE(created_at)').sum('total')
+
+      # paiements 
+      @totalPaiements = Paiement.sum_paiements
+      @totalPrix = Paiement.prix_only.sum_paiements
+      @totalCaution = Paiement.caution_only.sum_paiements
+      @groupedByDatePaiements = Paiement.group('DATE(created_at)').prix_only.sum_paiements
 
     end 
         

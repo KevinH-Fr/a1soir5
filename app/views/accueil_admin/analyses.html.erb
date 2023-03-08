@@ -4,92 +4,124 @@
 
   <div class="cadre-index-large mx-auto">
 
-  <div class="bloc-entete-model">
-    <div class="card card-header entete-index text-center">
-      <strong>Analyses</strong> 
-    </div> 
-  </div>
-
-  <div class="bloc-record p-2">
-    <div class="card-body text-dark">
-
-      <%= form_tag url_for, method: :get do %>
-
-        <div class="input-group mb-1">
-          <%= label_tag :début, "début", class:"input-group-text label-with-format" %>
-          <%= date_field_tag :debut, params[:debut], class:"form-control field-with-format" %>
-
-          <%= label_tag :fin, "fin", class:"input-group-text label-with-format" %>
-          <%= date_field_tag :fin, params[:fin], class:"form-control field-with-format" %>
-
-          <%= link_to "Effacer", url_for(), class:"btn btn-sm btn-outline-danger m-1" %> 
-
-          <%= submit_tag "Go" %>
-        </div>
-
-
-      <% end %>
-
+    <div class="bloc-entete-model">
+      <div class="card card-header entete-index text-center">
+        <strong>Analyses</strong> 
+      </div> 
     </div>
-  </div>
+
+    <div class="bloc-record p-2">
+      <div class="card-body text-dark ">
+
+        <%= form_tag url_for, method: :get do %>
+
+          <div class="input-group mb-1">
+            <%= label_tag :début, "début", class:"input-group-text label-with-format centered" %>
+            <%= date_field_tag :debut, params[:debut], class:"form-control field-with-format" %>
+
+            <%= label_tag :fin, "fin", class:"input-group-text label-with-format centered" %>
+            <%= date_field_tag :fin, params[:fin], class:"form-control field-with-format" %>
+
+            <%= link_to "Effacer", url_for(), class:"btn btn-sm btn-outline-danger rounded mx-1" %> 
+
+            <%= submit_tag "Go", class:"btn btn-sm btn-primary rounded mx-1" %>
+          </div>
+
+        <% end %>
+
+        <% if @datedebut.present? && @datefin.present? %>
+          <div class="fw-bold">
+            filtre actif: <%= @datedebut.strftime("%d/%m/%y")  %> - <%= @datefin.strftime("%d/%m/%y") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+        
+    <div class="bloc-record p-0">
+      <div class="card card-header text-center text-light fw-bold bg-secondary m-0 p-1">
+        <h5 class="m-0 p-0">Commandes</h5> 
+      </div> 
+      <div class="card-body text-dark">
       
-  <div class="bloc-record p-2">
-    <div class="card-body text-dark">
-      <h5 class="m-0 p-2">Commandes</h5> 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 m-0 p-0">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 m-0 p-1">
                 <%= render "charts/chartPieCommandes" %>
-          </div>
-          <div class="col-md-4 m-0 p-0">
+            </div>
+            <div class="col-md-4 m-0 p-1">
                 <%= render "charts/chartBarCommandes" %>
-          </div>
-          <div class="col-md-4 m-0 p-0">
+            </div>
+            <div class="col-md-4 m-0 p-1">
                 <%= render "charts/chartLineCommandes" %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="bloc-record p-2 px-1">
-    <div class="card-body text-dark">
-      <h5 class="m-0 p-2">Articles</h5> 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 m-0 p-0">
-            <%= render "charts/chartPieArticles" %>
-          </div>
-          <div class="col-md-4 m-0 p-0">
+    <div class="bloc-record p-0">
+      <div class="card card-header text-center text-light fw-bold bg-secondary m-0 p-1">
+        <h5 class="m-0 p-0">Articles</h5> 
+      </div> 
+      <div class="card-body text-dark">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 m-0 p-1">
+              <%= render "charts/chartPieArticles" %>
+            </div>
+            <div class="col-md-4 m-0 p-1">
                 <%= render "charts/chartBarArticles" %>
-          </div>
-          <div class="col-md-4 m-0 p-0">
+            </div>
+            <div class="col-md-4 m-0 p-1">
                 <%= render "charts/chartLineArticles" %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="bloc-record p-2">
-    <div class="card-body text-dark">
-      <h5 class="m-0 p-2">Chiffre d'affaires</h5> 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 p-0 m-0">
+    <div class="bloc-record p-0">
+      <div class="card card-header text-center text-light fw-bold bg-secondary m-0 p-1">
+        <h5 class="m-0 p-0">Chiffre d'affaires</h5> 
+      </div>
+      <div class="card-body text-dark">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 p-1 m-0">
                 <%= render "charts/chartPieCa" %>
-          </div>
-          <div class="col-md-4 p-0 m-0">
+            </div>
+            <div class="col-md-4 p-1 m-0">
                 <%= render "charts/chartBarCa" %>
-          </div>
-          <div class="col-md-4 p-0 m-0">
+            </div>
+            <div class="col-md-4 p-1 m-0">
                 <%= render "charts/chartLineCa" %>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
+
+    <div class="bloc-record p-0">
+      <div class="card card-header text-center text-light fw-bold bg-secondary m-0 p-1">
+        <h5 class="m-0 p-0">Paiements</h5> 
+      </div>
+      <div class="card-body text-dark">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 p-1 m-0">
+                <%= render "charts/chartPiePaiements" %>
+            </div>
+            <div class="col-md-4 p-1 m-0">
+              <%= render "charts/chartBarPaiements" %>
+            </div>
+            <div class="col-md-4 p-1 m-0">
+              <%= render "charts/chartLinePaiements" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
