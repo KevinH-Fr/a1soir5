@@ -13,17 +13,21 @@
   <div class="bloc-record p-2">
     <div class="card-body text-dark">
 
-      filtre dates:
-
       <%= form_tag url_for, method: :get do %>
 
-        <%= label_tag :début, "début" %>
-        <%= date_field_tag :debut, params[:debut] %>
+        <div class="input-group mb-1">
+          <%= label_tag :début, "début", class:"input-group-text label-with-format" %>
+          <%= date_field_tag :debut, params[:debut], class:"form-control field-with-format" %>
 
-        <%= label_tag :fin, "fin" %>
-        <%= date_field_tag :fin, params[:fin] %>
+          <%= label_tag :fin, "fin", class:"input-group-text label-with-format" %>
+          <%= date_field_tag :fin, params[:fin], class:"form-control field-with-format" %>
 
-        <%= submit_tag "Go" %>
+          <%= link_to "Effacer", url_for(), class:"btn btn-sm btn-outline-danger m-1" %> 
+
+          <%= submit_tag "Go" %>
+        </div>
+
+
       <% end %>
 
     </div>
@@ -69,7 +73,7 @@
 
   <div class="bloc-record p-2">
     <div class="card-body text-dark">
-      <h5 class="m-0 p-2">CA</h5> 
+      <h5 class="m-0 p-2">Chiffre d'affaires</h5> 
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4 p-0 m-0">

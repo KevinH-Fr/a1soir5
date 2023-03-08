@@ -12,6 +12,10 @@ class Sousarticle < ApplicationRecord
   scope :sum_caution_sousarticles, -> {sum('caution_sousarticle')}
   scope :compte_sousarticles, -> {count('nature')}
 
+    # filtres analyses
+    scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
+    scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
+     
   def texte_record
     "#{nature} | prix " "#{prix_sousarticle}" " € | description " "#{description}"
   end

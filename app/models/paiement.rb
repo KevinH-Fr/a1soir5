@@ -12,6 +12,12 @@ class Paiement < ApplicationRecord
   scope :sum_paiements, -> {sum('montant')}
   scope :compte_paiements, -> {count('montant')}
 
+  # filtres analyses
+  # attention date sur created_at, pas de date de réglement
+  scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
+  scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
+  
+  
   def format_date
     datetime = created_at.to_date
     created_at.strftime("%d/%m/%y")

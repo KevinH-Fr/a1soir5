@@ -19,6 +19,11 @@ class Article < ApplicationRecord
   scope :articlesLoues, -> { where("Locvente = ?", "location")}
   scope :articlesVendus, -> { where("Locvente = ?", "vente")}
 
+  # filtres analyses
+  scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
+  scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
+   
+      
   after_initialize :set_defaults
 
   def set_defaults

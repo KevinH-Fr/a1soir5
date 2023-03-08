@@ -14,7 +14,7 @@
 // CHART BAR
     var dataLineArticles = {
       datasets: [{
-        data: <%= @data.to_json.html_safe %>,
+        data: <%= @groupedByDateArticles.to_json.html_safe %>,
         fill: true,
         backgroundColor: [couleur2, couleur1],
         borderWidth: 1

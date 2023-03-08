@@ -3,11 +3,6 @@
     <canvas id="myChartBarCa"></canvas>
   </div>
 
-  <% @totalCa = Article.sum_articles + Sousarticle.sum_sousarticles %>
-  <% @totalLoc =  Article.articlesLoues.sum_articles + Sousarticle.sum_sousarticles %>
-  <%# en l'etat les sous articles passent que à la vente dans le calcul%>
-  <% @totalVente = Article.articlesVendus.sum_articles %>
-
   <% @data = [@totalLoc, @totalVente] %>
  
 <script>
