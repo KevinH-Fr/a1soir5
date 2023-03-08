@@ -1,16 +1,8 @@
-
-  <div class="chartBox mx-auto">
-    <canvas id="myChartPie"></canvas>
-  </div>
-
-<% @nbTotal =  Commande.count %>
-<% @nbRetire = Commande.retire.count %>
-<% @nbNonRetire = Commande.non_retire.count %>
-<% @nbRendu = Commande.rendu.count %>
+<div class="chartBox mx-auto">
+  <canvas id="myChartPie"></canvas>
+</div>
 
 <% @data = [@nbRetire, @nbNonRetire, @nbRendu] %>
-
-  
 
 <script>
   var couleur1 = 'rgb(233, 119, 119)';
@@ -26,7 +18,7 @@
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = "bold 12px sans-serif";
-      const text = "total " + nbTotal ;
+      const text = "total " +  nbTotal ;
       const textWidth = ctx.measureText(text).width;
       const x = chart.getDatasetMeta(0).data[0].x;
       const y = chart.getDatasetMeta(0).data[0].y;
@@ -58,11 +50,7 @@
           position: 'top',
         },
       },
-
      },
      plugins: [centerTextDoghnut]
   });
 </script>
-
-
-

@@ -28,6 +28,13 @@ class Commande < ApplicationRecord
     scope :a_date, -> (a_date) { where('finloc >= ?', a_date) }
     scope :in_date, -> (in_date) { where('finloc <= ?', in_date) }
 
+
+    # filtres analyses
+    scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
+    scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
+   
+
+
     def typeevenement_blank?
         typeevenement.blank?
     end
