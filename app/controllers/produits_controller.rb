@@ -201,10 +201,6 @@ class ProduitsController < ApplicationController
           :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :dateachat, :prixachat, :typearticle, images: [])
     end
 
-    def attach_images
-      Array(params[:produit][:images]).each do |image|
-        @produit.images.attach(image)
-      end
-    end
+   
 end
 

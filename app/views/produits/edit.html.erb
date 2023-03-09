@@ -1,5 +1,5 @@
 <% if user_signed_in? && current_user.admin? %>
-  <h1>Editer produit</h1>
+  <h1 class="text-dark">Editer produit</h1>
 
   <%= render "form", produit: @produit %>
 

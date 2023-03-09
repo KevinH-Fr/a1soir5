@@ -1,10 +1,12 @@
 class Produit < ApplicationRecord
+    
    # has_many :ensembles
-
-    has_one_attached :image1
+    #has_one_attached :image1
 
     has_many_attached :images
-    
+    validates :images, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..(5.megabytes) }
+
+
     has_one_attached :qr_code
 
     after_create :generate_qr
@@ -75,6 +77,7 @@ class Produit < ApplicationRecord
             "false_icon.png"
         end 
     end
+
 
 
 end
