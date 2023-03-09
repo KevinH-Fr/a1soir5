@@ -88,6 +88,8 @@ class ProduitsController < ApplicationController
   end
 
   def edit
+
+    @fournisseurs = Fournisseur.all
     @handle = @produit.nom.parameterize
     
     respond_to do |format|
@@ -198,7 +200,7 @@ class ProduitsController < ApplicationController
 
     def produit_params
       params.require(:produit).permit(:nom, :prix, :prixlocation, :caution, :description, :categorie, 
-          :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :dateachat, :prixachat, :typearticle, images: [])
+          :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :fournisseur_id, :dateachat, :prixachat, :typearticle, images: [])
     end
 
    

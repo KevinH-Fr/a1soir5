@@ -44,6 +44,7 @@ class Produit < ApplicationRecord
     scope :couleur_selected, ->  (couleurVal) { where("couleur = ?", couleurVal)}
     scope :taille_selected, ->  (tailleVal) { where("taille = ?", tailleVal)}
 
+    scope :fournisseur_courant, ->  (fournisseur_courant) { where("fournisseur_id = ?", fournisseur_courant)}
 
     def full_name
         "n°#{id} | #{nom} "
@@ -60,6 +61,10 @@ class Produit < ApplicationRecord
 
     def nom_couleur_taille 
         "#{nom} | #{couleur} | #{taille}"
+    end 
+
+    def nom_ref_couleur_taille 
+        "#{nom} | #{reffrs} | #{couleur} | #{taille}"
     end 
 
     def default_image

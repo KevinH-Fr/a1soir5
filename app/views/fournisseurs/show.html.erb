@@ -1,10 +1,45 @@
-<p style="color: green"><%= notice %></p>
 
-<%= render @fournisseur %>
+<div class="cadre-index mx-auto">
+  <div class="bloc-entete-model">
+    <div class="entete-show">
+      <strong>Fournisseur</strong> 
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this fournisseur", edit_fournisseur_path(@fournisseur) %> |
-  <%= link_to "Back to fournisseurs", fournisseurs_path %>
+  <div class="">
+    <%= render @fournisseur %> 
+      <%#= render "details" %>
+  </div>
 
-  <%= button_to "Destroy this fournisseur", @fournisseur, method: :delete %>
+  <% if Produit.fournisseur_courant(@fournisseur).present? %>
+    <div class="entete-show">
+      <strong>Produits</strong> 
+    </div>
+
+    <div class="">
+      <%= render @produits %>
+    </div>
+
+    
+    <div class="">
+      <%= render "statistiques"%>
+    </div>
+
+  <% end %>
+
+</div>
+
+<div class="fixed-bottom footer-index bg-dark">
+  <div class="row">
+    <div class="col text-start">
+      <%#= link_to "", toggle_rendezvous_client_meeting_path(clientId: @client), 
+        class:"btn btn-sm btn-light fa-solid fa-calendar", title: "Nouveau RDV" %>
+      <%#= link_to "", new_messagemail_path(clientId: @client), 
+        class:"btn btn-sm btn-primary fa-solid fa-envelope", title: "Nouveau mail" %>
+    </div>
+    <div class="col text-end">
+      <%#= link_to "", toggle_commande_client_commande_path(clientId: @client), 
+        class:"btn btn-sm btn-success fa-solid fa-file-invoice", title: "Nouvelle commande" %>
+    </div>
+  </div>
 </div>

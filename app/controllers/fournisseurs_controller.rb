@@ -10,6 +10,7 @@ class FournisseursController < ApplicationController
   end
 
   def show
+    @produits = Produit.fournisseur_courant(@fournisseur)
   end
 
   def new

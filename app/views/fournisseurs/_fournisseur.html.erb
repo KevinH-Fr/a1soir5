@@ -37,20 +37,20 @@
 
 
                <div data-dropdown-target="dropdownContent">
-                <%# if Commande.fournisseur_courant(fournisseur).present? %>
+                <% if Produit.fournisseur_courant(fournisseur).present? %>
                   <div class="card card-header bg-dark mt-4 p-1 text-light">
                     Produits liés
                   </div>
                   <div class="card border border-dark text-dark"> 
                     <table class="table table-striped table-light table-hover", style="line-height: 0.5">
-                      <%# Commande.fournisseur_courant(fournisseur).each do |c| %>
+                      <% Produit.fournisseur_courant(fournisseur).each do |c| %>
                         <tr>
-                          <td> <%#= link_to c.texte_record, commande_path(c), class:"text-dark", data: { turbo: false } %> </td>
+                          <td> <%= link_to c.nom_ref_couleur_taille, produit_path(c), class:"text-dark", data: { turbo: false } %> </td>
                         </tr>
-                      <%# end %>
+                      <% end %>
                     </table>    
                   </div>
-                <%# end %>
+                <% end %>
               </div> 
 
 

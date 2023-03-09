@@ -28,8 +28,9 @@
     </div>
 
     <div class="input-group mb-1">
-      <%= form.label :nomfrs, class:"input-group-text label-with-format" %>
-      <%= form.text_field :nomfrs, class:"form-control field-with-format" %>
+      <%= form.label :fournisseur_id, class:"input-group-text label-with-format" %>
+      <%= form.select :fournisseur_id, @fournisseurs.collect { |c| [ c.nom, c.id ]}, 
+                {required: true, include_blank: true}, {class: 'form-select field-with-format'} %>  
     </div>
 
     <div class="input-group mb-1">

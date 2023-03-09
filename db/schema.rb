@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_154602) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_171938) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -291,6 +291,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_154602) do
     t.decimal "prixachat"
     t.string "typearticle"
     t.decimal "prixlocation"
+    t.integer "fournisseur_id"
+    t.index ["fournisseur_id"], name: "index_produits_on_fournisseur_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -352,6 +354,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_154602) do
   add_foreign_key "messagemails", "clients"
   add_foreign_key "messagemails", "commandes"
   add_foreign_key "paiements", "commandes"
+  add_foreign_key "produits", "fournisseurs"
   add_foreign_key "sousarticles", "articles"
   add_foreign_key "sousarticles", "produits"
 end

@@ -56,7 +56,7 @@
               <span class="card-text my-2">
                 <small class="text-muted">
                   Ref frs: <%= @produit.reffrs %>
-                  Nom frs:<%= @produit.nomfrs %>
+                  Fournisseur:<%= Fournisseur.find(@produit.fournisseur_id).nom if @produit.fournisseur_id.present? %>
                   Date achat:<%= @produit.dateachat.strftime("%d/%m/%y") if @produit.dateachat.present? %>
                   Prix achat: <%= @produit.prixachat %>
                 </small>
