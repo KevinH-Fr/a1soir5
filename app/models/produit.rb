@@ -6,7 +6,7 @@ class Produit < ApplicationRecord
     has_many_attached :images
     validates :images, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg', 'video/mp4'], size_range: 1..(50.megabytes) }
 
-    
+    belongs_to :fournisseur
 
     has_one_attached :qr_code
 

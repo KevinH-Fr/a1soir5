@@ -1,0 +1,52 @@
+<%= form_with(model: fournisseur) do |form| %>
+  <% if fournisseur.errors.any? %>
+    <div class="">
+      <h2 class="text-danger"><%= pluralize(fournisseur.errors.count, "erreur") %> 
+        empêche ce fournisseur d'être enregistré:</h2>
+      <ul>
+        <% fournisseur.errors.each do |error| %>
+          <li class="text-danger"><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body bloc-record">
+      
+    <div class="input-group mb-1">
+      <%= form.label :nom, class:"input-group-text label-with-format"  %>
+      <%= form.text_field :nom, required: true, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :pays, class:"input-group-text label-with-format"  %>
+      <%= form.text_field :pays, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :telephone, class:"input-group-text label-with-format"  %>
+      <%= form.text_field :telephone, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :mail, class:"input-group-text label-with-format"  %>
+      <%= form.text_field :mail, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :representant, class:"input-group-text label-with-format"  %>
+      <%= form.text_field :representant, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="input-group mb-1">
+      <%= form.label :notes, class:"input-group-text label-with-format"  %>
+      <%= form.text_area :notes, class:"form-control field-with-format" %>
+    </div>
+
+    <div class="float-end mt-2 mb-4">
+      <%= link_to "Fermer", "", data:{turbo_frame: "modal"}, 
+          class:"btn btn-sm btn-secondary" %>
+      <%= form.submit "Valider", class: "btn btn-success btn-sm" %>
+    </div><br><br>
+
+<% end %>

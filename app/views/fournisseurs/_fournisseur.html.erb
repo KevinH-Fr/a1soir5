@@ -1,0 +1,84 @@
+<div id="<%= dom_id fournisseur %>">
+
+  <div class="cadre-index mx-auto">
+    <div class="bloc-record">
+      <div data-controller="dropdown" data-action="turbo:submit-end->dropdown#submitEnd">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-11 text-dark">  
+              <div class="text-record-main fw-bold ms-2">
+                <%= link_to highlight(fournisseur.nom, params.dig(:q, :nom_or_pays_or_telephone_or_mail_or_representant_cont)),
+                    fournisseur_path(fournisseur), class:"text-dark", data: { turbo: false }  %> 
+              </div>
+              <% if fournisseur.telephone.present? %>
+                <div class="badge-infos">
+                  <i class="fa fa-square-phone mx-2"></i>
+                  <%= fournisseur.telephone %>
+                </div>
+              <% end %>
+              <% if fournisseur.mail.present? %>
+                <div class="badge-infos">
+                  <i class="fa fa-at mx-2"></i>
+                  <%= highlight(fournisseur.mail, params.dig(:q, :nom_or_pays_or_telephone_or_mail_or_representant_cont)) %>
+                </div>  
+              <% end %>  
+              <% if fournisseur.pays.present? %>
+                <div class="badge-infos">
+                  <i class="fa fa-location-dot mx-2"></i>
+                  <%= highlight(fournisseur.pays, params.dig(:q, :nom_or_pays_or_telephone_or_mail_or_representant_cont)) %>
+                </div>  
+              <% end %>  
+              <% if fournisseur.representant.present? %>
+                <div class="badge-infos">
+                  <i class="fa fa-location-dot mx-2"></i>
+                  <%= highlight(fournisseur.representant, params.dig(:q, :nom_or_pays_or_telephone_or_mail_or_representant_cont)) %>
+                </div>  
+              <% end %>  
+
+
+               <div data-dropdown-target="dropdownContent">
+                <%# if Commande.fournisseur_courant(fournisseur).present? %>
+                  <div class="card card-header bg-dark mt-4 p-1 text-light">
+                    Produits liés
+                  </div>
+                  <div class="card border border-dark text-dark"> 
+                    <table class="table table-striped table-light table-hover", style="line-height: 0.5">
+                      <%# Commande.fournisseur_courant(fournisseur).each do |c| %>
+                        <tr>
+                          <td> <%#= link_to c.texte_record, commande_path(c), class:"text-dark", data: { turbo: false } %> </td>
+                        </tr>
+                      <%# end %>
+                    </table>    
+                  </div>
+                <%# end %>
+              </div> 
+
+
+            </div>
+
+          <div class="col-1 m-0 p-1 text-center">
+    
+            <%= link_to "", fournisseur_path(fournisseur), 
+                  class:"fa-regular fa-folder-open btn btn-success btn-action", data: { turbo: false }  %> 
+            <br>
+
+            <div role="button" data-action="click->dropdown#openDropdown" 
+                data-dropdown-target="openButton", class="fa-solid fa-eye btn btn-outline-primary btn-action">
+            </div>
+            <div role="button" data-action="click->dropdown#closeDropdown" 
+              data-dropdown-target="closeButton", class="fa-solid fa-eye-slash btn btn-outline-primary btn-action">
+            </div>
+            
+            <%= button_to "", edit_fournisseur_path(fournisseur), 
+                  class:"fa-regular fa-pen-to-square btn btn-secondary btn-action", method: :post %> 
+            <%= button_to '', fournisseur_path(fournisseur), 
+                  class:"fa-solid fa-trash-can btn btn-danger btn-action", method: :delete,
+                  :onclick => "return confirm('Etes-vous certain de vouloir supprimer le fournisseur ?')" %> 
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

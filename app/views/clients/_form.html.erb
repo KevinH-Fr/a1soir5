@@ -20,15 +20,15 @@
         <%= form.text_field :nom, required: true, class:"form-control field-with-format" %>
       </div>
 
-          <div class="input-group mb-1 me-1">
-            <%= form.label :type, class:"input-group-text label-with-format" %>
-            <%= form.select(:typepropart, Client.typeproparts.keys, {include_blank: false},
-                class:"form-select field-with-format") %> 
+      <div class="input-group mb-1 me-1">
+        <%= form.label :type, class:"input-group-text label-with-format" %>
+        <%= form.select(:typepropart, Client.typeproparts.keys, {include_blank: false},
+            class:"form-select field-with-format") %> 
 
-            <%= form.label :intitule, class:"input-group-text label-with-format" %>
-            <%= form.select(:intitule, Client.intitules.keys,{include_blank: true},
-                class:"form-select field-with-format") %> 
-          </div>
+        <%= form.label :intitule, class:"input-group-text label-with-format" %>
+        <%= form.select(:intitule, Client.intitules.keys,{include_blank: true},
+            class:"form-select field-with-format") %> 
+      </div>
 
 
       <%# pour personne contact client pro %>

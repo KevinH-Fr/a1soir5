@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :postbis
 
   # partie publique
@@ -49,6 +50,13 @@ Rails.application.routes.draw do
           as: :send_client_mail
       post :edit
       get :nouveau_client
+    end
+  end
+
+  resources :fournisseurs do
+    member do
+      post :edit
+      #get :nouveau_fournisseur
     end
   end
 
