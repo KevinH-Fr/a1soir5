@@ -1,15 +1,29 @@
-<h5>    stats </h5>
 
+<%= render "shared/dateFilter" %>
 
-to do : 
+<div class="bloc-record">
+  <div class="cadre-interieur">
 
-ajouter une synthese chiffrées :
-- nb produit acheté (ref x quantité)
-- montant dépensé
+    <strong> Statistiques </strong> <br>
+  
+    nombre : <%= @nbProduits %> <br>
+    valeur : <%= @valProduits %> <br>
+    premier achat : <%= @premierAchat.dateachat.strftime("%d/%m/%y") if @premierAchat.present? %> <br>
+    dernier achat : <%= @dernierAchat.dateachat.strftime("%d/%m/%y") if @dernierAchat.present? %> <br>
 
-graphs avec 
-- nb achat pie 
-- montant bar
-- montant line 
+  </div>
 
-filtres dates sur valeurs textes et sur graphs (et sur liste produits)
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 m-0 p-1">
+        <%= render "charts/chartPieFournisseur" %>
+        </div>
+        <div class="col-md-4 m-0 p-1">
+        <%= render "charts/chartBarFournisseur" %>
+        </div>
+        <div class="col-md-4 m-0 p-1">
+        <%= render "charts/chartLineFournisseur" %>
+        </div>
+    </div>
+  </div>
+</div>

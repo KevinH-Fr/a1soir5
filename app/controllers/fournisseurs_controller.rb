@@ -10,7 +10,104 @@ class FournisseursController < ApplicationController
   end
 
   def show
-    @produits = Produit.fournisseur_courant(@fournisseur)
+
+    datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+    datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+    @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+    @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+
+    if datedebut.present? && datefin.present? 
+
+      @produits = Produit.filtredatedebut(datedebut).filtredatefin(datefin).fournisseur_courant(@fournisseur)
+      @nbProduits = @produits.compte_produits
+      @valProduits = 0
+      @produits.each do |produit|
+        @valProduits += produit.quantite * produit.prixachat
+      end
+
+      @nbSoiree =  @produits.categorie_robes_soirees.compte_produits
+      @nbMariee =  @produits.categorie_robes_mariees.compte_produits
+      @nbCostume =  @produits.categorie_costumes_hommes.compte_produits
+      @nbAccessoire =  @produits.categorie_accessoires.compte_produits
+      @nbDeguisement =  @produits.categorie_costumes_deguisements.compte_produits
+
+      @valSoiree = 0
+      @produits.categorie_robes_soirees.each do |produit|
+        @valSoiree += produit.quantite * produit.prixachat
+      end
+
+      @valMariee = 0
+      @produits.categorie_robes_mariees.each do |produit|
+        @valMariee += produit.quantite * produit.prixachat
+      end
+
+      @valCostume = 0
+      @produits.categorie_costumes_hommes.each do |produit|
+        @valCostume += produit.quantite * produit.prixachat
+      end
+
+      @valAccessoire = 0
+      @produits.categorie_accessoires.each do |produit|
+        @valAccessoire += produit.quantite * produit.prixachat
+      end
+      
+      @valDeguisement = 0
+      @produits.categorie_costumes_deguisements.each do |produit|
+        @valDeguisement += produit.quantite * produit.prixachat
+      end
+      
+      @groupedByDateFournisseur = @produits.group("DATE(dateachat)").sum("prixachat * quantite")
+
+      @premierAchat = @produits.order(dateachat: :asc).first
+      @dernierAchat = @produits.order(dateachat: :desc).first
+    
+    else
+    
+      @produits = Produit.fournisseur_courant(@fournisseur)
+      @nbProduits = @produits.compte_produits
+      @valProduits = 0
+      @produits.each do |produit|
+        @valProduits += produit.quantite * produit.prixachat
+      end
+
+      @nbSoiree = @produits.categorie_robes_soirees.compte_produits
+      @nbMariee = @produits.categorie_robes_mariees.compte_produits
+      @nbCostume = @produits.categorie_costumes_hommes.compte_produits
+      @nbAccessoire = @produits.categorie_accessoires.compte_produits
+      @nbDeguisement = @produits.categorie_costumes_deguisements.compte_produits
+
+      @valSoiree = 0
+      @produits.categorie_robes_soirees.each do |produit|
+        @valSoiree += produit.quantite * produit.prixachat
+      end
+
+      @valMariee = 0
+      @produits.categorie_robes_mariees.each do |produit|
+        @valMariee += produit.quantite * produit.prixachat
+      end
+
+      @valCostume = 0
+      @produits.categorie_costumes_hommes.each do |produit|
+        @valCostume += produit.quantite * produit.prixachat
+      end
+
+      @valAccessoire = 0
+      @produits.categorie_accessoires.each do |produit|
+        @valAccessoire += produit.quantite * produit.prixachat
+      end
+      
+      @valDeguisement = 0
+      @produits.categorie_costumes_deguisements.each do |produit|
+        @valDeguisement += produit.quantite * produit.prixachat
+      end
+      
+      @groupedByDateFournisseur = @produits.group("DATE(dateachat)").sum("prixachat * quantite")
+
+      @premierAchat = @produits.order(dateachat: :asc).first
+      @dernierAchat = @produits.order(dateachat: :desc).first
+
+    end
+
   end
 
   def new

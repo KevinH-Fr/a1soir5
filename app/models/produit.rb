@@ -45,7 +45,12 @@ class Produit < ApplicationRecord
     scope :taille_selected, ->  (tailleVal) { where("taille = ?", tailleVal)}
 
     scope :fournisseur_courant, ->  (fournisseur_courant) { where("fournisseur_id = ?", fournisseur_courant)}
+    scope :compte_produits, -> {sum('quantite')}
 
+    # filtres analyses
+    scope :filtredatedebut, -> (debut) { where("dateachat >= ?", debut) }
+    scope :filtredatefin, -> (fin) { where("dateachat <= ?", fin) }
+        
     def full_name
         "n°#{id} | #{nom} "
     end

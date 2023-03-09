@@ -1,0 +1,71 @@
+
+  <div class="chartBox mx-auto">
+    <canvas id="myChartBarFournisseur"></canvas>
+  </div>
+
+  <% @data = [@valSoiree, @valMariee, @valCostume, @valAccessoire, @valDeguisement] %>
+ 
+<script>
+   
+  var couleur1 = 'rgb(22, 156, 246)';
+  var couleur2 = 'rgb(19, 185, 212)';
+  var couleur3 = 'rgb(33, 235, 208)';
+  var couleur4 = 'rgb(19, 212, 131)';
+  var couleur5 = 'rgb(22, 246, 89)';
+  var couleur6 = 'rgb(245, 146, 59)';
+
+// CHART BAR
+    var dataBarFournisseur = {
+      labels: ['soirée', 'mariée', 'costume', 'accessoire', 'déguisement'],
+      datasets: [{
+      
+        data: <%= @data.to_json.html_safe %>,
+        fill: true,
+        backgroundColor: [ couleur1, couleur2 ],
+        borderWidth: 1
+      }]
+    };
+
+    var delayedBarFournisseur;
+
+    var configBarFournisseur = {
+      type: 'bar',
+      data: dataBarFournisseur,
+      options: {
+
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        aspectRatio: 1,
+
+         animation: {
+                onComplete: () => {
+                    delayed = true;
+                },
+                delay: (context) => {
+                    let delay = 0;
+                    if (context.type === 'data' && context.mode === 'default' && !delayedBarFournisseur) {
+                    delay = context.dataIndex * 2000  + context.datasetIndex * 10;
+                    }
+                    return delay;
+                },
+            },
+
+            borderColor:'rgb(0, 0, 0)',
+            pointBorderWidth: 1,
+            pointHoverBorderWidth: 20,
+            lineTension: 0.4,
+
+          }
+      };
+
+        // render init block
+    var myChartBarFournisseur = new Chart(
+      document.getElementById('myChartBarFournisseur'),
+      configBarFournisseur
+    );
+
+
+</script>

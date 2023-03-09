@@ -1,0 +1,64 @@
+
+  <div class="chartBox mx-auto">
+    <canvas id="myChartLineFournisseur"></canvas>
+  </div>
+
+  <%# @data = Article.group('DATE(created_at)').sum('quantite') %>
+
+<script>
+   
+  var couleur1 = 'rgb(40, 159, 130)';
+  var couleur2 = 'rgb(66, 95, 87)';
+
+// CHART BAR
+    var dataLineFournisseur = {
+      datasets: [{
+        data: <%= @groupedByDateFournisseur.to_json.html_safe %>,
+        fill: true,
+        backgroundColor: [couleur2, couleur1],
+        borderWidth: 1
+      }]
+    };
+
+    var delayedLineFournisseur;
+
+    var configLineFournisseur = {
+      type: 'line',
+      data: dataLineFournisseur,
+      options: {
+
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        aspectRatio: 1,
+
+         animation: {
+                onComplete: () => {
+                    delayed = true;
+                },
+                delay: (context) => {
+                    let delay = 0;
+                    if (context.type === 'data' && context.mode === 'default' && !delayedLineFournisseur) {
+                    delay = context.dataIndex * 2000  + context.datasetIndex * 10;
+                    }
+                    return delay;
+                },
+            },
+
+            borderColor:'rgb(0, 0, 0)',
+            pointBorderWidth: 1,
+            pointHoverBorderWidth: 20,
+            lineTension: 0.4,
+
+          }
+      };
+
+        // render init block
+    var myChartLineFournisseur = new Chart(
+      document.getElementById('myChartLineFournisseur'),
+      configLineFournisseur
+    );
+
+</script>
