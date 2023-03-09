@@ -198,7 +198,13 @@ class ProduitsController < ApplicationController
 
     def produit_params
       params.require(:produit).permit(:nom, :prix, :prixlocation, :caution, :description, :categorie, 
-          :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :dateachat, :prixachat, :typearticle)
+          :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :dateachat, :prixachat, :typearticle, images: [])
+    end
+
+    def attach_images
+      Array(params[:produit][:images]).each do |image|
+        @produit.images.attach(image)
+      end
     end
 end
 

@@ -136,6 +136,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :posts # pour tests
+
   resources :paiements do
     member do 
       post :edit

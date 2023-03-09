@@ -3,9 +3,24 @@
   <div class="bloc-record">
 
     <div class="row">
+
+
       <div class="col-5">
         <%= image_tag(@produit.default_image, class:"img-fluid rounded-start image-produit-sized-large")  %> 
-      </div>
+   
+
+
+        <p>
+          <strong>Images:</strong>
+          <% if @produit.images.attached? %>
+            <% @produit.images.each do |image| %>
+              <%= image_tag image, width: "200px" %>
+            <% end %>
+          <% end %>
+        </p>
+         
+     </div>
+
       <div class="col-7">
         <div class="card-body text-center">
           <h5 class="card-title text-dark me-4 text-center">

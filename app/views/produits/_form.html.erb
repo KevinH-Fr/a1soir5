@@ -83,9 +83,18 @@
 
 
     <div class="input-group mb-1">
-      <%= form.label :image1, class:"input-group-text label-with-format" %>
-        <%= form.file_field :image1, class:"form-control m-1 p-1" %>
+      <%= form.label :image, class:"input-group-text label-with-format" %>
+      <%= form.file_field :image1, class:"form-control m-1 p-1" %>
     </div>
+
+
+    
+    <div class="input-group mb-1">
+      <%= form.label :images, class:"input-group-text label-with-format" %>
+      <%= form.file_field :images, multiple: true, class:"form-control m-1 p-1" %>
+    </div>
+
+
 
     <div class="container-fluid text-center">
       <%= image_tag(produit.default_image, class: "img-fluid w-25") %>

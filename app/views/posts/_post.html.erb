@@ -1,0 +1,33 @@
+<div id="<%= dom_id post %>">
+  <p>
+    <strong>Name:</strong>
+    <%= post.name %>
+  </p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= post.title %>
+  </p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= post.content %>
+  </p>
+
+  <p>
+    <strong>Avatar:</strong>
+    <%= image_tag post.avatar, width: "200px" if post.avatar.attached? %>
+  </p>
+
+
+  <p>
+    <strong>Images:</strong>
+    <% if post.images.attached? %>
+      <% post.images.each do |image| %>
+        <%= image_tag image, width: "200px" %>
+      <% end %>
+    <% end %>
+  </p>
+
+
+</div>

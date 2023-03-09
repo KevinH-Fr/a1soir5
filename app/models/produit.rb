@@ -2,6 +2,9 @@ class Produit < ApplicationRecord
    # has_many :ensembles
 
     has_one_attached :image1
+
+    has_many_attached :images
+    
     has_one_attached :qr_code
 
     after_create :generate_qr

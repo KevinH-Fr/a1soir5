@@ -41,6 +41,8 @@ gem "wkhtmltopdf-heroku", group: :production
 gem "rqrcode", "~> 2.1"
 gem 'chartjs-ror', '~> 2.2'
 
+#gem 'image_processing'
+
 gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
