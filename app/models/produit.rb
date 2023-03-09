@@ -60,12 +60,13 @@ class Produit < ApplicationRecord
     end 
 
     def default_image
-        if self.image1.filename.to_s.length > 0 
-            image1
+        if images.attached?
+          images.first
         else
-            "no_photo.png"
+          'no_photo.png'
         end
     end
+      
 
     def statut_vitrine
         if self.vitrine == true

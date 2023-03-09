@@ -1,0 +1,8 @@
+ <div class="d-flex centered bg-light rounded shadowed">
+
+    <% if @produit.images.attached? %>
+        <% @produit.images.each do |image| %>
+            <%= image_tag image, width: "200px", class:"m-2 p-2" %>
+        <% end %>
+    <% end %>
+</div>

@@ -4,22 +4,10 @@
 
     <div class="row">
 
-
       <div class="col-5">
-        <%= image_tag(@produit.default_image, class:"img-fluid rounded-start image-produit-sized-large")  %> 
-   
-
-
-        <p>
-          <strong>Images:</strong>
-          <% if @produit.images.attached? %>
-            <% @produit.images.each do |image| %>
-              <%= image_tag image, width: "200px" %>
-            <% end %>
-          <% end %>
-        </p>
-         
-     </div>
+        <%#= image_tag(@produit.default_image, class:"img-fluid rounded-start image-produit-sized-large")  %> 
+        <%= image_tag @produit.images.first, width: "200px", class:"rounded shadowed" if @produit.images.attached? %>
+      </div>
 
       <div class="col-7">
         <div class="card-body text-center">
@@ -88,6 +76,20 @@
         </div>
       </div>
     </div>
+
+    <div data-controller="dropdown">
+      <div data-dropdown-target="dropdownContent">
+        <%= render "images" %>
+      </div>
+       
+      <div role="button" data-action="click->dropdown#openDropdown" 
+        data-dropdown-target="openButton", class="fa-solid fa-eye btn btn-outline-primary btn-action">
+      </div>
+      <div role="button" data-action="click->dropdown#closeDropdown" 
+        data-dropdown-target="closeButton", class="fa-solid fa-eye-slash btn btn-outline-primary btn-action">
+      </div>
+    </div>
+
 
     <div class="container-fluid text-end">
 
