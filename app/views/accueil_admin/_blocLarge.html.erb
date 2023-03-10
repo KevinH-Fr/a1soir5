@@ -16,16 +16,12 @@
     
     <div class="centered m-2 p-2">
 
-<%
-=begin%>
        <%= link_to(users_path, class:"btn btn-primary btns-bloc-dashboard") do %>
         <i class="fa fa-user-circle"></i>
         <span class="btns-texte-bloc-dashboard"> 
           Comptes 
         </span>
       <% end %> 
-<%
-=end%>
               
       <%= link_to(profiles_path, class:"btn btn-dark btns-bloc-dashboard") do %>
         <i class="fa fa-user-gear"></i>
@@ -45,6 +41,13 @@
         <i class="fa fa-chart-line"></i>
         <span class="btns-texte-bloc-dashboard"> 
           Analyses 
+        </span>
+      <% end %>
+
+      <%= link_to("etiquettes", class:"btn btn-secondary btns-bloc-dashboard") do %>
+        <i class="fa fa-tags"></i>
+        <span class="btns-texte-bloc-dashboard"> 
+          Etiquettes 
         </span>
       <% end %>
 

@@ -1,0 +1,41 @@
+
+<div class="bloc-entete-model">
+  <div class="card card-header entete-index m-0 p-1">
+   Etiquettes
+  </div>
+</div>
+
+<div class="bloc-record">
+
+  <%#= form_tag url_for, method: :get do %>
+    <%= form_tag edition_etiquettes_path, method: :get, format: :pdf do %>
+      <div class="input-group mb-1">
+        <%= label_tag :prod1, " Produit n°1", class:"input-group-text label-with-format centered" %>
+        <%= select_tag :prod1, options_for_select(@produits.map {|p| [p.nom_ref_couleur_taille, p.id]}), 
+            prompt: "Selectionner un produit", class: "form-select field-with-format" %>
+      </div>
+
+      <div class="input-group mb-1">
+        <%= label_tag :prod2, " Produit n°2", class:"input-group-text label-with-format centered" %>
+        <%= select_tag :prod2, options_for_select(@produits.map {|p| [p.nom_ref_couleur_taille, p.id]}), 
+            prompt: "Selectionner un produit", class: "form-select field-with-format" %>
+      </div>
+
+      <div class="input-group mb-1">
+        <%= label_tag :prod3, " Produit n°3", class:"input-group-text label-with-format centered" %>
+        <%= select_tag :prod3, options_for_select(@produits.map {|p| [p.nom_ref_couleur_taille, p.id]}), 
+            prompt: "Selectionner un produit", class: "form-select field-with-format" %>
+      </div>
+
+      <div class="input-group mb-1">
+        <%= label_tag :prod4, " Produit n°4", class:"input-group-text label-with-format centered" %>
+        <%= select_tag :prod4, options_for_select(@produits.map {|p| [p.nom_ref_couleur_taille, p.id]}), 
+            prompt: "Selectionner un produit", class: "form-select field-with-format" %>
+      </div>
+
+      <div class="text-end">
+        <%= submit_tag "Go", class:"btn btn-sm btn-primary rounded mx-1" %>
+      </div>
+    <% end %>
+
+</div>
