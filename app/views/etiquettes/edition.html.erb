@@ -1,49 +1,51 @@
 
-<%# tempo poru test html %>
-<% @produit = Produit.find(@produitId)%>
 
-<table class="table-etiquette">
-  <thead> 
-    <tr>
-      <th class="th-etiquette shadowed" colspan="2">
-        <%= image_tag(@produit.default_image, class:"img-etiquette") %> 
-      </th>
-    </tr>
-  </thead>
+<% @produits = [@produit1, @produit2, @produit3, @produit4] %>
 
-  <tbody> 
-    <tr>
+<% @produits.each do |produit| %>
+  <div style="display: inline-block;">
 
-      <td class="td-etiquette middled shadowed" colspan="1">
-        <h4 class="bolded"> <%= @produit.nom %> </h4> 
-      
-        <span>Location : <%= number_to_currency(@produit.prixlocation, locale: :fr, precision: 0) %></span> /
-        <span>Vente : <%= number_to_currency(@produit.prix, locale: :fr, precision: 0) %></span>
-       
-        <div class="td-etiquette middled centered">  
-          Taille(s) :
-          <span class="taille-active"> <%= @produit.taille %></span>
-          <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
-            <span class="taille-alternative"> 
-              <% taillesAutresProduits.each do |produit| %>
-                  <%= produit.taille %>
-              <% end %>
-            </span>
-          <% end %>
-        </div>
-      </td>
+      <% @produit = produit %> <%# passer @produit dans l'helper pour autres tailles %>
+      <table class="table-etiquette">
+          <thead> 
+            <tr>
+              <th class="th-etiquette shadowed" colspan="2">
+                <%= image_tag(produit.default_image, class:"img-etiquette") %> 
+              </th>
+            </tr>
+          </thead> 
+          
+          <tbody> 
+            <tr>
+              <td class="td-etiquette middled shadowed" colspan="1">
+                <h4 class="bolded"> <%= produit.nom %> </h4> 
+                <span>Location : <%= number_to_currency(produit.prixlocation, locale: :fr, precision: 0) %></span> /
+                <span>Vente : <%= number_to_currency(produit.prix, locale: :fr, precision: 0) %></span>
+              
+                <div class="td-etiquette middled centered">  
+                  Taille(s) :
+                   <% if produit.taille.present? %>
+                    <span class="taille-active"> <%= produit.taille %></span>
+                  <% end %> <br>
+                  <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
+                    <span class="taille-alternative"> 
+                      <% taillesAutresProduits.each do |produit| %>
+                          <%= produit.taille %>
+                      <% end %>
+                    </span>
+                  <% end %>
+                </div>
+              </td>
+              <td class="td-etiquette middled centered shadowed">
+                <%= image_tag(produit.qr_code, class:"img-qr-etiquette") if produit.qr_code.attached? %>
+              </td>
+            </tr>
+          </tbody> 
+        </table>
 
-      <td class="td-etiquette middled centered shadowed">
-        <%= image_tag(@produit.qr_code, class:"img-qr-etiquette") if @produit.qr_code.attached? %>
-      </td>
+  </div>
+<% end %>
 
-    </tr>
-    
-  </tbody>
-  
-</table>
-
-
-<%= link_to "", url_for(format: :pdf), 
-      class:"fa-solid fa-file-export btn btn-sm btn-primary",
+<%= link_to "", url_for(prod1: @produit1, prod2: @produit2, prod3: @produit3, prod4: @produit4, format: :pdf), 
+      class:"fa-solid fa-file-pdf btn btn-sm btn-danger",
       title: "Editer étiquette" %> 

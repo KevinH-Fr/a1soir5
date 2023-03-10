@@ -49,30 +49,6 @@ class ProduitsController < ApplicationController
       @valVentes = @articlesFiltres.articlesVendus.sum_articles
       @groupedByDateProduit = @articlesFiltres.group('DATE(created_at)').sum('total')
 
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "etiquette #{@produitId}", # filename
-          :margin => {
-            :top => 5,
-            :bottom => 5
-          },
-          
-          :template => "produits/etiquette",
-            footer:  { 
-              html: { 
-                template:'shared/doc_footer',  
-                formats: [:html],      
-                layout:  'pdf',  
-              },
-            },
-          
-            formats: [:html],
-            layout: 'pdf'
-      end
-    end
-
   end
 
   def new
