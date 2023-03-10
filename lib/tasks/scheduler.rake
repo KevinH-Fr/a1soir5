@@ -6,7 +6,7 @@ task :meetings_reminders => :environment do
         "start_time > ?", Time.now)
 
     @meetings_h24 = Meeting.where(
-        "start_time > ?", Date.tomorrow)
+        "start_time = ?", Date.tomorrow)
 
     @meetings_h24.each do | meeting | 
         MeetingMailer.with(meeting: meeting)

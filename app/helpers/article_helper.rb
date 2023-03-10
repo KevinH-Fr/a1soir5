@@ -10,7 +10,7 @@ module ArticleHelper
      # nb loc du produit courant dont les dates de locs se superposent avec la commande courante
       dateDebut = Commande.find(commandeId).debutloc
       valDate = dateDebut.to_date if dateDebut.present?
-      louesPeriode = Commande.a_date(valDate).joins(:articles)
+      louesPeriode = Commande.hors_devis.a_date(valDate).joins(:articles)
         .merge(Article.produit_courant(article)).sum(:quantite) 
     end 
      

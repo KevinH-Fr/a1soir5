@@ -68,6 +68,13 @@
         <%= form.select(:statutarticles, Commande.statutarticleses.keys,  {include_blank: false},
           class:"form-select field-with-format") %> 
       </div>
+
+      <div class="form-check form-switch">
+        <div class="custom-control custom-switch">
+          <%= form.check_box :devis, class:"form-check-input", id: "devis" %>
+          <label class="text-dark" for="devis">devis</label>
+        </div>
+      </div>
   
       <div class="float-end mt-2 mb-4">
 

@@ -3,21 +3,15 @@
   <div class="cadre-interieur">
 
     <strong> STOCK </strong> <br>
-    <% @produitId = params[:id]%>
-    <% locations = Article.produit_courant(@produitId).articlesLoues.compte_articles %> 
-    <% ventes = Article.produit_courant(@produitId).articlesVendus.compte_articles %> 
+   
+    initial : <%= @initial %> /
+    restant : <%= @initial.to_i - @louesAvenir.to_i - @ventes.to_i %> <br>
   
-    <% louesTermines = Commande.termine.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
-    <% louesAvenir = Commande.a_venir.joins(:articles).merge(Article.produit_courant(@produitId).articlesLoues).sum(:quantite) %> 
-
-    initial : <%= initial = Produit.find(@produitId).quantite %> /
-    restant : <%= initial.to_i - louesAvenir.to_i - ventes.to_i %> <br>
+    nb locations : <%= @totLocations %> 
+    nb ventes : <%= @totVentes %> <br>
   
-    nb locations : <%= locations %> 
-    nb ventes : <%= ventes %> <br>
-  
-    loc terminées: <%= louesTermines  %> /
-    loc à venir: <%= louesAvenir %> <br>
+    loc terminées: <%= @louesTermines  %> /
+    loc à venir: <%= @louesAvenir %> <br>
 
   </div>
 </div>

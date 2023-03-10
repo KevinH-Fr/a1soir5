@@ -4,7 +4,6 @@ class CommandesController < ApplicationController
     
   before_action :set_commande, only: %i[ show edit update destroy ]
 
-
   def index
 
     search_params = params.permit(:format, :page, 
@@ -12,7 +11,6 @@ class CommandesController < ApplicationController
     @q = Commande.includes(:client, :profile).ransack(search_params[:q])
     commandes = @q.result(distinct: true).order(created_at: :desc)
     @pagy, @commandes = pagy_countless(commandes, items: 2)
-
 
   end
 
@@ -23,7 +21,6 @@ class CommandesController < ApplicationController
     @avoirrembs = Avoirremb.commande_courante(@commande)
     @sousarticles = Sousarticle.all
 
-
     @typedocs = ["bon de commande", "facture", "facture simple"]
     @client = Client.client_courant(@commande.client_id)
 
@@ -33,7 +30,6 @@ class CommandesController < ApplicationController
     @meetings = Meeting.commande_courante(@commande)
     @meeting = Meeting.new
 
-
   end
 
   def new 
@@ -41,7 +37,6 @@ class CommandesController < ApplicationController
     @clients = Client.all
     @clientId = params[:clientId]
 
-    
   end
 
   def edit
@@ -208,7 +203,6 @@ class CommandesController < ApplicationController
       redirect_to commande_path(commande, typedoc: typedoc)
 
   end 
-  
 
   private
     def set_commande
@@ -217,6 +211,6 @@ class CommandesController < ApplicationController
 
     def commande_params
       params.fetch(:commande, {}).permit(:nom, :montant, :client_id, :location, :debutloc, :finloc, 
-        :dateevenement, :typeevenement, :statutarticles, :profile_id, :commentairesdoc, :textefasimpledoc)
+        :dateevenement, :typeevenement, :statutarticles, :profile_id, :commentairesdoc, :textefasimpledoc, :devis)
     end
 end

@@ -23,6 +23,9 @@ class Commande < ApplicationRecord
     # disponibilité des produits :
     # scope :periode_loc, -> {where("finloc <= ?", Date.current, 30.days.from_now)}
 
+    #ajouter un scope devis = false pour ne pas retenir dans les calculs dispo les commandes devis
+    scope :hors_devis, ->  { where("devis = ?", false)}
+
     scope :a_venir, -> { where('finloc >= ?', Date.current) }
     scope :termine, -> { where('finloc <= ?', Date.current) }
     scope :a_date, -> (a_date) { where('finloc >= ?', a_date) }

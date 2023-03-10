@@ -25,29 +25,29 @@ class ProduitsController < ApplicationController
 
     @initial = Produit.find(@produitId).quantite
 
+    #totaux hors filtres :
+    @articlesFiltres = Article.produit_courant(@produitId)
+    @totLocations =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
+    @totVentes =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles 
+    @louesTermines = Commande.hors_devis.termine.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
+    @louesAvenir = Commande.hors_devis.a_venir.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
+
+
+
     if datedebut.present? && datefin.present? 
-      # ajotuer les osus articles car les produits peuvent passer en sous article ?
-      @nbTotal = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).compte_articles
-      @locations = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesLoues.compte_articles
-      @ventes = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesVendus.compte_articles
-   
-      @valTotal = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).sum_articles
-      @valLocations = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesLoues.sum_articles
-      @valVentes = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).articlesVendus.sum_articles
-      @groupedByDateProduit = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin).group('DATE(created_at)').sum('total')
-
+      @articlesFiltres = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin)
     else
-        # ajotuer les osus articles car les produits peuvent passer en sous article ?
-      @nbTotal = Article.produit_courant(@produitId).compte_articles
-      @locations = Article.produit_courant(@produitId).articlesLoues.compte_articles
-      @ventes = Article.produit_courant(@produitId).articlesVendus.compte_articles
-   
-      @valTotal = Article.produit_courant(@produitId).sum_articles
-      @valLocations = Article.produit_courant(@produitId).articlesLoues.sum_articles
-      @valVentes = Article.produit_courant(@produitId).articlesVendus.sum_articles
-      @groupedByDateProduit = Article.produit_courant(@produitId).group('DATE(created_at)').sum('total')
-
+      @articlesFiltres = Article.produit_courant(@produitId)
     end
+    
+      # ajotuer les osus articles car les produits peuvent passer en sous article ?
+      @nbTotal =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).compte_articles
+      @locations = @articlesFiltres.articlesLoues.compte_articles
+      @ventes = @articlesFiltres.articlesVendus.compte_articles
+      @valTotal = @articlesFiltres.sum_articles
+      @valLocations = @articlesFiltres.articlesLoues.sum_articles
+      @valVentes = @articlesFiltres.articlesVendus.sum_articles
+      @groupedByDateProduit = @articlesFiltres.group('DATE(created_at)').sum('total')
 
 
     respond_to do |format|

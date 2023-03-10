@@ -22,7 +22,9 @@ class Article < ApplicationRecord
   # filtres analyses
   scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
   scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
-   
+  
+  scope :filtredatedebut, -> (debut) { where("articles.created_at >= ?", debut) }
+  scope :filtredatefin, -> (fin) { where("articles.created_at <= ?", fin) }
       
   after_initialize :set_defaults
 
