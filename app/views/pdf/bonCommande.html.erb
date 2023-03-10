@@ -7,6 +7,8 @@
       <%= @messagemail.typedoc %> 
       <% @commande = Commande.find(@messagemail.commande_id) %>
       <%= @commande.texte_record %>
+
+      <%= " | devis" if Commande.find(@messagemail.commande_id).devis? %>
     </h4>
 
     <%= render "pdf/docInfosCommande" %>

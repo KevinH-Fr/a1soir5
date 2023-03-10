@@ -87,6 +87,12 @@
               </span>
             <% end %>
 
+            <% if Commande.find(commande.id).devis == true %>
+              <span title="devis", class="badge badge-infos-second bg-warning text-light">
+                <span class="me-1"> devis </span> 
+              </span>
+            <% end %>
+
           </div>
         </div>
 

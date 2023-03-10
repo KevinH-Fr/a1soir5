@@ -48,18 +48,14 @@ class AccueilAdminController < ApplicationController
       @nbTotalArticles = @articlesFiltres.compte_articles
       @nbLoc =   @articlesFiltres.articlesLoues.compte_articles 
       @nbVente =  @articlesFiltres.articlesVendus.compte_articles 
-
-      # reprendre corriger erreur date created at ambigous
-      #  @groupedByDateArticles =  @articlesFiltres.group('DATE(created_at)').sum('quantite')
+      @groupedByDateArticles =  @articlesFiltres.group('DATE(articles.created_at)').sum('quantite')
 
       #  ca : 
       @totalCa = @articlesFiltres.sum_articles + @sousArticlesFiltres.sum_sousarticles
       @totalLoc =  @articlesFiltres.articlesLoues.sum_articles + @sousArticlesFiltres.sum_sousarticles
       # en l'etat les sous articles passent que à la vente dans le calcul?
-      @totalVente =  @articlesFiltres.sum_articles 
-
-        # reprendre corriger erreur date created at ambigous
-    #  @groupedByDateCa =  @articlesFiltres.group('DATE(created_at)').sum('total')
+      @totalVente =  @articlesFiltres.articlesVendus.sum_articles 
+      @groupedByDateCa =  @articlesFiltres.group('DATE(articles.created_at)').sum('total')
    
       # paiements 
       @totalPaiements =  @paiementsFiltres.sum_paiements

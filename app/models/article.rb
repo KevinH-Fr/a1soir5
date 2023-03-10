@@ -20,9 +20,6 @@ class Article < ApplicationRecord
   scope :articlesVendus, -> { where("Locvente = ?", "vente")}
 
   # filtres analyses
-  scope :filtredatedebut, -> (debut) { where("created_at >= ?", debut) }
-  scope :filtredatefin, -> (fin) { where("created_at <= ?", fin) }
-  
   scope :filtredatedebut, -> (debut) { where("articles.created_at >= ?", debut) }
   scope :filtredatefin, -> (fin) { where("articles.created_at <= ?", fin) }
       
