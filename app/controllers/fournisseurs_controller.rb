@@ -25,7 +25,7 @@ class FournisseursController < ApplicationController
       @nbProduits = @produits.compte_produits
       @valProduits = 0
       @produits.each do |produit|
-        @valProduits += produit.quantite * produit.prixachat
+        @valProduits += produit.quantite * produit.prixachat.to_d
       end
 
       @nbSoiree =  @produits.categorie_robes_soirees.compte_produits

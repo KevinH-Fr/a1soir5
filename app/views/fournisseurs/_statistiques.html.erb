@@ -8,8 +8,8 @@
   
     nombre : <%= @nbProduits %> <br>
     valeur : <%= @valProduits %> <br>
-    premier achat : <%= @premierAchat.dateachat.strftime("%d/%m/%y") if @premierAchat.present? %> <br>
-    dernier achat : <%= @dernierAchat.dateachat.strftime("%d/%m/%y") if @dernierAchat.present? %> <br>
+    premier achat : <%= @premierAchat.dateachat.strftime("%d/%m/%y") if @premierAchat.dateachat.present? %> <br>
+    dernier achat : <%= @dernierAchat.dateachat.strftime("%d/%m/%y") if @dernierAchat.dateachat.present? %> <br>
 
   </div>
 
