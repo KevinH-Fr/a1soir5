@@ -6,42 +6,46 @@
   <div style="display: inline-block;">
 
       <% @produit = produit %> <%# passer @produit dans l'helper pour autres tailles %>
-      <table class="table-etiquette">
-          <thead> 
-            <tr>
-              <th class="th-etiquette shadowed" colspan="2">
-                <%= image_tag(produit.default_image, class:"img-etiquette") %> 
-              </th>
-            </tr>
-          </thead> 
-          
-          <tbody> 
-            <tr>
-              <td class="td-etiquette middled shadowed" colspan="1">
-                <h4 class="bolded"> <%= produit.nom %> </h4> 
-                <span>Location : <%= number_to_currency(produit.prixlocation, locale: :fr, precision: 0) %></span> /
-                <span>Vente : <%= number_to_currency(produit.prix, locale: :fr, precision: 0) %></span>
-              
-                <div class="td-etiquette middled centered">  
-                  Taille(s) :
-                   <% if produit.taille.present? %>
-                    <span class="taille-active"> <%= produit.taille %></span>
-                  <% end %> <br>
-                  <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
-                    <span class="taille-alternative"> 
-                      <% taillesAutresProduits.each do |produit| %>
-                          <%= produit.taille %>
+
+      <% if produit.present? %>
+        <table class="table-etiquette">
+            <thead> 
+              <tr>
+                <th class="th-etiquette shadowed" colspan="2">
+                  <%= image_tag(produit.default_image, class:"img-etiquette") if produit.present? %> 
+                </th>
+              </tr>
+            </thead> 
+            
+            <tbody> 
+              <tr>
+                <td class="td-etiquette middled shadowed" colspan="1">
+                  <h4 class="bolded"> <%= produit.nom if produit.present? %> </h4> 
+                  <span>Location : <%= number_to_currency(produit.prixlocation, locale: :fr, precision: 0) if produit.present? %></span> /
+                  <span>Vente : <%= number_to_currency(produit.prix, locale: :fr, precision: 0) if produit.present? %></span>
+                
+                  <div class="td-etiquette middled centered">  
+                    Taille(s) :
+                    <% if produit.present? %>
+                      <span class="taille-active"> <%= produit.taille %></span>
+                      <br>
+                      <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
+                        <span class="taille-alternative"> 
+                          <% taillesAutresProduits.each do |produit| %>
+                              <%= produit.taille %>
+                          <% end %>
+                        </span>
                       <% end %>
-                    </span>
-                  <% end %>
-                </div>
-              </td>
-              <td class="td-etiquette middled centered shadowed">
-                <%= image_tag(produit.qr_code, class:"img-qr-etiquette") if produit.qr_code.attached? %>
-              </td>
-            </tr>
-          </tbody> 
-        </table>
+                    <% end %>
+                  </div>
+                </td>
+                <td class="td-etiquette middled centered shadowed">
+                  <%= image_tag(produit.qr_code, class:"img-qr-etiquette") if produit.present? %>
+                </td>
+              </tr>
+            </tbody> 
+          </table>
+        <% end %>
 
   </div>
 <% end %>
