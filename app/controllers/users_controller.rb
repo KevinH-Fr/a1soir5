@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_status]
+  before_action :authenticate_vendeur_or_admin!
+  
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_status_user, :toggle_status_vendeur, :toggle_status_admin]
+
 
     def index
-       # call_action
+      @users = User.all.where(role: 0).order(:id)
+      @vendeurs = User.all.where(role: 1).order(:id)
+      @admins = User.all.where(role: 2).order(:id) 
     end 
 
     def show
@@ -28,20 +33,20 @@ class UsersController < ApplicationController
         
     end
 
-
-
-    def toggle_status
-
-      if @user.admin?
-        @user.user!
-      elsif @user.user?
-        @user.admin!
-      end
-
+    def toggle_status_user
+      @user.user!
       redirect_to users_url, notice: "le rôle a bien été modifié"
     end
 
+    def toggle_status_vendeur
+      @user.vendeur!
+      redirect_to users_url, notice: "le rôle a bien été modifié"
+    end
 
+    def toggle_status_admin
+      @user.admin!
+      redirect_to users_url, notice: "le rôle a bien été modifié"
+    end
       
     def editer_mail()
       @user = User.first
@@ -56,6 +61,13 @@ class UsersController < ApplicationController
 
 
       private
+
+      def authenticate_vendeur_or_admin!
+        unless current_user && (current_user.vendeur? || current_user.admin?)
+          redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+        end
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_user
         @user = User.find(params[:id])

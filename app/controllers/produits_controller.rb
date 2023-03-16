@@ -1,5 +1,7 @@
 class ProduitsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_vendeur_or_admin!
+
   before_action :set_produit, only: %i[ show edit update destroy ]
 
   def index
@@ -31,8 +33,6 @@ class ProduitsController < ApplicationController
     @totVentes =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles 
     @louesTermines = Commande.hors_devis.termine.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
     @louesAvenir = Commande.hors_devis.a_venir.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
-
-
 
     if datedebut.present? && datefin.present? 
       @articlesFiltres = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin)
@@ -169,6 +169,12 @@ class ProduitsController < ApplicationController
   end 
 
   private
+
+  def authenticate_vendeur_or_admin!
+    unless current_user && (current_user.vendeur? || current_user.admin?)
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
   
     def set_produit
       @produit = Produit.find(params[:id])

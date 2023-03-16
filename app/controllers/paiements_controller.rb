@@ -1,4 +1,8 @@
 class PaiementsController < ApplicationController
+
+  before_action :authenticate_user!
+  before_action :authenticate_vendeur_or_admin!
+
   before_action :set_paiement, only: %i[ show edit update destroy ]
 
   def index
@@ -71,6 +75,13 @@ class PaiementsController < ApplicationController
   end
 
   private
+
+  def authenticate_vendeur_or_admin!
+    unless current_user && (current_user.vendeur? || current_user.admin?)
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
+  
     def set_paiement
       @paiement = Paiement.find(params[:id])
     end

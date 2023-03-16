@@ -1,5 +1,7 @@
 class CommandesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_vendeur_or_admin!
+  
  # helper CommandesHelper #rendre disponible l'helper commande pour calculs synthese
     
   before_action :set_commande, only: %i[ show edit update destroy ]
@@ -205,6 +207,13 @@ class CommandesController < ApplicationController
   end 
 
   private
+
+  def authenticate_vendeur_or_admin!
+    unless current_user && (current_user.vendeur? || current_user.admin?)
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
+
     def set_commande
       @commande = Commande.find(params[:id])
     end

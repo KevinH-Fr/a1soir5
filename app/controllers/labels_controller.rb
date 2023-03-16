@@ -1,6 +1,9 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: %i[ show edit update destroy ]
 
+  before_action :authenticate_user!
+  before_action :authenticate_vendeur_or_admin!
+
   # GET /labels or /labels.json
   def index
     @labels = Label.all
@@ -91,6 +94,13 @@ class LabelsController < ApplicationController
   end
 
   private
+
+  
+  def authenticate_vendeur_or_admin!
+    unless current_user && (current_user.vendeur? || current_user.admin?)
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_label
       @label = Label.find(params[:id])

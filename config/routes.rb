@@ -36,7 +36,10 @@ Rails.application.routes.draw do
    
   resources :users do
     member do
-      get :toggle_status
+      #get :toggle_status
+      get :toggle_status_user
+      get :toggle_status_vendeur
+      get :toggle_status_admin
       get :editer_mail
     end
   end

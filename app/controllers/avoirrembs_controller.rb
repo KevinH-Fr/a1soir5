@@ -1,5 +1,7 @@
 class AvoirrembsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_vendeur_or_admin!
+  
   before_action :set_avoirremb, only: %i[ show edit update destroy ]
 
   # GET /avoirrembs or /avoirrembs.json
@@ -68,6 +70,13 @@ class AvoirrembsController < ApplicationController
   end
 
   private
+
+  def authenticate_vendeur_or_admin!
+    unless current_user && (current_user.vendeur? || current_user.admin?)
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_avoirremb
       @avoirremb = Avoirremb.find(params[:id])
