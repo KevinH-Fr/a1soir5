@@ -23,17 +23,26 @@ class MeetingsController < ApplicationController
         @meetings.each do | meeting |
 
           cal.event do |e|
-            e.dtstart     = meeting.start_time 
-            e.dtend       = meeting.end_time 
-            e.summary     = meeting.full_name 
+
+
+           e.last_modified = Time.now.utc
+
+           e.dtstart     = meeting.start_time 
+           e.dtend       = meeting.end_time 
+
+          # e.dtstart     = Icalendar::Values::DateTime.new(meeting.start_time, tzid: "Europe/Paris")
+          # e.dtend       = Icalendar::Values::DateTime.new(meeting.end_time, tzid: "Europe/Paris")
+         
+           e.summary     = meeting.full_name 
             e.description = meeting.full_details
             e.location    = meeting.lieu
-            e.uid         = "UNIQUE#{meeting.id.to_s}"
+            e.uid         = "UNIQUEv1#{meeting.id.to_s}"
             e.sequence    = Time.now.to_i
           end
         end
         
         cal.publish
+        response.headers['Content-Type'] = 'text/calendar; charset=UTF-8'
         render plain: cal.to_ical
         
       end 

@@ -53,6 +53,7 @@ class ProduitsController < ApplicationController
 
   def new
     @produit = Produit.new  
+    @fournisseurs = Fournisseur.all
 
         # valeur si duplicaiton produit 
         if params[:produitbase].present? 

@@ -6,7 +6,7 @@
           <%#= link_to "", root_path(), title: "site marchand", class:"fa-solid fa-cart-shopping iconcolor-neutre btn btn-sm" %>
         </div>
         <div class="col-6 p-0">
-          <span class="text-warning mx-2"> <%#= current_user.role %> </span> 
+          <span class="text-warning mx-2"> <%= current_user.role %> </span> 
         </div>
         <div class="col-3 m-0 p-0 text-end">
           <%= button_to "", destroy_user_session_path, method: :delete, 

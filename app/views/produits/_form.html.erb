@@ -32,6 +32,8 @@
         <%= form.label :fournisseur_id, class:"input-group-text label-with-format" %>
         <%= form.select :fournisseur_id, @fournisseurs.collect { |c| [ c.nom, c.id ]}, 
                   {include_blank: true}, {class: 'form-select field-with-format'} %>  
+        <%= link_to "Nouveau fournisseur", new_fournisseur_path, class:"btn btn-sm text-light bg-primary mx-2 fw-bold", target: "_blank" %>
+
       </div>
     <% end %>
 
