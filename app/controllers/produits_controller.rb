@@ -155,10 +155,17 @@ class ProduitsController < ApplicationController
       original = @produitBase
       copy = original.dup
       copy.nom = "#{original.nom}_new" # append "new" to the original name
-      copy.image1.attach \
-        :io           => StringIO.new(original.image1.download),
-        :filename     => original.image1.filename,
-        :content_type => original.image1.content_type
+     # copy.image1.attach \
+     #   :io           => StringIO.new(original.image1.download),
+     #   :filename     => original.image1.filename,
+     #   :content_type => original.image1.content_type
+
+      original.images.each do |image|
+        copy.images.attach \
+          io: StringIO.new(image.download),
+          filename: image.filename,
+          content_type: image.content_type
+      end
 
       copy.save!
 
