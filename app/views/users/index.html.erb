@@ -2,13 +2,16 @@
 <% if user_signed_in? %>
   <% if current_user.admin? %>
 
+    <div class="bloc-entete-model card card-header entete-index">
+      <strong>COMPTES</strong> 
+    </div> 
 
   <div class="bloc-record">
     <h5> Liste des utilisateurs | nb: <%= @users.count %></h5>
 
     <div class="table-responsive">
       <table  class="table table-striped table-bordered table-hover">  
-        <thead class="table-dark">
+        <thead class="table-dark text-center">
           <tr>
             <th> # </th>
             <th> email </th>
@@ -28,9 +31,9 @@
                 <% end %>
               </td>    
               <td> 
-                <%= link_to "Vendeur", toggle_status_vendeur_user_path(user), class:"btn btn-primary", 
+                <%= link_to "Vendeur", toggle_status_vendeur_user_path(user), class:"btn btn-sm btn-primary", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet utilisateur en Vendeur ?')" %> 
-                <%= link_to "Admin", toggle_status_admin_user_path(user), class:"btn btn-secondary", 
+                <%= link_to "Admin", toggle_status_admin_user_path(user), class:"btn btn-sm btn-dark", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet utilisateur en Admin ?')" %> 
               </td>
 
@@ -48,7 +51,7 @@
 
     <div class="table-responsive">
       <table  class="table table-striped table-bordered table-hover">  
-        <thead class="table-dark">
+        <thead class="table-dark text-center">
           <tr>
             <th> # </th>
             <th> email </th>
@@ -68,9 +71,9 @@
                 <% end %>
               </td>    
               <td> 
-                <%= link_to "User", toggle_status_user_user_path(user), class:"btn btn-secondary", 
+                <%= link_to "User", toggle_status_user_user_path(user), class:"btn btn-sm btn-secondary", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet utilisateur en User ?')" %> 
-                <%= link_to "Admin", toggle_status_admin_user_path(user), class:"btn btn-dark", 
+                <%= link_to "Admin", toggle_status_admin_user_path(user), class:"btn btn-sm btn-dark", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet utilisateur en Admin ?')" %> 
               </td>
 
@@ -88,7 +91,7 @@
 
     <div class="table-responsive">
       <table  class="table table-striped table-bordered table-hover">  
-        <thead class="table-dark">
+        <thead class="table-dark text-center">
           <tr>
             <th> # </th>
             <th>email </th>
@@ -111,10 +114,10 @@
               </td>
                       
                 <td> 
-                  <%= link_to "User", toggle_status_user_user_path(user), class:"btn btn-secondary", 
+                  <%= link_to "User", toggle_status_user_user_path(user), class:"btn btn-sm btn-secondary", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet Admin en User ?')" %> 
 
-                  <%= link_to "Vendeur", toggle_status_vendeur_user_path(user), class:"btn btn-primary", 
+                  <%= link_to "Vendeur", toggle_status_vendeur_user_path(user), class:"btn btn-sm btn-primary", 
                       :onclick => "return confirm('Etes-vous certain de vouloir passer cet Admin en Vendeur ?')" %> 
                 </td>
                 
