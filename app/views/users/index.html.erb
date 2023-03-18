@@ -109,7 +109,7 @@
 
                 <% depuisDerCo = user.current_sign_in_at %>
                 <% if depuisDerCo.present? %>
-                  <%= time_ago_in_words(depuisDerCo) %>
+                  <%= distance_in_words(depuisDerCo) %>
                 <% end %>
               </td>
                       
