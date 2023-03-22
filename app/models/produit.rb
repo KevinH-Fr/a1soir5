@@ -9,7 +9,6 @@ class Produit < ApplicationRecord
     validates :image1, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg', 'video/mp4'], size_range: 1..(10.megabytes) }
     validates :images, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg', 'video/mp4'], size_range: 1..(50.megabytes) }
 
-
    # belongs_to :fournisseur
 
     has_one_attached :qr_code
@@ -40,10 +39,9 @@ class Produit < ApplicationRecord
     scope :type_ensemble, -> { where("typearticle = ?", "Ensemble") }
 
     # articles dont typearticle existe et pas Ensemble
-   # scope :typearticle_exists, -> { where.not("typearticle = ?", "[nil, ""]"). where.not("typearticle = ?", "Ensemble") }
-   scope :typearticle_exists, -> { where.not(typearticle: [nil, "", "Ensemble"]).pluck(:typearticle).uniq }
+    # scope :typearticle_exists, -> { where.not("typearticle = ?", "[nil, ""]"). where.not("typearticle = ?", "Ensemble") }
+    scope :typearticle_exists, -> { where.not(typearticle: [nil, "", "Ensemble"]).pluck(:typearticle).uniq }
 
-   
     scope :categorie_selected, ->  (categorieVal) { where("categorie = ?", categorieVal)}
     scope :couleur_selected, ->  (couleurVal) { where("couleur = ?", couleurVal)}
     scope :taille_selected, ->  (tailleVal) { where("taille = ?", tailleVal)}
@@ -94,6 +92,4 @@ class Produit < ApplicationRecord
     end
 
 
-
 end
-
