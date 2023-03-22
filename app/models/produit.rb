@@ -3,7 +3,10 @@ class Produit < ApplicationRecord
    # has_many :ensembles
     #has_one_attached :image1
 
+    has_one_attached :image1
     has_many_attached :images
+
+    validates :image1, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg', 'video/mp4'], size_range: 1..(10.megabytes) }
     validates :images, presence: false, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg', 'video/mp4'], size_range: 1..(50.megabytes) }
 
 
@@ -74,8 +77,8 @@ class Produit < ApplicationRecord
     end 
 
     def default_image
-        if images.attached?
-          images.first
+        if image1.attached?
+          image1
         else
           'no_photo.png'
         end

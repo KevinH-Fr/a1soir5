@@ -35,6 +35,9 @@
         <%= form.file_field :images, multiple: true %>
     </div>
 
+
+
+
   <%= turbo_frame_tag :content_field do %>
     <%= post.passcode_protected? %>
     <% if post.passcode_protected? %>

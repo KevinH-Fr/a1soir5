@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 
     has_many_attached :images
 
+
+
     validates :name, presence: true
     validates :content, presence: false
 
@@ -12,5 +14,6 @@ class Post < ApplicationRecord
         published: 'published',
         passcode_protected: 'passcode_protected'
     }
+
 
 end

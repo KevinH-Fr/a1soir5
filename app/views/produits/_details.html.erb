@@ -6,7 +6,8 @@
 
       <div class="col-5">
         <%#= image_tag(@produit.default_image, class:"img-fluid rounded-start image-produit-sized-large")  %> 
-        <%= image_tag @produit.images.first, width: "200px", class:"rounded shadowed" if @produit.images.attached? %>
+        <%= image_tag @produit.image1, width: "200px", class:"rounded shadowed" if @produit.image1.attached? %>
+        <%#= image_tag @produit.images.first, width: "200px", class:"rounded shadowed" if @produit.images.attached? %>
       </div>
 
 
