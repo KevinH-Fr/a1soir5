@@ -9,9 +9,18 @@
         </td>
         <td class="w-50 text-center align-middle "> 
           <div class="fw-bold fs-4 my-2">
-            <%= produit.nom %> <br> 
+         
+
+        <%= link_to produit.nom, modal_path(produit_id: produit.id) %>
+
+
+
+
+
+
           </div>
           <div class="fs-5">
+            <%= produit.nom %>
             <%= produit.description %>
           </div>
           <div class="fs-6 text-primary my-3">

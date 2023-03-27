@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   get 'costumes_hommes', to: 'accueil#costumes'
   get 'accessoires', to: 'accueil#accessoires'
   get 'costumes_deguisements', to: 'accueil#deguisements'
+
+  get '/modal', to: 'accueil#modal'
+
+
+
    
   get 'plan', to: 'accueil#plan'
    

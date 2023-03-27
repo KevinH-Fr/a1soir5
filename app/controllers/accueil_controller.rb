@@ -73,6 +73,12 @@ class AccueilController < ApplicationController
       end
     end
 
+    def modal
+      @produit = Produit.find(params[:produit_id])
+      render 'details_produit'
+    end
+
+
     def index
       @texteContact = Texte.last.contact if Texte.last.present?
       @texteHoraire = Texte.last.horaire if Texte.last.present?
