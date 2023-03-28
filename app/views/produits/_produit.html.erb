@@ -9,46 +9,73 @@
                 produit_path(produit), data: { turbo: false }   %> 
         </div>
 
-        <div class="col-2 text-center">
-          <% if produit.vitrine == true %>
-            <i class="fa-solid fa-globe iconcolor-true my-1"></i>
-          <% else %>
-            <i class="fa-solid fa-globe iconcolor-false my-1"></i>
-          <% end %>
-          <br> 
-          <% if produit.eshop == true %>
-            <i class="fa-solid fa-cart-shopping iconcolor-true mt-2 my-1"></i>
-          <% else %>
-            <i class="fa-solid fa-cart-shopping iconcolor-false mt-2 my-1"></i>
-          <% end %>
-        </div>
 
-        <div class="col-7 m-0 p-0">
+        <div class="col-9 m-0 p-0">
           <div class="card-body m-0 p-0">
             <h6 class="card-title text-black m-0 p-0">
-              <%= link_to highlight(produit.nom, 
-              params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), produit_path(produit),
-              class:"titre-record", data: { turbo: false } %>
+
+            <div class="row">
+              <div class="col-8">
+                <%= link_to highlight(produit.nom, 
+                params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), produit_path(produit),
+                class:"titre-record", data: { turbo: false } %>
+              </div>
+              <div class="col-4 text-center">
+                <span>
+                  <% if produit.vitrine == true %>
+                    <i class="fa-solid fa-globe iconcolor-true my-1"></i>
+                  <% else %>
+                    <i class="fa-solid fa-globe iconcolor-false my-1"></i>
+                  <% end %>
+                
+                  <% if produit.eshop == true %>
+                    <i class="fa-solid fa-cart-shopping iconcolor-true mt-2 my-1"></i>
+                  <% else %>
+                    <i class="fa-solid fa-cart-shopping iconcolor-false mt-2 my-1"></i>
+                  <% end %>
+                </span>
+                
+              </div>   
+            </div>
+
             </h6>
-            <p class="card-text text-dark p-0 m-0"><%= produit.description %></p>
 
-            <span class="card-text"><small class="text-muted">
-              <%= highlight(produit.reffrs, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
-            </span>
+            <% if produit.reffrs.present? %>
+              <span class="badge badge-produit">
+                <%= highlight(produit.reffrs, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %>
+              </span>
+            <% end %>
 
-            <span class="card-text"><small class="text-muted">
-              <%= highlight(produit.categorie, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
-            </span>
-            <span class="card-text"><small class="text-muted">
-              <%= highlight(produit.taille, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
-            </span>
-            <span class="card-text"><small class="text-muted">
-              <%= highlight(produit.couleur, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %></small>
-            </span>
-            <span class="card-text"><small class="text-muted">
-              <%= produit.prix %></small>
-            </span>
-      
+            <% if produit.categorie.present? %>
+              <span class="badge badge-produit">
+                <%= highlight(produit.categorie, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %>
+              </span>
+            <% end %>
+
+            <% if produit.taille.present? %>
+              <span class="badge badge-produit">
+                <%= highlight(produit.taille, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %>
+              </span>
+            <% end %>
+
+            <% if produit.couleur.present? %>
+              <span class="badge badge-produit">
+                <%= highlight(produit.couleur, params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)) %>
+              </span>
+            <% end %>
+
+            <% if produit.prixlocation.present? %>
+              <span class="badge badge-produit">
+                location: <%= produit.prixlocation %>
+              </span>
+            <% end %>
+
+            <% if produit.prix.present? %>
+              <span class="badge badge-produit">
+                vente: <%= produit.prix %>
+              </span>
+            <% end %>
+
           </div>
         </div>
         

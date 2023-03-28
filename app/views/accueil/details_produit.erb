@@ -1,10 +1,10 @@
 
 <div class="card mb-3">
   <div class="row no-gutters">
-    <div class="col-4 p-2 centered">
+    <div class="col-md-4 p-2 centered">
       <%= image_tag @produit.image1, width: "200px", class:"rounded shadowed" if @produit.image1.attached? %>
     </div>
-    <div class="col-8">
+    <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title fw-bold"> <%= @produit.nom %> </h5>
         <p class="card-text"><%= @produit.description %></p>

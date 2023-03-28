@@ -163,7 +163,6 @@ h1, h2, p, li, ul, a {
   }
 
 .img-big {
-   /* min-width: 20px;*/
     max-width: 90vw;
   }
 
@@ -220,7 +219,7 @@ h1, h2, p, li, ul, a {
 .titre-categorie{
     font-size: x-large;
     padding: .5em;
-    margin: .2em 0 .2em 0;
+    margin: .5em;
     text-align: center;
     background-color: white;
     border-radius: .2em;
@@ -266,3 +265,7 @@ h1, h2, p, li, ul, a {
     }
 }
 
+.badge-produit{
+    background-color: rgb(88, 90, 90);
+    color: white;
+}
