@@ -1,3 +1,65 @@
 
-<h1> details produit </h1>
- <p><%= @produit.nom %></p>
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-4 p-2 centered">
+      <%= image_tag @produit.image1, width: "200px", class:"rounded shadowed" if @produit.image1.attached? %>
+    </div>
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title fw-bold"> <%= @produit.nom %> </h5>
+        <p class="card-text"><%= @produit.description %></p>
+        
+        <span class="badge bg-primary"><%= @produit.categorie %></span>
+        <span class="badge bg-primary">Taille: <%= @produit.taille %></span>
+        <span class="badge bg-primary"><%= @produit.couleur %></span>
+        <span class="badge bg-primary">Qté: <%= @produit.quantite %></span>
+        <span class="badge bg-primary">Location: <%= @produit.prixlocation %></span>
+        <span class="badge bg-primary">Vente: <%= @produit.prix %></span>
+        <hr>
+
+
+        <span class="text-center">
+            <% if @produit.eshop == true %>
+                <i class="fa-solid fa-cart-shopping iconcolor-true text-success"></i>
+                <span class="text-success fw-bold"> Proposé à la vente en ligne  </span> <br>
+            <% else %>
+                <i class="fa-solid fa-cart-shopping iconcolor-false"></i>
+                <span> Non-proposé à la vente en ligne  </span> <br>
+            <% end %>
+        </span>
+
+        <% if taillesAutresProduits.present? %> <%# valeur depuis helper%>
+            <span> Ce produit existe aussi en : </span>
+            <% taillesAutresProduits.distinct.group_by(&:taille).each do |taille, produits| %>
+            <%= link_to taille, produit_path(produits.first.id), class:"text-primary fw-bold" %>
+            <% end %>
+        <% end %>
+
+        <span>
+          <%= image_tag(@produit.qr_code, class:"rounded-start image-qr-cb-large-sized shadowed") if @produit.qr_code.attached? %>
+        </span>
+
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <h3 class="m-2 p-2">Photos/Vidéos</h3>
+
+    <div class="d-flex centered bg-light rounded">
+        <% if @produit.images.attached? %>
+            <% @produit.images.each do |attachment| %>
+                <% if attachment.image? %>
+                    <%= image_tag attachment, width: "200px", class:"rounded shadowed m-2" %>
+                <% elsif attachment.video? %>
+
+                    <video controls width="480">
+                        <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>"/>
+                    </video>
+
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
+

@@ -208,6 +208,15 @@ h1, h2, p, li, ul, a {
     
 }
 
+.middled{
+    vertical-align: middle;
+  }
+  
+  .shadowed{
+    border-radius: .2em;
+    box-shadow: 2px 3px 4px rgba(165, 163, 163, 0.8);
+  }
+
 .titre-categorie{
     font-size: x-large;
     padding: .5em;

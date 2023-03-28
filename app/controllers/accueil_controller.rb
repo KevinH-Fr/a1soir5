@@ -73,7 +73,7 @@ class AccueilController < ApplicationController
       end
     end
 
-    def modal
+    def details_produit
       @produit = Produit.find(params[:produit_id])
       render 'details_produit'
     end
