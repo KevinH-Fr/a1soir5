@@ -165,21 +165,29 @@
 
 .table-etiquette{
   width: 400px;
+  height: 600px;
   margin: 5px;
   background-color: rgb(232, 226, 226);
   border-color: white;
 }
 
+
+.th-titre-etiquette{
+  padding-top: 5px;
+  vertical-align: middle;
+  color:black
+}
+
 .th-etiquette{
-  padding: 20px;
+  padding: 10px;
   font-family: Arial, Helvetica, sans-serif;
   width: 400px;
-  height: 360px;
+  height: 380px;
 }
 
 .td-etiquette{
   font-size: large;
-  padding: 10px;
+  padding: 5px;
   margin: 5px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -194,13 +202,15 @@
 
 .img-etiquette{
   /*width: 250px;*/
-  height: 360px;
+  max-height: 90%;
+  max-width: 90%;
   vertical-align: middle;
-  padding: 10px;
+  padding: 5px;
 }
 
 .img-qr-etiquette{
   width: 150px;
+  padding: 5px;
   vertical-align: middle;
 }
 

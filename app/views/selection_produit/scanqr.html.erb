@@ -32,6 +32,17 @@
 
 <script>
 
+// Get references to the sourceSelect and startButton elements
+const sourceSelect = document.getElementById('sourceSelect');
+const startButton = document.getElementById('startButton');
+
+// Add an event listener to the sourceSelect element
+sourceSelect.addEventListener('change', () => {
+  // Trigger a click event on the startButton element
+  startButton.click();
+});
+
+
   function decodeOnce(codeReader, selectedDeviceId) {
 
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
@@ -77,59 +88,59 @@
     })
   }
 
-  window.addEventListener('load', function () {
-    let selectedDeviceId;
-    const codeReader = new ZXing.BrowserQRCodeReader()
-    console.log('ZXing code reader initialized')
+window.addEventListener('load', function () {
+  let selectedDeviceId;
+  const codeReader = new ZXing.BrowserQRCodeReader()
+  console.log('ZXing code reader initialized')
 
-    codeReader.getVideoInputDevices()
-      .then((videoInputDevices) => {
-        const sourceSelect = document.getElementById('sourceSelect')
-        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  codeReader.getVideoInputDevices()
+    .then((videoInputDevices) => {
+      const sourceSelect = document.getElementById('sourceSelect')
+      selectedDeviceId = videoInputDevices[0].deviceId
 
-        // Automatically select the back camera if the device is a mobile
-        if (isMobile) {
-          videoInputDevices.forEach((element) => {
-            if (/back|rear|environment/i.test(element.label)) {
-              selectedDeviceId = element.deviceId;
-            }
-          });
-        } else {
-          selectedDeviceId = videoInputDevices[0].deviceId;
-        }
+      if (videoInputDevices.length >= 1) {
+        videoInputDevices.forEach((element) => {
+          const sourceOption = document.createElement('option')
+          sourceOption.text = element.label
+          sourceOption.value = element.deviceId
+          sourceSelect.appendChild(sourceOption)
+        })
 
-        if (videoInputDevices.length >= 1) {
-          videoInputDevices.forEach((element) => {
-            const sourceOption = document.createElement('option')
-            sourceOption.text = element.label
-            sourceOption.value = element.deviceId
-            sourceSelect.appendChild(sourceOption)
-          })
+        sourceSelect.onchange = () => {
+          selectedDeviceId = sourceSelect.value;
+          // selectedDeviceId = videoInputDevices[1].deviceId; // select the 2nd source by default if exists
+        };
 
-          sourceSelect.onchange = () => {
-            selectedDeviceId = sourceSelect.value;
-          };
+        const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+        sourceSelectPanel.style.display = 'block'
+      }
 
-          const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-          sourceSelectPanel.style.display = 'block'
-        }
-
-        document.getElementById('startButton').addEventListener('click', () => {
-          decodeOnce(codeReader, selectedDeviceId);
-          console.log('Started decode from camera with id ${selectedDeviceId}')
+      // Check if the user is on a mobile device and select the back camera automatically
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        videoInputDevices.forEach((element) => {
+          if (element.label.indexOf('back') !== -1) {
+            selectedDeviceId = element.deviceId;
+          }
         });
+      }
 
-        document.getElementById('resetButton').addEventListener('click', () => {
-          codeReader.reset()
-          document.getElementById('result').textContent = '';
-          console.log('Reset.')
-        });
+      document.getElementById('startButton').addEventListener('click', () => {
+        decodeOnce(codeReader, selectedDeviceId);
+        console.log(`Started decode from camera with id ${selectedDeviceId}`)
+      });
 
-      })
+      document.getElementById('resetButton').addEventListener('click', () => {
+        codeReader.reset();
+        document.getElementById('result').textContent = '';
+        console.log('Reset.')
+      });
 
+    })
     .catch((err) => {
-        console.error(err)
-      })
-  });
+      console.error(err)
+    })
+})
+
+
 
 </script>
