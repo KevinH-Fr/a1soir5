@@ -97,7 +97,11 @@
             <td class="text-start" colspan=2> 
               <%= link_to "Nouveau", selection_produit_path(commandeId: @commande), 
              class:"btn btn-sm btn-primary fw-bold mt-0 mb-0" %>
-             </td>
+
+            <%= link_to "", scanqr_path(commandeId: @commande), 
+              class:"fa-solid fa-qrcode btn btn-sm btn-primary m-1 p-2", data: { turbo: false }  %> 
+              <%# desactiver turbo pour eviter conflit avec js %>
+            </td>
 
             <td class="text-center text-light" colspan=2> totaux </td>
             <td class="text-center text-light"> <%= Article.commande_courante(@commande).compte_articles %> </td>

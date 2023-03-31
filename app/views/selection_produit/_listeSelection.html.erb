@@ -1,8 +1,12 @@
 
-<div class="card-header bg-dark text-center text-light p-1">
+<%
+=begin%>
+ <div class="card-header bg-dark text-center text-light p-1">
   <strong>Sélection</strong> 
 </div>
-
+ 
+<%
+=end%>
   <div class="card-body p-0 m-0">
    <div class="table-responsive m-0 p-0">
 
@@ -13,7 +17,7 @@
           <th class="text-center">Image</th>
           <th class="text-center">Nom</th>
           <th class="text-center">Dispo</th>
-          <th style="width:10px" class="text-center"> Actions</th>
+          <th class="text-center"></th>
         </tr>
       </thead>
       <tbody class="fs-6">
@@ -25,9 +29,7 @@
           <tr>
             <td class="text-center align-middle"> <%= produitId = produit.id %> </td>
             <td class="text-center"> 
-
               <% if dispo > 0 %>
-
                 <% if articleId.present? %> <%# alors sous article en cours de selection %>
                   <%= link_to image_tag(produit.default_image, style: "width: 50px", 
                     class: "img-fluid rounded text-center"), new_sousarticle_path(commandeId: commandeId, produitId: produit, articleId: articleId) %>
@@ -35,21 +37,17 @@
                   <%= link_to image_tag(produit.default_image, style: "width: 50px", 
                    class: "img-fluid rounded text-center"), new_article_path(commandeId: commandeId, produitId: produit) %>
                 <% end %>
-           
               <% end %>
-            
-
             </td> 
 
             <td class="align-middle"> <%= produit.nom_couleur_taille %> </td>
             
             <td class="text-center align-middle"> 
-               <% calcul_dispo(produit.id) %>
+               <%= calcul_dispo(produit.id) %>
             </td>
 
             <td class="text-center align-middle"> 
               <% if dispo > 0 %>
-
                 <% if articleId.present? %> <%# alors sous article en cours de selection %>
                   <%= link_to '', new_sousarticle_path(commandeId: commandeId, produitId: produit, articleId: articleId), 
                       class:"fa-solid fa-cart-plus btn btn-primary btn-sm" %>  
@@ -57,7 +55,6 @@
                     <%= link_to '', new_article_path(commandeId: commandeId, produitId: produit), 
                       class:"fa-solid fa-cart-plus btn btn-primary btn-sm" %>  
                 <% end %>
-           
               <% end %>
             </td>
           </tr>
@@ -67,5 +64,3 @@
 
   </div>
 </div>
-
-

@@ -81,12 +81,23 @@
     let selectedDeviceId;
     const codeReader = new ZXing.BrowserQRCodeReader()
     console.log('ZXing code reader initialized')
-  
+
     codeReader.getVideoInputDevices()
       .then((videoInputDevices) => {
         const sourceSelect = document.getElementById('sourceSelect')
-        selectedDeviceId = videoInputDevices[0].deviceId
-        
+        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        // Automatically select the back camera if the device is a mobile
+        if (isMobile) {
+          videoInputDevices.forEach((element) => {
+            if (/back|rear|environment/i.test(element.label)) {
+              selectedDeviceId = element.deviceId;
+            }
+          });
+        } else {
+          selectedDeviceId = videoInputDevices[0].deviceId;
+        }
+
         if (videoInputDevices.length >= 1) {
           videoInputDevices.forEach((element) => {
             const sourceOption = document.createElement('option')
@@ -97,7 +108,6 @@
 
           sourceSelect.onchange = () => {
             selectedDeviceId = sourceSelect.value;
-            // selectedDeviceId = videoInputDevices[1].deviceId; // selectionner la 2eme source par defaut si existe
           };
 
           const sourceSelectPanel = document.getElementById('sourceSelectPanel')
@@ -105,41 +115,21 @@
         }
 
         document.getElementById('startButton').addEventListener('click', () => {
-        
-            // trouver la largeur de l'écran courant 
-            //  selectionner la source camera : face si ecran large, arriere si ecran petit
-   
-          /*   let screenType;
-            if (screen.width > 1500) {
-              screenType = "large";
-            } else {
-              screenType = "small";
-            }
-            console.log("largeur ecran : " + screen.width + "screenType : " + screenType) */
-
-            decodeOnce(codeReader, selectedDeviceId);
-            console.log('Started decode from camera with id ${selectedDeviceId}')
-        
-        }
-        
-        ),
+          decodeOnce(codeReader, selectedDeviceId);
+          console.log('Started decode from camera with id ${selectedDeviceId}')
+        });
 
         document.getElementById('resetButton').addEventListener('click', () => {
           codeReader.reset()
           document.getElementById('result').textContent = '';
           console.log('Reset.')
-        })
+        });
 
       })
 
-     .catch((err) => {
+    .catch((err) => {
         console.error(err)
       })
-
-    }
-  )
-
+  });
 
 </script>
-
-
