@@ -13,7 +13,7 @@
             <th class="th-list-articles">prix</th>
             <th class="th-list-articles">total</th>
             <th class="th-list-articles">caution</th>
-            <th class="th-list-articles" colspan=2> </th>
+            <th class="th-list-articles" colspan=1> </th>
           </tr>
         </thead>
 
@@ -32,6 +32,13 @@
                 <%= link_to Produit.find(article.produit_id).nom,
                       edit_article_path(article, produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
                       class:"text-dark fw-bold" %> 
+              
+
+              <%# REPRENDRE %>
+                 <% if Produit.find(article.produit_id).taille.present? %>
+                   <br> taille: <%= Produit.find(article.produit_id).taille  %>
+                  <% end %>
+
               </td>
               <td class=""> 
                 <%= article.locvente %> 
@@ -68,13 +75,17 @@
                 </td>
                 <td colspan="1" class="fst-italic"> 
                   <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> |
-                  <%= sousarticle.description %>
+                  <%= sousarticle.description %> 
+                
+                  <% if  Produit.find(sousarticle.produit_id).taille.present? %>
+                   <br>  taille: <%= Produit.find(sousarticle.produit_id).taille %>
+                  <% end %>
+
                 </td>
                 <td></td>
                 <td></td>
                 <td class="text-end"> </td>
                 <td class="text-end fw-bold text-nowrap">   <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr)  %> </td>
-                <td></td>
                 <td style=""> <%#= link_to "", edit_sousarticle_path(sousarticle, articleId: article.id), class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> </td> 
                 <td style=""> <%#= button_to '', sousarticle, class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete, :onclick => "return confirm('Sûr ?')" %>  </td> 
               </tr>

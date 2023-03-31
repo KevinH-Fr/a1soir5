@@ -37,7 +37,6 @@
                   class:"form-control text-center input-sized",
                   data: { action: "change->totalupdate#setInitialPrix", 
                   target: "totalupdate.locvente", totalupdate_target: "locvente" }  } %>
-
             </div>
 
             <div class="input-group input-group-sm mb-2 justify-content-center"  data-totalupdate-target="containerLongueduree">
@@ -73,7 +72,8 @@
                  class:"form-control text-center input-sized",
                  data: { action: "change->totalupdate#updateTotal", 
                          target: "totalupdate.prix",  totalupdate_target: "prix" } } %> <br>
-
+            </div>
+            
             <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerCaution">
               <%= form.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
               <%= form.number_field :caution,  { 

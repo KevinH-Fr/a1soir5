@@ -3,10 +3,10 @@ module EnsembleHelper
     #  Ensemble complet ? - methodes avec une seule valeur en sortie
 
     def applicationArticleCourantEnsembleComplet()
-        typeloc = @article.locvente
+        #typeloc = @article.locvente
         typearticle = Produit.find(@article.produit_id).typearticle
        
-        if typeloc === "location" && typearticle === "Ensemble"
+        if typearticle === "Ensemble"
             applicationVerif = true
         else
             applicationVerif = false

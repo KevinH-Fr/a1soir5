@@ -156,9 +156,17 @@ class ArticlesController < ApplicationController
     @typesArticles = helpers.typesArticlesExistants #recuperer valeur de l'helper ensemble
     @articlesAtransformer = helpers.articlesAtransformer
 
+    # def valeur vente ou loc
+    if @article.locvente === "location"
+      prixArticle = @produit.prixlocation
+    end
+    if @article.locvente === "vente"
+      prixArticle = @produit.prix
+    end
+
     # ajouter ensemble en article, 
     @articleNew = Article.create(produit_id: @produit.id, commande_id: @article.commande_id, 
-      locvente: @article.locvente, quantite: 1, prix: @produit.prix, total: @produit.prix )
+      locvente: @article.locvente, quantite: 1, prix: prixArticle, total: prixArticle )
 
     # boucler sur tous les articles a transformer en sous article
     @articlesAtransformer.each do |article|
