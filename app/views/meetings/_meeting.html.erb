@@ -3,7 +3,7 @@
   <div class="bloc-record">
     <div class="row align-items-center">
 
-      <div class="col-11 m-0 p-2">
+      <div class="col-10 m-0 p-2">
         <p>
           <strong>Nom:</strong>
           <%= meeting.name %>
@@ -45,7 +45,7 @@
 
         
       </div> 
-      <div class="col-1 m-0 p-1 text-center">
+      <div class="col-2 m-0 p-1 text-end">
 
       <%= link_to '', meeting_path(meeting), 
             class:"fa-regular fa-folder-open btn btn-sm btn-success mb-1" %> 
@@ -54,8 +54,6 @@
         <%= button_to '', meeting_path(meeting), 
             class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete %> 
       </div>
-
-      <div class=" m-0 p-1 text-end">
 
        <%# pour envoyer mail depuis meeting path %>
         <%#= link_to "", editer_mail_meeting_path(), title: "Envoyer mail",
@@ -69,7 +67,6 @@
        <%# pour envoyer une invitation par mail au rdv unique %>
        <%#= button_to "send email invite", invite_meeting_path(meeting) %> 
 
-      </div>
     </div>
   </div>
 

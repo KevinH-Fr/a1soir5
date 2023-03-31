@@ -10,12 +10,12 @@
           Fermer nouveau
     </div>
 
-    <span class="mx-4 text-end">
-      <span class="m-3 format-totaux"> 
+    <span class="mx-2 text-end">
+      <span class="m-1 format-totaux"> 
         Avoir: <%= number_to_currency(avoir_deduit(@commande), locale: :fr) %> 
       </span> 
-      <span class="m-3 format-totaux"> 
-        Remboursement: <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> 
+      <span class="m-1 ms-2 format-totaux"> 
+        Remb.: <%= number_to_currency(remb_deduit(@commande), locale: :fr) %> 
       </span> 
     </span>
 

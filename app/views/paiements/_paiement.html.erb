@@ -2,7 +2,7 @@
   <div class="bloc-record">
     <div class="row">
       
-      <div class="col-11">
+      <div class="col-10">
         <div class="badge-infos">
           <% if paiement.typepaiement == "Prix" %>
             <span class="text-dark fw-bold">
@@ -21,12 +21,12 @@
         </div>
       </div>
     
-      <div class="col-1 m-0 p-0 text-center">
+      <div class="col-2 m-0 p-0 text-end">
                   <%= button_to "", edit_paiement_path(paiement), 
-                      class:"fa-regular fa-pen-to-square btn btn-sm btn-secondary", method: :post %> 
+                      class:"fa-regular fa-pen-to-square btn btn-secondary btn-action", method: :post %> 
 
                   <%= button_to '', paiement_path(paiement), 
-                      class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete %> 
+                      class:"fa-solid fa-trash-can btn btn-danger btn-action", method: :delete %> 
 
       </div>
       

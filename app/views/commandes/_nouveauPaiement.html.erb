@@ -10,11 +10,11 @@
           Fermer nouveau
     </div>
 
-    <span class="mx-4 text-end">
-      <span class="m-3 format-totaux"> 
+    <span class="mx-2 text-end">
+      <span class="m-1 format-totaux"> 
         Prix: <%= number_to_currency(recu_prix(@commande), locale: :fr) %> 
       </span>
-      <span class="m-3 format-totaux"> 
+      <span class="m-1 ms-2 format-totaux"> 
         Caution: <%= number_to_currency(recu_caution(@commande), locale: :fr) %>
       </span> 
     </span>

@@ -13,7 +13,7 @@
             <th class="th-list-articles">prix</th>
             <th class="th-list-articles">total</th>
             <th class="th-list-articles">caution</th>
-            <th class="th-list-articles" colspan=2> Actions</th>
+            <th class="th-list-articles" colspan=2> </th>
           </tr>
         </thead>
 
@@ -39,22 +39,21 @@
               <td class="text-center"> 
                 <%= article.quantite %> 
               </td>
-              <td class="text-end"> 
+              <td class="text-end text-nowrap"> 
                 <%= number_to_currency(article.prix, locale: :fr)  %> 
               </td>
-              <td class="text-end fw-bold">
+              <td class="text-end fw-bold text-nowrap">
                  <%= number_to_currency(article.total, locale: :fr)  %> 
               </td>
-              <td class="text-end"> 
+              <td class="text-end text-nowrap"> 
                 <%= number_to_currency(article.totalcaution, locale: :fr)  %> 
               </td>
               <td class="p-0 m-0 text-center"> 
                 <%= link_to "", edit_article_path(article, 
                     produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
                     class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> 
-              </td> 
-              <td class="p-0 m-0 text-center"> 
-                <%= button_to '', article, class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete, :onclick => "return confirm('Sûr ?')" %>  
+
+                <%= button_to '', article, class:"fa-solid fa-trash-can btn btn-danger btn-sm m-1", method: :delete, :onclick => "return confirm('Sûr ?')" %>  
               </td> 
             </tr> 
 
@@ -74,7 +73,7 @@
                 <td></td>
                 <td></td>
                 <td class="text-end"> </td>
-                <td class="text-end fw-bold">   <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr)  %> </td>
+                <td class="text-end fw-bold text-nowrap">   <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr)  %> </td>
                 <td></td>
                 <td style=""> <%#= link_to "", edit_sousarticle_path(sousarticle, articleId: article.id), class:"fa-regular fa-pen-to-square btn btn-secondary btn-sm" %> </td> 
                 <td style=""> <%#= button_to '', sousarticle, class:"fa-solid fa-trash-can btn btn-danger btn-sm", method: :delete, :onclick => "return confirm('Sûr ?')" %>  </td> 
@@ -92,12 +91,12 @@
             <td class="text-center text-light" colspan=2> totaux </td>
             <td class="text-center text-light"> <%= Article.commande_courante(@commande).compte_articles %> </td>
             <td></td>
-            <td class="text-end text-light">
+            <td class="text-end text-light text-nowrap">
               <%= number_to_currency(
                     Article.commande_courante(@commande).sum_articles + 
                     Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles, locale: :fr)  %> 
             </td>
-            <td class="text-end text-light">
+            <td class="text-end text-light text-nowrap">
               <%= number_to_currency(
                     Article.commande_courante(@commande).sum_caution_articles, locale: :fr)  %> 
             </td>
