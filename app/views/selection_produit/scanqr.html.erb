@@ -32,17 +32,6 @@
 
 <script>
 
-// Get references to the sourceSelect and startButton elements
-const sourceSelect = document.getElementById('sourceSelect');
-const startButton = document.getElementById('startButton');
-
-// Add an event listener to the sourceSelect element
-sourceSelect.addEventListener('change', () => {
-  // Trigger a click event on the startButton element
-  startButton.click();
-});
-
-
   function decodeOnce(codeReader, selectedDeviceId) {
 
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
@@ -88,59 +77,74 @@ sourceSelect.addEventListener('change', () => {
     })
   }
 
-window.addEventListener('load', function () {
-  let selectedDeviceId;
-  const codeReader = new ZXing.BrowserQRCodeReader()
-  console.log('ZXing code reader initialized')
+  window.addEventListener('load', function () {
+    let selectedDeviceId;
+    const codeReader = new ZXing.BrowserQRCodeReader()
+    console.log('ZXing code reader initialized')
+  
+    codeReader.getVideoInputDevices()
+      .then((videoInputDevices) => {
+        const sourceSelect = document.getElementById('sourceSelect')
+        selectedDeviceId = videoInputDevices[0].deviceId
+        
+        if (videoInputDevices.length >= 1) {
+          videoInputDevices.forEach((element) => {
+            const sourceOption = document.createElement('option')
+            sourceOption.text = element.label
+            sourceOption.value = element.deviceId
+            sourceSelect.appendChild(sourceOption)
+          })
 
-  codeReader.getVideoInputDevices()
-    .then((videoInputDevices) => {
-      const sourceSelect = document.getElementById('sourceSelect')
-      selectedDeviceId = videoInputDevices[0].deviceId
-
-      if (videoInputDevices.length >= 1) {
-        videoInputDevices.forEach((element) => {
-          const sourceOption = document.createElement('option')
-          sourceOption.text = element.label
-          sourceOption.value = element.deviceId
-          sourceSelect.appendChild(sourceOption)
-        })
 
         sourceSelect.onchange = () => {
-          selectedDeviceId = sourceSelect.value;
-          // selectedDeviceId = videoInputDevices[1].deviceId; // select the 2nd source by default if exists
+          const newSelectedDeviceId = sourceSelect.value;
+          if (newSelectedDeviceId !== selectedDeviceId) {
+            selectedDeviceId = newSelectedDeviceId;
+            codeReader.reset();
+          }
+          decodeOnce(codeReader, selectedDeviceId);
         };
 
-        const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-        sourceSelectPanel.style.display = 'block'
-      }
 
-      // Check if the user is on a mobile device and select the back camera automatically
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        videoInputDevices.forEach((element) => {
-          if (element.label.indexOf('back') !== -1) {
-            selectedDeviceId = element.deviceId;
-          }
-        });
-      }
+          const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+          sourceSelectPanel.style.display = 'block'
+        }
 
-      document.getElementById('startButton').addEventListener('click', () => {
-        decodeOnce(codeReader, selectedDeviceId);
-        console.log(`Started decode from camera with id ${selectedDeviceId}`)
-      });
+        document.getElementById('startButton').addEventListener('click', () => {
+        
+            // trouver la largeur de l'écran courant 
+            //  selectionner la source camera : face si ecran large, arriere si ecran petit
+   
+          /*   let screenType;
+            if (screen.width > 1500) {
+              screenType = "large";
+            } else {
+              screenType = "small";
+            }
+            console.log("largeur ecran : " + screen.width + "screenType : " + screenType) */
 
-      document.getElementById('resetButton').addEventListener('click', () => {
-        codeReader.reset();
-        document.getElementById('result').textContent = '';
-        console.log('Reset.')
-      });
+            decodeOnce(codeReader, selectedDeviceId);
+            console.log('Started decode from camera with id ${selectedDeviceId}')
+        
+        }
+        
+        ),
 
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-})
+        document.getElementById('resetButton').addEventListener('click', () => {
+          codeReader.reset()
+          document.getElementById('result').textContent = '';
+          console.log('Reset.')
+        })
 
+      })
+
+     .catch((err) => {
+        console.error(err)
+      })
+
+    }
+  )
 
 
 </script>
+

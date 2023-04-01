@@ -94,16 +94,16 @@
         </tbody>
         <tfoot class="table-dark fw-bold p-0 m-0">
          
-            <td class="text-start" colspan=2> 
+            <td class="text-start text-nowrap" colspan=3> 
               <%= link_to "Nouveau", selection_produit_path(commandeId: @commande), 
              class:"btn btn-sm btn-primary fw-bold mt-0 mb-0" %>
 
-            <%= link_to "", scanqr_path(commandeId: @commande), 
+            <%= link_to "", scanqr_path(commandeId: @commande, articleId: @articleId), 
               class:"fa-solid fa-qrcode btn btn-sm btn-primary m-1 p-2", data: { turbo: false }  %> 
               <%# desactiver turbo pour eviter conflit avec js %>
             </td>
 
-            <td class="text-center text-light" colspan=2> totaux </td>
+            <td class="text-center text-light" colspan=1> totaux </td>
             <td class="text-center text-light"> <%= Article.commande_courante(@commande).compte_articles %> </td>
             <td></td>
             <td class="text-end text-light text-nowrap">
