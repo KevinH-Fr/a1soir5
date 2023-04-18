@@ -4,13 +4,26 @@ class ClientsController < ApplicationController
   
   before_action :set_client, only: %i[ show edit update destroy ]
 
-  def index
  
+
+  def import
+    file = params[:file]
+    return redirect_to clients_path, notice: "only csv please" unless file.content_type == "text/csv" || file.content_type == "application/vnd.ms-excel"
+  
+    CsvImportClientsService.new.call(file)
+
+    flash.now[:notice] = "Clients imported successfully."
+    respond_to do |format|
+      format.html { redirect_to clients_path }
+      format.turbo_stream { render turbo_stream:   turbo_stream.update("flash", partial: "layouts/flash") }
+    end
+  end
+
+  def index
     search_params = params.permit(:format, :page, q:[:nom_or_prenom_or_mail_cont])
     @q = Client.ransack(search_params[:q])
     clients = @q.result(distinct: true).order(created_at: :desc)
     @pagy, @clients = pagy_countless(clients, items: 2)
-
   end
 
   def show
@@ -22,7 +35,6 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     @typepropart = Client.typeproparts
     @intitule = Client.intitules
-
   end
 
   def edit

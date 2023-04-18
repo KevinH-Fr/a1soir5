@@ -47,7 +47,7 @@ gem 'activestorage-validator'
 gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
-   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+   gem "debug" #, platforms: %i[ mri mingw x64_mingw ]
 end
 
 group :development do

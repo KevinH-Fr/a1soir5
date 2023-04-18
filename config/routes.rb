@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   end
 
   resources :clients do
+    collection do 
+      post :import
+    end
     member do
       get :send_client_mail, 
           to: 'clients#send_client_mail', 
@@ -157,7 +160,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts # pour tests
+  resources :posts do # pour tests
+    collection do 
+      post :import
+    end
+  end
 
   resources :paiements do
     member do 

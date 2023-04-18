@@ -1,6 +1,24 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
+  require 'csv'
+
+  def import
+    file = params[:file]
+  
+    file = File.open(file)
+    csv = CSV.parse(file, headers: true, col_sep: ';' )
+
+    csv.each do |row|
+      post_hash = {}
+      post_hash[:name] = row[1] 
+      Post.create(post_hash)
+    end
+  
+    redirect_to posts_path, notice: "Posts imported."
+  end
+  
+
   def index
     @posts = Post.all
     respond_to do |format|
