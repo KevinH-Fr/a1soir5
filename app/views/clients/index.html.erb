@@ -1,15 +1,5 @@
 <%# if user_signed_in? %>
 
-
-<p style="color: green"><%= notice %></p>
-
-<%= form_with url: import_clients_path, method: :post do |form| %>
-  <%= form.file_field :file, accept: ".csv" %> 
-  <%= form.button "import" %>
-<% end %>
-<hr>
-
-
   <div class="bloc-entete-model">
     <div class="card card-header entete-index">
       <div class="row m-0 p-0">

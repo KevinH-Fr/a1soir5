@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   end
 
   resources :clients do
+   # get 'import', on: :collection
     collection do 
       post :import
     end
