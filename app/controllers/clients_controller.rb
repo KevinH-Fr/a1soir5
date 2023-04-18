@@ -6,7 +6,7 @@ class ClientsController < ApplicationController
   before_action :authenticate_admin!, only: [:import]
 
   def import
-    render 'clients/import'
+   # render 'clients/import'
     file = params[:file]
     return redirect_to clients_path, notice: "only csv please" unless file.content_type == "text/csv" || file.content_type == "application/vnd.ms-excel"
   
@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
     flash.now[:notice] = "Clients imported successfully."
     respond_to do |format|
       format.html { redirect_to clients_path }
-      format.turbo_stream { render turbo_stream:   turbo_stream.update("flash", partial: "layouts/flash") }
+      format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "layouts/flash") }
     end
   end
 
