@@ -1,8 +1,25 @@
 class ProduitsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_admin!
   before_action :authenticate_vendeur_or_admin!
 
+  before_action :authenticate_admin!, only: [:import]
+
   before_action :set_produit, only: %i[ show edit update destroy ]
+
+  def import
+    # render 'clients/import'
+     file = params[:file]
+     return redirect_to produits_path, notice: "only csv please" unless file.content_type == "text/csv" || file.content_type == "application/vnd.ms-excel"
+   
+     CsvImportProduitsService.new.call(file)
+ 
+     flash.now[:notice] = "Produits imported successfully."
+     respond_to do |format|
+       format.html { redirect_to produits_path }
+       format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "layouts/flash") }
+     end
+   end
 
   def index
 
@@ -181,6 +198,19 @@ class ProduitsController < ApplicationController
   def authenticate_vendeur_or_admin!
     unless current_user && (current_user.vendeur? || current_user.admin?)
       redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
+  end
+
+  def authenticate_admin!
+    unless current_user && (current_user.admin?)
+     # redirect_to clients_path, alert: "Vous n'avez pas accès à cette fonction."
+
+      flash.now[:notice] = "Vous n'avez pas accès à cette fonction."
+      respond_to do |format|
+        format.html { redirect_to produits_path }
+        format.turbo_stream { render turbo_stream:   turbo_stream.update("flash", partial: "layouts/flash") }
+      end
+
     end
   end
   

@@ -71,6 +71,9 @@ Rails.application.routes.draw do
   end
 
   resources :produits do
+    collection do 
+      post :import
+    end
     member do
       post :edit
       get :dupliquer
