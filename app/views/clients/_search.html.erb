@@ -22,13 +22,18 @@
           
 
 
-
 <% end %>
 
     <div data-dropdown-target="dropdownContent">
-        <%= form_with url: import_clients_path, method: :post do |form| %>
-            <%= form.file_field :file, accept: ".csv" %> 
-            <%= form.button "import" %>
+        <%= form_with url: import_produits_path, method: :post do |form| %>
+            <div class="row">
+                <div class="col">
+                    <%= form.file_field :file, accept: ".csv", class:"form-control m-1 p-1" %> 
+                </div>
+                <div class="col">
+                    <%= form.button "import", class: "btn btn-sm btn-success m-1 p-1" %>
+                </div>
+            </div>
         <% end %>
     </div>
 
