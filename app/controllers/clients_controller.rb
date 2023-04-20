@@ -28,7 +28,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
-    
+
     @commandes = Commande.client_courant(@client)
     @meetings = Meeting.client_courant(@client)
   end
@@ -40,6 +40,7 @@ class ClientsController < ApplicationController
   end
 
   def edit
+    @client = Client.find(params[:id])
     @typepropart = Client.typeproparts
     @intitule = Client.intitules
   
@@ -92,6 +93,7 @@ class ClientsController < ApplicationController
   end
 
   def update
+    @client = Client.find(params[:id])
     respond_to do |format|
       if @client.update(client_params)
 
