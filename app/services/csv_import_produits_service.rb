@@ -40,9 +40,9 @@ end
 
          
   # voir avec cha les correspondances possibles à ajouter : 
-  # produit_hash[:dateachat] = row[1] 
-  # produit_hash[:prixachat] = row[1] 
-  # produit_hash[:prixlocation] = row[1] 
-  # produit_hash[:couleur] = row[1] 
-  # produit_hash[:handle] = row[1] 
-  # produit_hash[:reffrs] = row[1] 
+    # produit_hash[:dateachat] = row[1] 
+    # produit_hash[:prixachat] = row[1] 
+    # produit_hash[:prixlocation] = row[1] 
+    # produit_hash[:couleur] = row[1] 
+    # produit_hash[:handle] = row[1] 
+    # produit_hash[:reffrs] = row[1] 

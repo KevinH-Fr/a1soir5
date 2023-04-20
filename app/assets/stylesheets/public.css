@@ -68,7 +68,7 @@ h1, h2, p, li, ul, a {
    }
 
 .img-produit{
-    max-width: 80%;
+    max-width: 200px;
 }
 
 .btn-circle.btn-xl {

@@ -27,6 +27,8 @@ class ClientsController < ApplicationController
   end
 
   def show
+    @client = Client.find(params[:id])
+    
     @commandes = Commande.client_courant(@client)
     @meetings = Meeting.client_courant(@client)
   end

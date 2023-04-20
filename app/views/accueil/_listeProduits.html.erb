@@ -1,28 +1,44 @@
 
  <% if @produits.present?%>
-  <table class="table table-light text-center">
-    <% @produits.each do | produit| %> 
-      <tr>
-        <td class="w-50"> 
-          <%= image_tag(produit.default_image, 
-              class: "img-fluid rounded text-center img-produit")   %> 
-        </td>
-        <td class="w-50 text-center align-middle "> 
-          <div class="fw-bold fs-4 my-2">
-            <%= link_to produit.nom, details_produit_path(produit_id: produit.id) %>
+  
+  <% @produits.each do | produit| %> 
+
+    <div class="container d-flex justify-content-center">
+      <div class="card mb-3" style="max-width: 800px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <%= image_tag(produit.default_image, class: "img-fluid mx-auto")   %> 
           </div>
-          <div class="fs-5">
-            <%= produit.description %>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="fw-bold fs-4 my-2">
+                  <%= link_to produit.nom, details_produit_path(produit_id: produit.id) %>
+                </div>
+              </h5>
+              <p class="card-text">
+                <div class="fs-5">
+                  <%= produit.description %>
+                </div>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">
+                  <div class="fs-6 text-primary my-3">
+                    taille: <%= produit.taille %> <br>
+                    couleur: <%= produit.couleur %>
+                  </div>
+                </small>
+              </p>
+            </div>
           </div>
-          <div class="fs-6 text-primary my-3">
-            taille: <%= produit.taille %> <br>
-            couleur: <%= produit.couleur %>
-          </div>
-        </td>
-       
-      </tr>
-    <% end %>
-  </table> 
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+
+
 <% end %>
 
 <div class="col text-center">
