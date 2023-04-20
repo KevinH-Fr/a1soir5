@@ -165,6 +165,9 @@ Rails.application.routes.draw do
   end
 
   resources :posts do # pour tests
+    get :new_multiple, on: :collection
+    post :create_multiple, on: :collection
+    
     collection do 
       post :import
     end

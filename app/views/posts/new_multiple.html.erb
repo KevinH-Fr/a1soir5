@@ -1,0 +1,13 @@
+<%= form_tag posts_path, method: :post do %>
+  <% @posts.each_with_index do |post, index| %>
+    <%= fields_for "posts[#{index}]", post do |post_fields| %>
+      <%#= post_fields.label :title %>
+      <%#= post_fields.text_field :title %>
+
+      <%= post_fields.label :content %>
+      <%= post_fields.text_area :content %>
+    <% end %>
+  <% end %>
+
+  <%= submit_tag 'Create posts' %>
+<% end %>

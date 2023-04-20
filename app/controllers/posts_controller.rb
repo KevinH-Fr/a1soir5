@@ -4,16 +4,16 @@ class PostsController < ApplicationController
   require 'csv'
 
   def import
-    file = params[:file]
+   # file = params[:file]
   
-    file = File.open(file)
-    csv = CSV.parse(file, headers: true, col_sep: ';' )
+   # file = File.open(file)
+   # csv = CSV.parse(file, headers: true, col_sep: ';' )
 
-    csv.each do |row|
-      post_hash = {}
-      post_hash[:name] = row[1] 
-      Post.create(post_hash)
-    end
+   # csv.each do |row|
+   #   post_hash = {}
+   #   post_hash[:name] = row[1] 
+   #   Post.create(post_hash)
+   # end
   
     redirect_to posts_path, notice: "Posts imported."
   end
@@ -53,27 +53,22 @@ class PostsController < ApplicationController
     @post = Post.new 
   end
 
+  def new_multiple
+    @posts = []
+    2.times { @posts << Post.new }
+  end
+
   def edit
     @quantites = [1, 2]
   end
 
   def create
-    @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-
-      #  PostMailer.with(user: current_user, post: @post).post_created.deliver_later
-        PostMailer.new_post.deliver_later
-
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    params[:posts].each do |index, post_params|
+      Post.create(post_params.permit(:title, :content))
     end
+    redirect_to posts_path
   end
+  
 
   def update
     respond_to do |format|
