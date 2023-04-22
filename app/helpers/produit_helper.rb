@@ -21,4 +21,20 @@ module ProduitHelper
             self.produitsIdentiques
         end
     end 
+
+    def prixProduit(produit_id)
+        produit = Produit.find(produit_id)
+        produit.prix
+    end
+
+    def prixLocationProduit(produit_id)
+        produit = Produit.find(produit_id)
+        produit.prixlocation
+    end
+
+    def prixCautionProduit(produit_id)
+        produit = Produit.find(produit_id)
+        produit.caution
+    end
+      
 end

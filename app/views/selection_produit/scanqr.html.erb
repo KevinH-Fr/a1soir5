@@ -7,13 +7,9 @@
     <section class="container" id="demo-content">
       <h1 class="title text-dark">Scan QR Code from Video Camera</h1>
 
-      <div>
-        <a class="button btn btn-success" id="startButton">Start</a>
-        <a class="button btn btn-danger" id="resetButton">Reset</a>
-      </div>
       <hr>
 
-      <div>
+      <div class="text-center">
         <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
       </div>
 
@@ -24,15 +20,17 @@
       </div>
 
       <hr>
-      
-      <label>Resultats :</label>
-      <div id="count"></div>
+
+      <div id="count">
+      </div>
     
-      <hr>
       <div id="results"></div>
 
-      <div>
-        <a class="btn btn-primary" id="otherScanButton">Scanner un autre QR code</a> 
+      <a class="button btn btn-primary" id="startButton">Start</a>
+      <a class="button btn btn-danger" id="resetButton" style="display: none;">Reset</a>
+
+      <div id="buttons-next" style="display: none;">
+        <a class="btn btn-primary" id="otherScanButton">Scanner autre QR</a> 
         <a class="btn btn-success" id="validateButton">Valider</a>
       </div>
 
@@ -40,42 +38,60 @@
 
   </main>
 
+  <div>test link multiple</div>
+
+  <% produitsIds = [38, 39]%>
+
+  <%= link_to "New multiple articles", new_multiple_articles_path(produits_ids: produitsIds), class:"btn btn-success" %>
+
+
+
   <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
   <script type="text/javascript">
 
-function decodeOnce(codeReader, selectedDeviceId) {
-  codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
-   
-   const resultsDiv = document.getElementById('results');
-
-   if (result) {
-      // properly decoded qr code
-      console.log('Found QR code!', result)
-
-       // extract value from URL
-      let  resultTransforme = result.toString().split('produits/')[1];
-      console.log('resultTransforme: ', resultTransforme)
-      let  resultTransforme2 = resultTransforme.split('?')[0];
-      console.log('resultTransforme2: ', resultTransforme2)
-     
-      const resultElement = document.createElement('p');
+    function decodeOnce(codeReader, selectedDeviceId) {
+      codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
       
-      resultElement.textContent = resultTransforme2;
-      document.getElementById('results').appendChild(resultElement);
+      const resultsDiv = document.getElementById('results');
 
-    // update the count of child elements in the results div
-      const numResults = resultsDiv.childElementCount;
+      if (result) {
+          // properly decoded qr code
+          console.log('Found QR code!', result)
 
-  // display the count on the HTML page
-  const countElement = document.getElementById('count');
-  countElement.textContent = `Number of results: ${numResults}`;
+          // extract value from URL
+          let  resultTransforme = result.toString().split('produits/')[1];
+          //console.log('resultTransforme: ', resultTransforme)
+          let  resultTransforme2 = resultTransforme.split('?')[0];
+          //console.log('resultTransforme2: ', resultTransforme2)
+        
+          const resultElement = document.createElement('p');
+          
+          resultElement.textContent = resultTransforme2;
+          document.getElementById('results').appendChild(resultElement);
 
+        // update the count of child elements in the results div
+          const numResults = resultsDiv.childElementCount;
 
-       // stop camera
-      codeReader.stopStreams();
+          // display the count on the HTML page
+          const countElement = document.getElementById('count');
+          countElement.textContent = `Number of results: ${numResults}`;
 
-    }
+          // stop camera
+          codeReader.stopStreams();
 
+          // show btns autre scan et valider et reset
+          var btnsDiv = document.getElementById("buttons-next");
+          btnsDiv.style.display = "block";
+
+          var btnStart = document.getElementById("startButton");
+          btnStart.style.display = "none";
+
+          var btnReset = document.getElementById("resetButton");
+          btnReset.style.display = "inline";
+
+          
+
+        }
       })
     }
 
@@ -107,6 +123,10 @@ function decodeOnce(codeReader, selectedDeviceId) {
           document.getElementById('startButton').addEventListener('click', () => {
             decodeOnce(codeReader, selectedDeviceId);
             console.log(`Started decode from camera with id ${selectedDeviceId}`)
+
+            var btnReset = document.getElementById("resetButton");
+            btnReset.style.display = "inline";
+
           })
 
           document.getElementById('otherScanButton').addEventListener('click', () => {
@@ -118,6 +138,30 @@ function decodeOnce(codeReader, selectedDeviceId) {
             codeReader.reset()
             document.getElementById('result').textContent = '';
             console.log('Reset.')
+          })
+
+          /*  reprendre ici et ajouter un consol log sur 
+              btn valider y passer les ids produits
+          */
+
+          document.getElementById('validateButton').addEventListener('click', () => {
+           // console.log('click btn validate.')
+            const resultsDiv = document.getElementById("results"); // Get the <div> element
+            //console.log("ids: " + resultsDiv.textContent)
+
+             const resultElements = resultsDiv.querySelectorAll('p'); // Get all the <p> elements within the <div> element
+
+            resultElements.forEach((resultElement) => { // Loop through the <p> elements
+              //console.log(resultElement.textContent); // Log the text content of each <p> element to the console
+          
+            const resultTextArray = Array.from(resultElements).map((resultElement) => resultElement.textContent); // Convert the NodeList of <p> elements to an array of their text content using the map() method
+              console.log(resultTextArray); // Log the array of text content to the console
+            });
+
+            // redirection vers page new multiple avec params
+
+
+
           })
 
         })

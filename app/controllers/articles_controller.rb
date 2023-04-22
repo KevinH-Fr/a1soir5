@@ -38,9 +38,6 @@ class ArticlesController < ApplicationController
       end 
     end
 
-
-
-    
     if @quantite.present? && @valPrix.present? 
       @valTotal =  @quantite * @valPrix 
     else
@@ -71,6 +68,17 @@ class ArticlesController < ApplicationController
   
   end
 
+
+  def new_multiple
+
+    @commandeId =  session[:commandeId]
+    @typelocvente = ["location", "vente"]
+
+    @articles = []
+    2.times { @articles << Article.new }
+  end
+
+
   def edit
 
     @produitId = params[:produitId]
@@ -88,26 +96,36 @@ class ArticlesController < ApplicationController
   end
 
   def create
+
     @article = Article.new(article_params)
     #@categories = Produit.distinct.pluck(:categorie)
     @categories = Produit.categories.keys
     @sousarticles = Sousarticle.article_courant(@article)
     @ensembles = Ensemble.all
-    @produitId = @article.produit_id
-    @commandeId = @article.commande_id
+   # @produitId = @article.produit_id
 
-    respond_to do |format|
-      if @article.save
+    @commandeId =  session[:commandeId]
 
-        format.html { redirect_to article_path(@article, commandeId: @commandeId, produitId: @produitId, articleId: @article),
-                      notice: "L'article a bien été créé"}
-        format.json { render :show, status: :created, location: @article }
-
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+    permitted_array = [:commande_id, :produit_id, :quantite, :longueduree, :prix, :caution, :prixlocation, :total, :totalcaution]
+    if params[:article]
+      Article.create(params[:article].permit(permitted_array))
+    else
+      params[:articles].each do |index, article_params|
+        Article.create(article_params.permit(permitted_array))
       end
     end
+    redirect_to commande_path(@commandeId)
+
+    #respond_to do |format|
+    #  if @article.save
+    #    format.html { redirect_to article_path(@article, commandeId: @commandeId, produitId: @produitId, articleId: @article),
+    #                  notice: "L'article a bien été créé"}
+    #    format.json { render :show, status: :created, location: @article }
+    #  else
+    #    format.html { render :new, status: :unprocessable_entity }
+    #    format.json { render json: @article.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   def update

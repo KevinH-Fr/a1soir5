@@ -186,6 +186,9 @@ Rails.application.routes.draw do
   end
   
   resources :articles do
+    get :new_multiple, on: :collection
+    post :create_multiple, on: :collection
+    
     member do
       get :toggle_selectProduit
       get :toggle_transformer_ensemble
