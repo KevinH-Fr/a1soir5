@@ -2,21 +2,9 @@
   <% @articles.each_with_index do |article, index| %>
     <%= fields_for "articles[#{index}]", article do |article_fields| %>
 
-    <%# encoded_produits_ids = params[:produits_ids] %> 
-    <%# decoded_produits_ids = JSON.parse(CGI.unescape(encoded_produits_ids))  %>
+  test nb elemetns : <%= @nbElements %>
 
-      produits array: <%= produits = params[:produits_ids]  %>
-      
-
-      produit id: <%#= produit_id = produits[1] %>
-      <%= produit_id = produits %>
-
-     <% @produit = Produit.find(produit_id) %>
-
-
-
- <% if @produit.present? %> 
-
+   <% if @produits_ids.present? %>
 
     <div class="bloc-entete-model card-body p-1">
       <div class="row p-0 m-0 justify-content-center">
@@ -25,13 +13,12 @@
 
           <div data-controller="totalupdate">
 
-          
-            <%= article_fields.hidden_field :prixlocation, name:'prixlocationInitial', value:  prixProduit(produit_id) %> 
-            <%= article_fields.hidden_field :prixvente, name:'prixVenteInitial', value: prixLocationProduit(produit_id) %>
-            <%= article_fields.hidden_field :prixcaution, name:'prixCautionInitial', value: prixCautionProduit(produit_id) %>
+            <%= article_fields.hidden_field :prixlocation, name:'prixlocationInitial', value: @produits_ids[index].prixlocation %> 
+            <%= article_fields.hidden_field :prixvente, name:'prixVenteInitial', value:  @produits_ids[index].prix %>
+            <%= article_fields.hidden_field :prixcaution, name:'prixCautionInitial', value:  @produits_ids[index].caution %>
           
             <%= article_fields.hidden_field(:commande_id, value: @commandeId) %>
-            <%= article_fields.hidden_field(:produit_id, value: produit_id) %>
+            <%= article_fields.hidden_field(:produit_id, value: @produits_ids[index].id) %>
             
 
           <div class="row">
@@ -40,11 +27,11 @@
               <h5 class="card-title text-dark me-4 text-center">
                  Article #<%= index + 1 %> 
                 <span class="text-left text-dark fw-bold">
-                  <%= @produit.nom %>
+                  <%= @produits_ids[index].nom %>
                 </span>
               </h5>
               <div class="text-center m-1 p-1">
-                <%= image_tag @produit.image1, width: "120", class:"rounded shadowed" if @produit.image1.attached? %>
+                <%= image_tag @produits_ids[index].image1, width: "120", class:"rounded shadowed" if @produits_ids[index].image1.attached? %>
               </div>
       
             </div>
@@ -129,7 +116,7 @@
       </div>
     </div>
 
-  <% end %>
+  <% end %> 
 
 
     <% end %> <hr>
@@ -137,5 +124,3 @@
 
   <%= submit_tag 'Create articles' %>
 <% end %>
-
-<%#= produits =  params[:produits_ids] %>

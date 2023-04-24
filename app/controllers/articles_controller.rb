@@ -74,11 +74,11 @@ class ArticlesController < ApplicationController
     @commandeId =  session[:commandeId]
     @typelocvente = ["location", "vente"]
 
-   # @produits_ids = JSON.parse(params[:produits_ids])
-    @produits_ids = params[:produits_ids]
+    @produits_ids = Produit.find(params[:produits_ids])
+    @nbElements = params[:nbElements].to_i
     
     @articles = []
-    2.times { @articles << Article.new }
+    @nbElements.times { @articles << Article.new }
   end
 
 

@@ -19,7 +19,16 @@
       <div id="count">
       </div>
     
-      <div id="results"></div>
+      <div id="results">
+<%
+=begin%>
+         <p>38</p>
+        <p>39</p> 
+<%
+=end%>
+      </div>
+
+      <%= link_to "Test Btn", url_for, id:"testBtn", class:"btn btn-success" %>
 
       <a class="button btn btn-primary" id="startButton">Start</a>
       <a class="button btn btn-danger" id="resetButton" style="display: none;">Reset</a>
@@ -33,9 +42,6 @@
 
     </section>
 
-
-  <%# produitsIds = [38, 39]%>
-  <%#= link_to "New multiple articles", new_multiple_articles_path(produits_ids: produitsIds), class:"btn btn-success" %>
 
   <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
   <script type="text/javascript">
@@ -135,54 +141,57 @@
           */
 
           document.getElementById('validateButton').addEventListener('click', () => {
-            const resultsDiv = document.getElementById("results");
-            const resultElements = resultsDiv.querySelectorAll('p');
-            const resultIntArray = [];
-
-            resultElements.forEach((resultElement) => {
-              const resultText = resultElement.textContent;
-              const resultInt = parseInt(resultText, 10);
-              resultIntArray.push(resultInt);
-            });
-
-            const rootPath = window.location.origin;
+            const resultsDiv = document.getElementById('results');
+            const pElements = resultsDiv.getElementsByTagName('p');
+            const values = [];
+            for (let i = 0; i < pElements.length; i++) {
+              const value = parseInt(pElements[i].textContent);
+              values.push(value);
+            }
+            console.log('click btn test - result: ' + resultsDiv.textContent);
+            console.log("values: " + values); 
+          
             const commandeId = <%= @commandeId.to_json.html_safe %>;
-            const arrayProduits = resultIntArray;
+            const rootPath = window.location.origin;
+            const pageUrl = "/articles";
+            const baseUrl = "/new_multiple?commandeId=" + commandeId + "&";
+            const produits_ids = `${values.map(id => `produits_ids[]=${id}`).join('&')}`;
+            const numberOfElements = "&nbElements=" + values.length;
 
-            const baseUrl = "/articles/new_multiple?commandeId=" + commandeId + "&produits_ids=" + arrayProduits;
-            const fullPath = rootPath + baseUrl;
-            console.log(`arrayProduits : [${arrayProduits}]`);
+            const fullPath = rootPath + pageUrl + baseUrl + produits_ids + numberOfElements;
+
+            console.log("url: " + fullPath); 
+            console.log("nb: " + numberOfElements);
             window.location.assign(fullPath);
+
           });
 
 
-        // test sur boutons pour array new produits vers form multople
-        document.getElementById('testArrayUrlBtn').addEventListener('click', () => {
-
-           const resultIntArray = ["38", "39"];
-
-            /*resultElements.forEach((resultElement) => {
-              const resultText = resultElement.textContent;
-              const resultInt = parseInt(resultText, 10);
-              resultIntArray.push(resultInt);
-            });*/
-                     
-            const arrayProduits = resultIntArray;
-
-
-            const encodedProduitsIds = encodeURIComponent(JSON.stringify(arrayProduits));
-          console.log(`arrayProduits : [${arrayProduits}]`);
-          console.log(arrayProduits[1]); // Output: 39
-
-
-            const rootPath = window.location.origin;
+          // test sur boutons pour array new produits vers form multople
+          document.getElementById('testBtn').addEventListener('click', () => {
+            const resultsDiv = document.getElementById('results');
+            const pElements = resultsDiv.getElementsByTagName('p');
+            const values = [];
+            for (let i = 0; i < pElements.length; i++) {
+              const value = parseInt(pElements[i].textContent);
+              values.push(value);
+            }
+            console.log('click btn test - result: ' + resultsDiv.textContent);
+            console.log("values: " + values); 
+          
             const commandeId = <%= @commandeId.to_json.html_safe %>;
-            const baseUrl = "/articles/new_multiple?commandeId=" + commandeId + "&produits_ids=" + encodedProduitsIds ;
-            const fullPath = rootPath + baseUrl;
-           // window.location.assign(fullPath);
-            
+            const rootPath = window.location.origin;
+            const pageUrl = "/articles";
+            const baseUrl = "/new_multiple?commandeId=" + commandeId + "&";
+            const produits_ids = `${values.map(id => `produits_ids[]=${id}`).join('&')}`;
+            const numberOfElements = "&nbElements=" + values.length;
 
-    
+            const fullPath = rootPath + pageUrl + baseUrl + produits_ids + numberOfElements;
+
+            console.log("url: " + fullPath); 
+            console.log("nb: " + numberOfElements);
+            window.location.assign(fullPath);
+
           });
 
         })
