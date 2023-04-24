@@ -1,9 +1,6 @@
 <%= form_tag posts_path, method: :post do %>
   <% @posts.each_with_index do |post, index| %>
     <%= fields_for "posts[#{index}]", post do |post_fields| %>
-      <%#= post_fields.label :title %>
-      <%#= post_fields.text_field :title %>
-
       <%= post_fields.label :content %>
       <%= post_fields.text_area :content %>
     <% end %>
@@ -11,3 +8,14 @@
 
   <%= submit_tag 'Create posts' %>
 <% end %>
+
+test produits ids depuis controller : 
+<% @produits_ids  %> <br>
+<% if @produits_ids.present? %>
+  <% @produits_ids.each do |produit_id| %>
+    <%= produit_id.id %> | <%= produit_id.nom %> <hr>
+  <% end %>
+<% end %>
+
+<%= @produits_ids[0].id %>
+<%= @produits_ids[1].id %>

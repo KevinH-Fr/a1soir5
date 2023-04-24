@@ -1,11 +1,6 @@
 
-
-<body>
-
-  <main class="wrapper" style="padding-top:2em">
-
     <section class="container" id="demo-content">
-      <h1 class="title text-dark">Scan QR Code from Video Camera</h1>
+      <h4 class="title text-dark">Scan QR Code from Video Camera</h4>
 
       <hr>
 
@@ -34,17 +29,13 @@
         <a class="btn btn-success" id="validateButton">Valider</a>
       </div>
 
+      <a class="button btn btn-dark" id="testArrayUrlBtn"> test url array</a>
+
     </section>
 
-  </main>
 
-  <div>test link multiple</div>
-
-  <% produitsIds = [38, 39]%>
-
-  <%= link_to "New multiple articles", new_multiple_articles_path(produits_ids: produitsIds), class:"btn btn-success" %>
-
-
+  <%# produitsIds = [38, 39]%>
+  <%#= link_to "New multiple articles", new_multiple_articles_path(produits_ids: produitsIds), class:"btn btn-success" %>
 
   <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
   <script type="text/javascript">
@@ -60,10 +51,11 @@
 
           // extract value from URL
           let  resultTransforme = result.toString().split('produits/')[1];
-          //console.log('resultTransforme: ', resultTransforme)
-          let  resultTransforme2 = resultTransforme.split('?')[0];
-          //console.log('resultTransforme2: ', resultTransforme2)
-        
+
+            //console.log('resultTransforme: ', resultTransforme)
+            let  resultTransforme2 = resultTransforme.split('?')[0];
+            //console.log('resultTransforme2: ', resultTransforme2)
+          
           const resultElement = document.createElement('p');
           
           resultElement.textContent = resultTransforme2;
@@ -88,8 +80,6 @@
 
           var btnReset = document.getElementById("resetButton");
           btnReset.style.display = "inline";
-
-          
 
         }
       })
@@ -145,30 +135,60 @@
           */
 
           document.getElementById('validateButton').addEventListener('click', () => {
-           // console.log('click btn validate.')
-            const resultsDiv = document.getElementById("results"); // Get the <div> element
-            //console.log("ids: " + resultsDiv.textContent)
+            const resultsDiv = document.getElementById("results");
+            const resultElements = resultsDiv.querySelectorAll('p');
+            const resultIntArray = [];
 
-             const resultElements = resultsDiv.querySelectorAll('p'); // Get all the <p> elements within the <div> element
-
-            resultElements.forEach((resultElement) => { // Loop through the <p> elements
-              //console.log(resultElement.textContent); // Log the text content of each <p> element to the console
-          
-            const resultTextArray = Array.from(resultElements).map((resultElement) => resultElement.textContent); // Convert the NodeList of <p> elements to an array of their text content using the map() method
-              console.log(resultTextArray); // Log the array of text content to the console
+            resultElements.forEach((resultElement) => {
+              const resultText = resultElement.textContent;
+              const resultInt = parseInt(resultText, 10);
+              resultIntArray.push(resultInt);
             });
 
-            // redirection vers page new multiple avec params
+            const rootPath = window.location.origin;
+            const commandeId = <%= @commandeId.to_json.html_safe %>;
+            const arrayProduits = resultIntArray;
+
+            const baseUrl = "/articles/new_multiple?commandeId=" + commandeId + "&produits_ids=" + arrayProduits;
+            const fullPath = rootPath + baseUrl;
+            console.log(`arrayProduits : [${arrayProduits}]`);
+            window.location.assign(fullPath);
+          });
 
 
+        // test sur boutons pour array new produits vers form multople
+        document.getElementById('testArrayUrlBtn').addEventListener('click', () => {
 
-          })
+           const resultIntArray = ["38", "39"];
+
+            /*resultElements.forEach((resultElement) => {
+              const resultText = resultElement.textContent;
+              const resultInt = parseInt(resultText, 10);
+              resultIntArray.push(resultInt);
+            });*/
+                     
+            const arrayProduits = resultIntArray;
+
+
+            const encodedProduitsIds = encodeURIComponent(JSON.stringify(arrayProduits));
+          console.log(`arrayProduits : [${arrayProduits}]`);
+          console.log(arrayProduits[1]); // Output: 39
+
+
+            const rootPath = window.location.origin;
+            const commandeId = <%= @commandeId.to_json.html_safe %>;
+            const baseUrl = "/articles/new_multiple?commandeId=" + commandeId + "&produits_ids=" + encodedProduitsIds ;
+            const fullPath = rootPath + baseUrl;
+           // window.location.assign(fullPath);
+            
+
+    
+          });
 
         })
+
         .catch((err) => {
           console.error(err)
         })
     })
   </script>
-
-</body>

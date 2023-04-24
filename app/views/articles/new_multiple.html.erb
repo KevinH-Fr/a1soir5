@@ -2,15 +2,21 @@
   <% @articles.each_with_index do |article, index| %>
     <%= fields_for "articles[#{index}]", article do |article_fields| %>
 
+    <%# encoded_produits_ids = params[:produits_ids] %> 
+    <%# decoded_produits_ids = JSON.parse(CGI.unescape(encoded_produits_ids))  %>
 
-            <% produits = params[:produits_ids] %>
-            <% produit_id = produits[index] %>
+      produits array: <%= produits = params[:produits_ids]  %>
+      
 
+      produit id: <%#= produit_id = produits[1] %>
+      <%= produit_id = produits %>
 
-      <% @produit = Produit.find(produit_id) %>
+     <% @produit = Produit.find(produit_id) %>
+
 
 
  <% if @produit.present? %> 
+
 
     <div class="bloc-entete-model card-body p-1">
       <div class="row p-0 m-0 justify-content-center">

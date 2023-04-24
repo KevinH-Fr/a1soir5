@@ -20,6 +20,8 @@ class PostsController < ApplicationController
   
 
   def index
+    @produits_ids = JSON.parse(params[:produits_ids]) if params[:produits_ids].present?
+
     @posts = Post.all
     respond_to do |format|
       format.html
@@ -54,6 +56,8 @@ class PostsController < ApplicationController
   end
 
   def new_multiple
+    @produits_ids = Produit.find(params[:produits_ids])
+
     @posts = []
     2.times { @posts << Post.new }
   end

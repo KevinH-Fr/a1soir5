@@ -23,4 +23,46 @@
 <%= link_to "Nouveau", new_post_path, data:{turbo_frame: "modal"}, class:"btn btn-warning" %>
 <%#= link_to "posts PDF", posts_path(format: :pdf), class:"btn btn-warning" %>
 
-<%= link_to "New multiple posts", new_multiple_posts_path, class:"btn btn-success" %>
+div results:
+
+<div id="results">
+  <p>38</p>
+  <p>39</p>
+</div>
+
+<%#= link_to "New multiple posts", new_multiple_posts_path, class:"btn btn-success" %>
+
+<%= link_to "Test Btn", url_for, id:"testBtn", class:"btn btn-success" %>
+
+
+<script>
+  // test sur boutons pour array new produits vers form multople
+  document.getElementById('testBtn').addEventListener('click', () => {
+    const resultsDiv = document.getElementById('results');
+    const pElements = resultsDiv.getElementsByTagName('p');
+    const values = [];
+    for (let i = 0; i < pElements.length; i++) {
+      const value = parseInt(pElements[i].textContent);
+      values.push(value);
+    }
+    console.log('click btn test - result: ' + resultsDiv.textContent);
+    console.log("values: " + values); // Output: [38, 39]
+   
+   const produitsIds = values;
+   const arrayProduits = values;
+   const rootPath = window.location.origin;
+  
+   // const fullPath = rootPath + "/posts/new_multiple?produits_ids:" + encodeURIComponent(JSON.stringify(arrayProduits));
+    const fullPath = `${rootPath}/posts/new_multiple?${produitsIds.map(id => `produits_ids[]=${id}`).join('&')}`;
+
+    console.log("url: " + fullPath); 
+    window.location.assign(fullPath);
+    
+
+
+
+  });
+</script>
+
+<hr>
+

@@ -74,6 +74,9 @@ class ArticlesController < ApplicationController
     @commandeId =  session[:commandeId]
     @typelocvente = ["location", "vente"]
 
+   # @produits_ids = JSON.parse(params[:produits_ids])
+    @produits_ids = params[:produits_ids]
+    
     @articles = []
     2.times { @articles << Article.new }
   end
