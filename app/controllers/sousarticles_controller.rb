@@ -48,7 +48,6 @@ class SousarticlesController < ApplicationController
     @articleId = params[:articleId]
     session[:articleId] = params[:articleId]
     @articleLocVente = Article.find(@articleId).locvente
-
     @typelocvente = ["location", "vente"]
 
     @produits_ids = Produit.find(params[:produits_ids])

@@ -86,14 +86,18 @@
         <%= form.text_area :commentaires, class:"form-control field-with-format-large" %>
       </div>
      
-      <div class="float-end mt-2 mb-4">
+      <div class="text-end mt-2">
         <%= link_to "Fermer", "", data:{turbo_frame: "modal"}, 
             class:"btn btn-sm btn-secondary" %>
 
        <%#= link_to "Fermer", "#", data: { turbo_frame: "modal", controller: "close-modal", action: "click->close-modal#hideModal" } %>
 
-        <%= form.submit "Valider", class: "btn btn-success btn-sm", data: { turbo: false } %>
-      </div><br><br>
+      <%= button_tag( :class => "btn btn-validate") do %>
+        <i class="fa-regular fa-thumbs-up"></i>
+      <% end %>
+
+        <%#= form.submit "", class: "fa-regular fa-thumbs-up btn btn-success btn-sm", data: { turbo: false } %>
+      </div>
 
   </div>
 

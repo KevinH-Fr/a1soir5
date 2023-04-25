@@ -509,6 +509,14 @@ input:invalid {
   text-align: center;
 } 
 
+.btn-validate{
+  font-size: x-large;
+  padding: .4em;
+  margin: .5em;
+  background-color: rgb(62, 156, 62);
+  color: white;
+}
+
 .btn-action{
   font-size: medium;
   padding: .4em;
