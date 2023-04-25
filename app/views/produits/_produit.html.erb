@@ -64,6 +64,12 @@
               </span>
             <% end %>
 
+            <% if produit.quantite.present? %>
+              <span class="badge badge-produit">
+                Qté: <%= produit.quantite %>
+              </span>
+            <% end %>
+
             <% if produit.prixlocation.present? %>
               <span class="badge badge-produit">
                 location: <%= produit.prixlocation %>

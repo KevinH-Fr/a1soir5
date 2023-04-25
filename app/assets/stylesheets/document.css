@@ -154,7 +154,6 @@
 
 }
 
-
 .green-colored{
   color: green;
 }
@@ -167,10 +166,18 @@
   width: 400px;
   height: 600px;
   margin: 5px;
-  background-color: rgb(232, 226, 226);
+ /* background-color: rgb(232, 226, 226);*/
   border-color: white;
 }
 
+.table-etiquette-verso{
+  width: 400px;
+  height: 640px;
+  margin: 5px;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: rgb(98, 96, 96);
+}
 
 .th-titre-etiquette{
   padding-top: 5px;
@@ -239,4 +246,21 @@
 .shadowed{
   border-radius: .2em;
   box-shadow: 2px 3px 4px rgba(165, 163, 163, 0.8);
+}
+
+.page-break {
+  display: block;
+  clear: both;
+  page-break-after: always;
+}
+
+.hr-doted {
+  border: none;
+  border-top: 2px dotted rgb(86, 85, 85);
+  color: #fff;
+  background-color: #fff;
+  height: 5px;
+  margin: 20px;
+  margin-top: 70px;
+  width: 90%;
 }

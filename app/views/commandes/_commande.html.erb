@@ -15,7 +15,7 @@
             <hr class="text-dark m-2"> 
 
             <% if commande.client_id.present? %>
-              <span class="badge badge-infos-second bg-primary text-light"> 
+              <span class="badge badge-infos-second bg-secondary text-light"> 
                 <%= highlight(Client.find(commande.client_id).full_name, 
                     params.dig(:q, :nom_or_typeevenement_or_client_prenom_or_client_nom_or_profile_prenom_cont)) %> 
               </span>      
@@ -26,17 +26,23 @@
                     params.dig(:q, :nom_or_typeevenement_or_client_prenom_or_client_nom_or_profile_prenom_cont)) %> 
             </span> 
             <% if commande.info_evenement.present? %>
-              <span class="badge badge-infos-second bg-warning text-light"> 
+              <span class="badge badge-infos-second bg-secondary text-light"> 
                 <%= highlight(commande.info_evenement, 
                     params.dig(:q, :nom_or_typeevenement_or_client_prenom_or_client_nom_or_profile_prenom_cont)) %> 
               </span>      
             <% end %>
 
             <% if commande.profile_id.present? %>
-              <span class="badge badge-infos-second a1soir-colored text-light"> 
+              <span class="badge badge-infos-second bg-secondary text-light"> 
                 <%= highlight(Profile.find(commande.profile_id).full_name, 
                     params.dig(:q, :nom_or_typeevenement_or_client_prenom_or_client_nom_or_profile_prenom_cont)) %> 
               </span>      
+            <% end %>
+
+            <% if commande.devis == true %>
+              <span title="devis", class="badge badge-infos-second bg-warning text-light">
+                <span class="me-1"> devis </span> 
+              </span>
             <% end %>
 
             <% @commande = commande %>
@@ -84,12 +90,6 @@
               <span title="statut rendu", class="badge badge-infos-second bg-success text-light">
                 <i class="fa-solid fa-shirt mx-1"></i>
                 <span class="me-1"> <%= statutCommande  %> </span> 
-              </span>
-            <% end %>
-
-            <% if Commande.find(commande.id).devis == true %>
-              <span title="devis", class="badge badge-infos-second bg-warning text-light">
-                <span class="me-1"> devis </span> 
               </span>
             <% end %>
 
