@@ -31,7 +31,10 @@
     </div>
 
     <div class="text-end mt-2">
-        <%= form.submit "Créer", class: 'btn btn-sm btn-success' %> 
+      <%= button_tag( :class => "btn btn-validate") do %>
+        <i class="fa-regular fa-thumbs-up fa-bounce"></i>
+      <% end %>
     </div>
+    
   </div>
 <% end %>

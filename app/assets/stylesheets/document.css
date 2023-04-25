@@ -176,7 +176,7 @@
   margin: 5px;
   background-color: rgb(255, 255, 255);
   border-style: solid;
-  border-color: rgb(98, 96, 96);
+  border-color: rgb(182, 181, 181);
 }
 
 .th-titre-etiquette{
@@ -256,11 +256,11 @@
 
 .hr-doted {
   border: none;
-  border-top: 2px dotted rgb(86, 85, 85);
+  border-top: 2px dotted rgb(137, 135, 135);
   color: #fff;
   background-color: #fff;
   height: 5px;
-  margin: 20px;
+  margin: 10px;
   margin-top: 70px;
   width: 90%;
 }

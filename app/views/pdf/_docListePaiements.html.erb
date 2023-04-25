@@ -31,7 +31,7 @@
       <tfoot>
         <tr>
           <td colspan=3 class="tfoot-doc centered">  TOTAUX  </td>
-          <td class="tfoot-doc ended"> 
+          <td class="tfoot-doc centered"> 
             <%= number_to_currency(Paiement.commande_courante(@commande).sum_paiements, locale: :fr) %> 
           </td>
         </tr>

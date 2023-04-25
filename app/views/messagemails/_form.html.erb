@@ -104,20 +104,17 @@
           <% intituleComplet = "Bonjour #{intituleClient}," %>
 
           <% dateProchainRv = Meeting.find_by(commande_id: form.object.commande_id).start_time if Meeting.find_by(commande_id: form.object.commande_id).present? %>
+
           <% if dateProchainRv.present? %>
             <% prochainRv = " Votre prochain rendez-vous est prévu le  
-             #{dateProchainRv.strftime("%d/%m/%y")}." %> 
+             #{dateProchainRv.strftime("%d/%m/%y à %Hh%M")}." %> 
           <% else %>
             <% prochainRv = "" %>
           <% end %>
 
           <% bodymail = "#{intituleComplet} <br><br>Merci de trouver ci-attaché votre <strong>#{typedoc}</strong> 
             pour votre  #{@evenement}#{@dateEvent}.
-            <br> #{prochainRv}           
-            "%>
-
-         <%# bodymail = "test body mail" %>
-
+            <br> #{prochainRv}" %>
           <% adressemail = Client.find(Commande.find(form.object.commande_id).client_id).mail  %>
 
         <% end %>    
@@ -126,41 +123,41 @@
       <%#= "commandeId n'existe pas2 : #{params[:commandeId]} " %>
       <%# pour mail client sans commande - sur edit form pas sur new %>
 
-      <% if messagemail.persisted? %>
-        <% sujetmail = messagemail.titre %>
+        <% if messagemail.persisted? %>
+          <% sujetmail = messagemail.titre %>
 
-        <% if params[:clientId].present? %>
-          <% adressemail = messagemail.mail  %>
-          <% bodymail = messagemail.bodymail  %>
+          <% if params[:clientId].present? %>
+            <% adressemail = messagemail.mail  %>
+            <% bodymail = messagemail.bodymail  %>
+          <% end %>
+
+        <% else %> 
+          <%# pour nouveau messagemail client %>
+          <% sujetmail = "Message de A1soir" %>
+
+          <% if params[:clientId].present? %>
+            <% adressemail = Client.find(params[:clientId]).mail  %>
+            <% intituleClient = Client.find(params[:clientId]).intitule_nom %>
+            <% intituleComplet = "Bonjour #{intituleClient}," %>
+            <% bodymail = "#{intituleComplet} <br><br>Notre message pour vous." %>
+          <% end %>
+
         <% end %>
-
-      <% else %> 
-        <%# pour nouveau messagemail client %>
-        <% sujetmail = "Message de A1soir" %>
-
-        <% if params[:clientId].present? %>
-          <% adressemail = Client.find(params[:clientId]).mail  %>
-          <% intituleClient = Client.find(params[:clientId]).intitule_nom %>
-          <% intituleComplet = "Bonjour #{intituleClient}," %>
-          <% bodymail = "#{intituleComplet} <br><br>Notre message pour vous." %>
-        <% end %>
-
-      <% end %>
           
       <% end %>
 
-        <% if form.object.typedoc.present? %> 
+      <% if form.object.typedoc.present? %> 
+        <div class="input-group mb-1">
+          <%= form.label :commentairedoc, class:"input-group-text label-with-format" %>
+          <%= form.text_area :commentairedoc, class:"form-control" %>
+        </div>
+        <% if form.object.typedoc == "facture_simple" %> 
           <div class="input-group mb-1">
-            <%= form.label :commentairedoc, class:"input-group-text label-with-format" %>
-            <%= form.text_area :commentairedoc, class:"form-control" %>
+            <%= form.label :commentairefasimple, class:"input-group-text label-with-format" %>
+            <%= form.text_area :commentairefasimple, class:"form-control" %>
           </div>
-          <% if form.object.typedoc == "facture_simple" %> 
-            <div class="input-group mb-1">
-              <%= form.label :commentairefasimple, class:"input-group-text label-with-format" %>
-              <%= form.text_area :commentairefasimple, class:"form-control" %>
-            </div>
-          <% end %>
         <% end %>
+      <% end %>
 
       <% if form.object.editmail == true || params[:clientId].present? %> 
 
@@ -185,12 +182,13 @@
       <% end %>
 
     <% end %>
+ 
+      <div class="text-end mt-2">
+        <%= button_tag( :class => "btn btn-validate") do %>
+          <i class="fa-regular fa-thumbs-up fa-bounce"></i>
+        <% end %>
+      </div>
 
-    <div class="text-end mt-2">
-      <%= button_tag( :class => "btn btn-validate") do %>
-        <i class="fa-regular fa-thumbs-up fa-bounce"></i>
-      <% end %>
-    </div>
 
   </div>
 

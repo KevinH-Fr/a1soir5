@@ -58,14 +58,14 @@
 
 <% end %>
 
-<%# unless request.format.html? %> <%# masquer sur html %>
-  <%# changement de page vers verso %>
-  <div class="page-break"></div>
+<% unless request.format.html? %> <%# masquer sur html %>
+ 
+  <div class="page-break"></div>  <%# changement de page vers verso %>
 
   <% @produits.each do |produit| %>
     <div style="display: inline-block;">
       <% if produit.present? %>
-        <div class="table-etiquette-verso middled shadowed"> 
+        <div class="table-etiquette-verso"> 
           <% 8.times do %>  
             <hr class="hr-doted">
           <% end %>
@@ -74,13 +74,13 @@
     </div>
   <% end %>
 
-<%# end %>
+<% end %>
 
 <% if request.format.html? %>
 <hr>
   <div class="fixed-bottom footer-index text-end bg-dark">
     <%= link_to "", url_for(prod1: @produit1, prod2: @produit2, prod3: @produit3, prod4: @produit4, format: :pdf), 
           class:"fa-solid fa-file-pdf fa-bounce btn btn-xl btn-danger",
-          title: "Editer étiquette" %> 
+          title: "Editer étiquette", target: "_blank" %> 
   </div>
 <% end %>
