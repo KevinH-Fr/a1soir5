@@ -59,9 +59,9 @@
 
 <% if request.format.html? %>
 <hr>
-  <div class="fixed-bottom footer-index text-center bg-dark">
+  <div class="fixed-bottom footer-index text-end bg-dark">
     <%= link_to "", url_for(prod1: @produit1, prod2: @produit2, prod3: @produit3, prod4: @produit4, format: :pdf), 
-          class:"fa-solid fa-file-pdf btn btn-sm btn-danger",
+          class:"fa-solid fa-file-pdf btn btn-danger",
           title: "Editer étiquette" %> 
   </div>
 <% end %>

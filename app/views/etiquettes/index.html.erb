@@ -33,8 +33,10 @@
             prompt: "Selectionner un produit", class: "form-select field-with-format" %>
       </div>
 
-      <div class="text-end">
-        <%= submit_tag "Go", class:"btn btn-sm btn-primary rounded mx-1" %>
+      <div class="text-end mt-2">
+        <%= button_tag( :class => "btn btn-validate") do %>
+          <i class="fa-regular fa-thumbs-up fa-bounce"></i>
+        <% end %>
       </div>
     <% end %>
 

@@ -517,6 +517,12 @@ input:invalid {
   color: white;
 }
 
+.btn-validate:hover {
+  background-color: rgb(62, 156, 62);
+  color: black;
+  font-weight: bold;
+}
+
 .btn-action{
   font-size: medium;
   padding: .4em;
@@ -647,6 +653,12 @@ input:invalid {
   vertical-align: middle;
   margin: .2em;
   padding: .4em;
+}
+
+.add-dashboard:hover {
+  background-color: rgb(49, 74, 220);
+  color: black;
+  font-weight: bold;
 }
 
 .small-text{

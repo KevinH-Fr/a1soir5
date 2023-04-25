@@ -18,10 +18,10 @@
           <div class="col text-end">
             <% if @messagemail.commande_id.present? %>
             <%= link_to "", editer_pdf_messagemail_path(), title: "Editer PDF", 
-                class:"btn btn-danger fa-solid fa-file-pdf fw-bold" %>
+                class:"btn btn-lg btn-danger fa-solid fa-file-pdf fa-bounce fw-bold" %>
             <% end %>
             <%= link_to "", editer_mail_messagemail_path(), title: "Envoyer mail",
-                  class:"btn btn-primary fa-solid fa-envelope fw-bold" %>
+                  class:"btn btn-lg btn-primary fa-solid fa-envelope fa-bounce fw-bold" %>
           </div>
         </div>
       </div>

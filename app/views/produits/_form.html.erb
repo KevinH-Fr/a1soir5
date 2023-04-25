@@ -114,9 +114,11 @@
       </div>
     </div>
 
-    <div class="float-end mt-2 mb-4">
-      <%= form.submit "Valider", class: "btn btn-primary btn-sm fw-bold", data: { turbo: false } %>
-    </div><br> <br>
+    <div class="text-end mt-2">
+      <%= button_tag( :class => "btn btn-validate") do %>
+        <i class="fa-regular fa-thumbs-up fa-bounce"></i>
+      <% end %>
+    </div>
 
   </div>
 <% end %>

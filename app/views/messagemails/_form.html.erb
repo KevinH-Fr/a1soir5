@@ -186,9 +186,11 @@
 
     <% end %>
 
-      <div class="text-end">
-        <%= form.submit 'Valider', class: "btn btn-success btn-sm fw-bold"  %>
-      </div>
+    <div class="text-end mt-2">
+      <%= button_tag( :class => "btn btn-validate") do %>
+        <i class="fa-regular fa-thumbs-up fa-bounce"></i>
+      <% end %>
+    </div>
 
   </div>
 
