@@ -197,6 +197,9 @@ Rails.application.routes.draw do
   end
 
   resources :sousarticles do
+    get :new_multiple, on: :collection
+    post :create_multiple, on: :collection
+    
     member do
       get :toggle_sousarticleauto
       post :edit

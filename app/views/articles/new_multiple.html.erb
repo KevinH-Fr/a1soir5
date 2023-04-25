@@ -2,125 +2,110 @@
   <% @articles.each_with_index do |article, index| %>
     <%= fields_for "articles[#{index}]", article do |article_fields| %>
 
-  test nb elemetns : <%= @nbElements %>
+      <% if @produits_ids.present? %>
 
-   <% if @produits_ids.present? %>
+        <div class="bloc-entete-model card-body p-1">
+          <div class="row p-0 m-0 justify-content-center">
+            <div class="col-md-10 cadre-interieur"> 
 
-    <div class="bloc-entete-model card-body p-1">
-      <div class="row p-0 m-0 justify-content-center">
+              <div data-controller="totalupdate">
+                <%= article_fields.hidden_field :prixlocation, name:'prixlocationInitial', value: @produits_ids[index].prixlocation %> 
+                <%= article_fields.hidden_field :prixvente, name:'prixVenteInitial', value:  @produits_ids[index].prix %>
+                <%= article_fields.hidden_field :prixcaution, name:'prixCautionInitial', value:  @produits_ids[index].caution %>
+              
+                <%= article_fields.hidden_field(:commande_id, value: @commandeId) %>
+                <%= article_fields.hidden_field(:produit_id, value: @produits_ids[index].id) %>
+                
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-dark me-4 text-center">
+                      Article #<%= index + 1 %> 
+                      <span class="text-left text-dark fw-bold">
+                        <%= @produits_ids[index].nom %>
+                      </span>
+                    </h5>
+                    <div class="text-center m-1 p-1">
+                      <%= image_tag @produits_ids[index].image1, width: "120", class:"rounded shadowed" if @produits_ids[index].image1.attached? %>
+                    </div>
+                  </div>
 
-        <div class="col-md-10 cadre-interieur"> 
+                  <div class="col">
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= article_fields.label :type, class:"input-group-text bg-primary text-light label-sized" %>
+                      <%= article_fields.select :locvente,  @typelocvente, {include_blank: true}, { 
+                          class:"form-control text-center input-sized",
+                          data: { action: "change->totalupdate#setInitialPrix", 
+                          target: "totalupdate.locvente", totalupdate_target: "locvente" }  } %>
+                    </div>
 
-          <div data-controller="totalupdate">
+                    <div class="input-group input-group-sm mb-2 justify-content-center"  data-totalupdate-target="containerLongueduree">
+                      <div class="form-check form-switch">
+                        <div class="custom-control custom-switch">
 
-            <%= article_fields.hidden_field :prixlocation, name:'prixlocationInitial', value: @produits_ids[index].prixlocation %> 
-            <%= article_fields.hidden_field :prixvente, name:'prixVenteInitial', value:  @produits_ids[index].prix %>
-            <%= article_fields.hidden_field :prixcaution, name:'prixCautionInitial', value:  @produits_ids[index].caution %>
-          
-            <%= article_fields.hidden_field(:commande_id, value: @commandeId) %>
-            <%= article_fields.hidden_field(:produit_id, value: @produits_ids[index].id) %>
-            
+                          <%= article_fields.check_box :longueduree, {
+                            id: "longueduree",
+                            class: "form-check-input",
+                            data: { 
+                              action: "change->totalupdate#setLongueDuree",
+                              target: "totalupdate.longueduree",
+                              totalupdate_target: "longueduree"
+                            } 
+                          } %>
+                          <label class="text-dark" for="longueduree">longue durée</label>
+                        </div>
+                      </div>
+                    </div>
 
-          <div class="row">
-            <div class="col">
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= article_fields.label :quantite, class:"input-group-text bg-primary text-light label-sized" %>
+                      <%= article_fields.number_field :quantite, { 
+                          class:"form-control text-center input-sized",
+                          data: { action: "change->totalupdate#updateTotal", 
+                          target: "totalupdate.quantite", totalupdate_target: "quantite" } } %> <br>
+                    </div>
 
-              <h5 class="card-title text-dark me-4 text-center">
-                 Article #<%= index + 1 %> 
-                <span class="text-left text-dark fw-bold">
-                  <%= @produits_ids[index].nom %>
-                </span>
-              </h5>
-              <div class="text-center m-1 p-1">
-                <%= image_tag @produits_ids[index].image1, width: "120", class:"rounded shadowed" if @produits_ids[index].image1.attached? %>
-              </div>
-      
-            </div>
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= article_fields.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
+                      <%= article_fields.number_field :prix, { 
+                        class:"form-control text-center input-sized",
+                        data: { action: "change->totalupdate#updateTotal", 
+                                target: "totalupdate.prix",  totalupdate_target: "prix" } } %> <br>
+                    </div>
 
-            <div class="col">
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                <%= article_fields.label :type, class:"input-group-text bg-primary text-light label-sized" %>
-            
-                <%= article_fields.select :locvente,  @typelocvente, {include_blank: true}, { 
-                    class:"form-control text-center input-sized",
-                    data: { action: "change->totalupdate#setInitialPrix", 
-                    target: "totalupdate.locvente", totalupdate_target: "locvente" }  } %>
-              </div>
+                    <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerCaution">
+                      <%= article_fields.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
+                      <%= article_fields.number_field :caution,  { 
+                          class:"form-control bg-secondary text-white text-center input-sized",
+                            data: { action: "change->totalupdate#updateTotal", 
+                            target: "totalupdate.caution", 
+                            totalupdate_target: "caution" } } %> <br>
+                    </div>
 
-
-            <div class="input-group input-group-sm mb-2 justify-content-center"  data-totalupdate-target="containerLongueduree">
-              <div class="form-check form-switch">
-                <div class="custom-control custom-switch">
-
-                  <%= article_fields.check_box :longueduree, {
-                    id: "longueduree",
-                    class: "form-check-input",
-                    data: { 
-                      action: "change->totalupdate#setLongueDuree",
-                      target: "totalupdate.longueduree",
-                      totalupdate_target: "longueduree"
-                    } 
-                  } %>
-
-                  <label class="text-dark" for="longueduree">longue durée</label>
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= article_fields.label :total, class:"input-group-text bg-dark text-light label-sized" %>
+                      <%= article_fields.number_field :total, { 
+                          class: "form-control bg-dark text-white text-center input-sized", 
+                          data: { action: "change->totalupdate#updateTotal", 
+                                  target: "totalupdate.total", totalupdate_target: "total" } } %>
+                    </div>
+                    
+                    <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerTotalCaution">
+                      <%= article_fields.label :totalcaution, class:"input-group-text bg-dark text-light label-sized" %>
+                      <%= article_fields.number_field :totalcaution, { 
+                          class: "form-control bg-dark text-white text-center input-sized", 
+                          data: { action: "change->totalupdate#updateTotal", 
+                                  target: "totalupdate.totalcaution", totalupdate_target: "totalcaution" } } %>   
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
               
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                <%= article_fields.label :quantite, class:"input-group-text bg-primary text-light label-sized" %>
-                <%= article_fields.number_field :quantite, { 
-                    class:"form-control text-center input-sized",
-                    data: { action: "change->totalupdate#updateTotal", 
-                    target: "totalupdate.quantite", totalupdate_target: "quantite" } } %> <br>
-              </div>
-
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                <%= article_fields.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
-                <%= article_fields.number_field :prix, { 
-                  class:"form-control text-center input-sized",
-                  data: { action: "change->totalupdate#updateTotal", 
-                          target: "totalupdate.prix",  totalupdate_target: "prix" } } %> <br>
-              </div>
-
-              <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerCaution">
-                <%= article_fields.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
-                <%= article_fields.number_field :caution,  { 
-                    class:"form-control bg-secondary text-white text-center input-sized",
-                      data: { action: "change->totalupdate#updateTotal", 
-                      target: "totalupdate.caution", 
-                      totalupdate_target: "caution" } } %> <br>
-              </div>
-
-              <div class="input-group input-group-sm mb-2 justify-content-center">
-                <%= article_fields.label :total, class:"input-group-text bg-dark text-light label-sized" %>
-                <%= article_fields.number_field :total, { 
-                    class: "form-control bg-dark text-white text-center input-sized", 
-                    data: { action: "change->totalupdate#updateTotal", 
-                            target: "totalupdate.total", totalupdate_target: "total" } } %>
-              </div>
-              
-              <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerTotalCaution">
-                <%= article_fields.label :totalcaution, class:"input-group-text bg-dark text-light label-sized" %>
-                <%= article_fields.number_field :totalcaution, { 
-                    class: "form-control bg-dark text-white text-center input-sized", 
-                    data: { action: "change->totalupdate#updateTotal", 
-                            target: "totalupdate.totalcaution", totalupdate_target: "totalcaution" } } %>   
-              </div>
             </div>
-          
-          </div>
-          
           </div>
         </div>
-      </div>
-    </div>
 
-  <% end %> 
-
-
+      <% end %> 
     <% end %> <hr>
   <% end %>
-
-  <%= submit_tag 'Create articles' %>
+  <%= submit_tag 'Créer articles', class:"btn btn-success" %>
 <% end %>

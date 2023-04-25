@@ -42,6 +42,22 @@ class SousarticlesController < ApplicationController
 
   end
 
+  def new_multiple
+
+    @commandeId =  session[:commandeId]
+    @articleId = params[:articleId]
+    session[:articleId] = params[:articleId]
+    @articleLocVente = Article.find(@articleId).locvente
+
+    @typelocvente = ["location", "vente"]
+
+    @produits_ids = Produit.find(params[:produits_ids])
+    @nbElements = params[:nbElements].to_i
+    
+    @sousarticles = []
+    @nbElements.times { @sousarticles << Sousarticle.new }
+  end
+
   def edit
   
     @produitId = params[:produitId]
@@ -65,19 +81,30 @@ class SousarticlesController < ApplicationController
   def create
     @articleId = params[:articleId]
     @sousarticle = Sousarticle.new(sousarticle_params)
-    @commandeId = Article.find(@sousarticle.article_id).commande_id
-    @produitId = Article.find(@sousarticle.article_id).produit_id
+    @commandeId = session[:commandeId]
 
-    respond_to do |format|
-      if @sousarticle.save
-        format.html { redirect_to article_path(@sousarticle.article_id, commandeId: @commandeId, produitId:  @produitId), 
-             notice: "Sousarticle was successfully created." }
-        format.json { render :show, status: :created, location: @sousarticle }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @sousarticle.errors, status: :unprocessable_entity }
+   # @produitId = Article.find(@sousarticle.article_id).produit_id
+
+    permitted_array = [:article_id, :produit_id, :prix_sousarticle, :caution_sousarticle]
+    if params[:sousarticle]
+      Sousarticle.create(params[:article].permit(permitted_array))
+    else
+      params[:sousarticles].each do |index, sousarticle_params|
+        Sousarticle.create(sousarticle_params.permit(permitted_array))
       end
     end
+    redirect_to commande_path(@commandeId)
+
+   # respond_to do |format|
+   #   if @sousarticle.save
+   #     format.html { redirect_to article_path(@sousarticle.article_id, commandeId: @commandeId, produitId:  @produitId), 
+   #          notice: "Sousarticle was successfully created." }
+   #     format.json { render :show, status: :created, location: @sousarticle }
+   #   else
+   #     format.html { render :new, status: :unprocessable_entity }
+   #     format.json { render json: @sousarticle.errors, status: :unprocessable_entity }
+   #   end
+   # end
   end
 
   def update

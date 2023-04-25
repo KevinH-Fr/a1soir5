@@ -1,0 +1,62 @@
+<%= form_tag sousarticles_path, method: :post do %>
+  <% @sousarticles.each_with_index do |sousarticle, index| %>
+    <%= fields_for "sousarticles[#{index}]", sousarticle do |sousarticle_fields| %>
+
+      <% if @produits_ids.present? %>
+
+        <div class="bloc-entete-model card-body p-1">
+          <div class="row p-0 m-0 justify-content-center">
+            <div class="col-md-10 cadre-interieur"> 
+
+                <%= sousarticle_fields.hidden_field(:article_id, value: @articleId) %>
+                <%= sousarticle_fields.hidden_field(:produit_id, value: @produits_ids[index].id) %>
+                
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-dark me-4 text-center">
+                      Sous Article #<%= index + 1 %> 
+                      <span class="text-left text-dark fw-bold">
+                        <%= @produits_ids[index].nom %>
+                      </span>
+                    </h5>
+                    <div class="text-center m-1 p-1">
+                      <%= image_tag @produits_ids[index].image1, width: "120", class:"rounded shadowed" if @produits_ids[index].image1.attached? %>
+                    </div>
+                  </div>
+
+                  <div class="col">
+
+                  <% if @articleLocVente == "location" %>
+                    <% prixSousArticle = @produits_ids[index].prixlocation %>
+                    <% cautionSousArticle = @produits_ids[index].caution %>
+                  <% else %>
+                    <% prixSousArticle = @produits_ids[index].prix %>
+                    <% cautionSousArticle = 0 %>
+                  <% end %>
+
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= sousarticle_fields.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
+                      <%= sousarticle_fields.number_field :prix_sousarticle, value: prixSousArticle, 
+                        class:"form-control text-center input-sized" %> <br>
+                    </div>
+
+                  <% if @articleLocVente == "location" %>
+                    <div class="input-group input-group-sm mb-2 justify-content-center" data-totalupdate-target="containerCaution">
+                      <%= sousarticle_fields.label :caution, class:"input-group-text bg-secondary text-light label-sized" %>
+                      <%= sousarticle_fields.number_field :caution_sousarticle, value: cautionSousArticle, 
+                          class:"form-control bg-secondary text-white text-center input-sized" %> <br>
+                    </div>
+                  <% end %>
+
+                  </div>
+                </div>
+             
+            </div>
+          </div>
+        </div>
+
+      <% end %> 
+    <% end %> <hr>
+  <% end %>
+  <%= submit_tag 'Créer sous articles', class:"btn btn-success" %>
+<% end %>

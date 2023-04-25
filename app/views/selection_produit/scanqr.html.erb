@@ -1,203 +1,144 @@
+<div class="container-fluid bg-light p-2"> 
+  <h2 class="text-dark  text-center"> SCANNER LE QR CODE </h2>
+  <hr>
 
-    <section class="container" id="demo-content">
-      <h4 class="title text-dark">Scan QR Code from Video Camera</h4>
+  <div class="text-center">
+    <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+  </div>
 
-      <hr>
+  <div id="sourceSelectPanel">
+    <label for="sourceSelect">Choisir la source:</label>
+    <select id="sourceSelect" style="max-width:400px">
+    </select>
+  </div>
 
-      <div class="text-center">
-        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
-      </div>
+  <hr>
 
-      <div id="sourceSelectPanel" style="display:none">
-        <label for="sourceSelect">Change video source:</label>
-        <select id="sourceSelect" style="max-width:400px">
-        </select>
-      </div>
+  <div id="count">  </div> <br>
+  <div id="results">  </div>
 
-      <hr>
+  <a class="button btn btn-primary" id="startButton">Démarrer</a>
+  <a class="button btn btn-danger" id="resetButton" style="display: none;">Arrêter</a>
 
-      <div id="count">
-      </div>
+  <div id="buttons-next" style="display: none;">
+    <a class="btn btn-primary" id="otherScanButton">Scanner autre QR</a> 
+    <a class="btn btn-success" id="validateButton">Valider</a>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<script type="text/javascript">
+
+  function decodeOnce(codeReader, selectedDeviceId) {
+    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+    const resultsDiv = document.getElementById('results');
+
+    if (result) {
+      console.log('Found QR code!', result)  // properly decoded qr code
+      // transforme value
+      let  resultTransforme = result.toString().split('produits/')[1];
+      let  resultTransforme2 = resultTransforme.split('?')[0];
+      const resultElement = document.createElement('p');
+      resultElement.textContent = resultTransforme2;
+      document.getElementById('results').appendChild(resultElement);
+
+      // update the count 
+      const numResults = resultsDiv.childElementCount;
+      const countElement = document.getElementById('count');
+      countElement.textContent = `Nombre de produits: ${numResults}`;
     
-      <div id="results">
-<%
-=begin%>
-         <p>38</p>
-        <p>39</p> 
-<%
-=end%>
-      </div>
+      codeReader.stopStreams();   // stop camera
 
-      <%= link_to "Test Btn", url_for, id:"testBtn", class:"btn btn-success" %>
+      // show btns autre scan et valider et reset
+      var btnsDiv = document.getElementById("buttons-next");
+      btnsDiv.style.display = "inline";
 
-      <a class="button btn btn-primary" id="startButton">Start</a>
-      <a class="button btn btn-danger" id="resetButton" style="display: none;">Reset</a>
+      var btnStart = document.getElementById("startButton");
+      btnStart.style.display = "none";
 
-      <div id="buttons-next" style="display: none;">
-        <a class="btn btn-primary" id="otherScanButton">Scanner autre QR</a> 
-        <a class="btn btn-success" id="validateButton">Valider</a>
-      </div>
+      var btnReset = document.getElementById("resetButton");
+      btnReset.style.display = "inline";
 
-      <a class="button btn btn-dark" id="testArrayUrlBtn"> test url array</a>
+      }
+    })
+  }
 
-    </section>
+  window.addEventListener('load', function () {
+    let selectedDeviceId;
+    const codeReader = new ZXing.BrowserQRCodeReader()
+    console.log('ZXing code reader initialized')
 
+    codeReader.getVideoInputDevices()
+      .then((videoInputDevices) => {
+        const sourceSelect = document.getElementById('sourceSelect')
+        selectedDeviceId = videoInputDevices[0].deviceId
+        if (videoInputDevices.length >= 1) {
+          videoInputDevices.forEach((element) => {
+            const sourceOption = document.createElement('option')
+            sourceOption.text = element.label
+            sourceOption.value = element.deviceId
+            sourceSelect.appendChild(sourceOption)
+          })
 
-  <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
-  <script type="text/javascript">
+          sourceSelect.onchange = () => {
+            selectedDeviceId = sourceSelect.value;
+          };
 
-    function decodeOnce(codeReader, selectedDeviceId) {
-      codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
-      
-      const resultsDiv = document.getElementById('results');
+          const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+          sourceSelectPanel.style.display = 'inline'
+        }
 
-      if (result) {
-          // properly decoded qr code
-          console.log('Found QR code!', result)
-
-          // extract value from URL
-          let  resultTransforme = result.toString().split('produits/')[1];
-
-            //console.log('resultTransforme: ', resultTransforme)
-            let  resultTransforme2 = resultTransforme.split('?')[0];
-            //console.log('resultTransforme2: ', resultTransforme2)
-          
-          const resultElement = document.createElement('p');
-          
-          resultElement.textContent = resultTransforme2;
-          document.getElementById('results').appendChild(resultElement);
-
-        // update the count of child elements in the results div
-          const numResults = resultsDiv.childElementCount;
-
-          // display the count on the HTML page
-          const countElement = document.getElementById('count');
-          countElement.textContent = `Number of results: ${numResults}`;
-
-          // stop camera
-          codeReader.stopStreams();
-
-          // show btns autre scan et valider et reset
-          var btnsDiv = document.getElementById("buttons-next");
-          btnsDiv.style.display = "block";
-
-          var btnStart = document.getElementById("startButton");
-          btnStart.style.display = "none";
-
+        document.getElementById('startButton').addEventListener('click', () => {
+          decodeOnce(codeReader, selectedDeviceId);
+          console.log(`Started decode from camera with id ${selectedDeviceId}`)
           var btnReset = document.getElementById("resetButton");
           btnReset.style.display = "inline";
+        })
 
-        }
-      })
-    }
+        document.getElementById('otherScanButton').addEventListener('click', () => {
+          decodeOnce(codeReader, selectedDeviceId);
+          console.log(`Continued decode from camera with id ${selectedDeviceId}`)
+        })
 
-    window.addEventListener('load', function () {
-      let selectedDeviceId;
-      const codeReader = new ZXing.BrowserQRCodeReader()
-      console.log('ZXing code reader initialized')
+        document.getElementById('resetButton').addEventListener('click', () => {
+          codeReader.reset()
+          resultsDiv.textContent = "";
+          console.log('Reset.')
+        })
 
-      codeReader.getVideoInputDevices()
-        .then((videoInputDevices) => {
-          const sourceSelect = document.getElementById('sourceSelect')
-          selectedDeviceId = videoInputDevices[0].deviceId
-          if (videoInputDevices.length >= 1) {
-            videoInputDevices.forEach((element) => {
-              const sourceOption = document.createElement('option')
-              sourceOption.text = element.label
-              sourceOption.value = element.deviceId
-              sourceSelect.appendChild(sourceOption)
-            })
+        document.getElementById('validateButton').addEventListener('click', () => {
+          const resultsDiv = document.getElementById('results');
+          const pElements = resultsDiv.getElementsByTagName('p');
+          const values = [];
+          for (let i = 0; i < pElements.length; i++) {
+            const value = parseInt(pElements[i].textContent);
+            values.push(value);
+          }
+        
+          const commandeId = <%= @commandeId.to_json.html_safe %>;
+          const articleId = <%= @articleId.to_json.html_safe %>;  // passer l'id article si existe 
+          const rootPath = window.location.origin;
+          const baseUrl = "/new_multiple?commandeId=" + commandeId + "&";
 
-            sourceSelect.onchange = () => {
-              selectedDeviceId = sourceSelect.value;
-            };
-
-            const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-            sourceSelectPanel.style.display = 'block'
+          // si articleid present, nouveau sous article, sinon nouveau article
+          if (articleId > 0) { // nouvel article
+            var pageUrl =  "/sousarticles"  + baseUrl + "&articleId=" + articleId + "&";
+          } else { // nouveau sous article
+            var pageUrl = "/articles"  + baseUrl 
           }
 
-          document.getElementById('startButton').addEventListener('click', () => {
-            decodeOnce(codeReader, selectedDeviceId);
-            console.log(`Started decode from camera with id ${selectedDeviceId}`)
-
-            var btnReset = document.getElementById("resetButton");
-            btnReset.style.display = "inline";
-
-          })
-
-          document.getElementById('otherScanButton').addEventListener('click', () => {
-            decodeOnce(codeReader, selectedDeviceId);
-            console.log(`Continued decode from camera with id ${selectedDeviceId}`)
-          })
-
-          document.getElementById('resetButton').addEventListener('click', () => {
-            codeReader.reset()
-            document.getElementById('result').textContent = '';
-            console.log('Reset.')
-          })
-
-          /*  reprendre ici et ajouter un consol log sur 
-              btn valider y passer les ids produits
-          */
-
-          document.getElementById('validateButton').addEventListener('click', () => {
-            const resultsDiv = document.getElementById('results');
-            const pElements = resultsDiv.getElementsByTagName('p');
-            const values = [];
-            for (let i = 0; i < pElements.length; i++) {
-              const value = parseInt(pElements[i].textContent);
-              values.push(value);
-            }
-            console.log('click btn test - result: ' + resultsDiv.textContent);
-            console.log("values: " + values); 
           
-            const commandeId = <%= @commandeId.to_json.html_safe %>;
-            const rootPath = window.location.origin;
-            const pageUrl = "/articles";
-            const baseUrl = "/new_multiple?commandeId=" + commandeId + "&";
-            const produits_ids = `${values.map(id => `produits_ids[]=${id}`).join('&')}`;
-            const numberOfElements = "&nbElements=" + values.length;
+          const produits_ids = `${values.map(id => `produits_ids[]=${id}`).join('&')}`;
+          const numberOfElements = "&nbElements=" + values.length;
+          const fullPath = rootPath + pageUrl + produits_ids + numberOfElements;
 
-            const fullPath = rootPath + pageUrl + baseUrl + produits_ids + numberOfElements;
+          console.log("url: " + fullPath + "nb: " + numberOfElements);
+          window.location.assign(fullPath);
+        });
+      })
 
-            console.log("url: " + fullPath); 
-            console.log("nb: " + numberOfElements);
-            window.location.assign(fullPath);
-
-          });
-
-
-          // test sur boutons pour array new produits vers form multople
-          document.getElementById('testBtn').addEventListener('click', () => {
-            const resultsDiv = document.getElementById('results');
-            const pElements = resultsDiv.getElementsByTagName('p');
-            const values = [];
-            for (let i = 0; i < pElements.length; i++) {
-              const value = parseInt(pElements[i].textContent);
-              values.push(value);
-            }
-            console.log('click btn test - result: ' + resultsDiv.textContent);
-            console.log("values: " + values); 
-          
-            const commandeId = <%= @commandeId.to_json.html_safe %>;
-            const rootPath = window.location.origin;
-            const pageUrl = "/articles";
-            const baseUrl = "/new_multiple?commandeId=" + commandeId + "&";
-            const produits_ids = `${values.map(id => `produits_ids[]=${id}`).join('&')}`;
-            const numberOfElements = "&nbElements=" + values.length;
-
-            const fullPath = rootPath + pageUrl + baseUrl + produits_ids + numberOfElements;
-
-            console.log("url: " + fullPath); 
-            console.log("nb: " + numberOfElements);
-            window.location.assign(fullPath);
-
-          });
-
-        })
-
-        .catch((err) => {
-          console.error(err)
-        })
-    })
-  </script>
+      .catch((err) => {
+        console.error(err)
+      })
+  })
+</script>
