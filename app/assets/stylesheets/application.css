@@ -97,8 +97,8 @@ input:invalid {
 .label-with-format{
   background-color: rgba(197, 191, 195, 0.8);
   color: rgb(73, 72, 72);
-  width: 20%;
-  height: 4vh;
+ /* width: 20%;
+  height: 4vh;*/
   font-size: medium;
   margin: 0px;
   padding: 0px;

@@ -6,7 +6,7 @@
     <% typedoc = @messagemail.typedoc %>
   </h4>
 
-<% unless typedoc == "facture_simple" %>
+<% unless typedoc == "facture_simple" || typedoc == "avoir" %>
 
   <h5 class="h5-doc"> ARTICLES </h5>
 
@@ -90,8 +90,9 @@
       </tfoot>
     </table>
 
-<% else %> <%# facture simple : %>
+<% end %> 
 
+<% if typedoc == "facture_simple"%>
   <div class="cadre">
       <% totalHt = (Article.commande_courante(@commande).sum_articles + 
                 Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles) / 1.2 %>

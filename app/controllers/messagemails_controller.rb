@@ -14,12 +14,12 @@ class MessagemailsController < ApplicationController
   def new
     @messagemail = Messagemail.new messagemail_params
 
-    @typedocs = ["commande", "facture", "facture_simple"]
+    @typedocs = ["commande", "facture", "facture_simple", "avoir"]
 
   end
 
   def edit
-    @typedocs = ["commande", "facture", "facture_simple"]
+    @typedocs = ["commande", "facture", "facture_simple", "avoir"]
   #  respond_to do |format|
   #    format.html
   #    format.turbo_stream do  
@@ -39,7 +39,7 @@ class MessagemailsController < ApplicationController
         format.html { 
          redirect_to messagemail_url(@messagemail),
           notice: "L'édition a bien été préparée." 
-          }
+        }
 
         format.json { render :show, status: :created, location: @messagemail }
       else

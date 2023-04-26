@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="form-element"
 export default class extends Controller {
 
-  static targets = ["submitbtn"]
+  static targets = ["submitbtn", "validatebtn"]
   connect() {
     this.submitbtnTarget.hidden = true
     this.submitbtnTarget.click()

@@ -44,7 +44,7 @@
             <%= form.label :document, class:"input-group-text label-with-format" %>
             <%= form.select :typedoc,  @typedocs, {include_blank: true}, 
                   { data: { action: "change->form-element#remotesubmit"},  
-                  class:"form-control input-sized"} %>
+                  class:"form-select "} %>
           </div>
 
 
@@ -188,7 +188,6 @@
           <i class="fa-regular fa-thumbs-up fa-bounce"></i>
         <% end %>
       </div>
-
 
   </div>
 
