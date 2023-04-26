@@ -101,8 +101,8 @@ input:invalid {
   height: 4vh;*/
   font-size: medium;
   margin: 0px;
-  padding: 0px;
-  padding-left: .4em;
+  padding: 5px;
+ /* padding-left: .4em;*/
   
 }
 

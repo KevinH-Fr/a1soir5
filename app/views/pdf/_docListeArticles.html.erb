@@ -24,44 +24,48 @@
       <tbody>
         <tr>
           <% @articles.each_with_index do | article, i | %>
+            <% @produit = Produit.find(article.produit_id) if Produit.find(article.produit_id).present? %>
             <td class="td-doc centered"> <%= i + 1 %> </td>
             <td class="td-doc centered" style="width: 70px;"> 
-              <%= image_tag(Produit.find(article.produit_id).default_image, style: "width: 80px; display: block", 
+              <%= image_tag(@produit.default_image, style: "width: 80px; display: block", 
                class: "img-fluid rounded") %> 
             </td>
 
             <td> 
-              <div class="td-doc-main"> <%= Produit.find(article.produit_id).nom %> </div>
+              <div class="td-doc-main"> 
+                <%= @produit.nom %> 
+              </div>
               <span class="td-doc-normal"> 
-                taille: <%= Produit.find(article.produit_id).taille %>  
+                <%= @produit.description %> 
+                taille: <%= @produit.taille %>  
                 <%= "location longue durée" if article.longueduree == true %>  
               </span>
             </td>
 
-            <td class="td-doc centered"> <%= article.quantite %> </td>
-            <td class="td-doc ended"> <%= number_to_currency(article.prix, locale: :fr) %> </td>
-            <td class="td-doc ended"> <%= number_to_currency(article.total, locale: :fr) %> </td>
-            <td class="td-doc ended"> <%= number_to_currency(article.totalcaution, locale: :fr) %> </td>
+            <td class="td-doc-valeurs centered"> <%= article.quantite %> </td>
+            <td class="td-doc-valeurs ended"> <%= number_to_currency(article.prix, locale: :fr) %> </td>
+            <td class="td-doc-valeurs ended"> <%= number_to_currency(article.total, locale: :fr) %> </td>
+            <td class="td-doc-valeurs ended"> <%= number_to_currency(article.totalcaution, locale: :fr) %> </td>
           </tr> 
 
             <% @sousarticles = Sousarticle.where(article_id: article.id) %>
             <% @sousarticles.each do |sousarticle| %>
+            <% @produit = Produit.find(sousarticle.produit_id) if Produit.find(sousarticle.produit_id).present?  %>
               <tr>
                 <td></td>
                 <td class="td-doc-img-sousarticle"> 
-                  <%= image_tag(Produit.find(sousarticle.produit_id).default_image, style: "width: 40px; display: block", 
-                    class:"") if sousarticle.produit_id.present? %>
+                  <%= image_tag(@produit.default_image, style: "width: 40px; display: block", 
+                    class:"") %>
                 </td>
                 <td class="td-doc-italic fst-italic"> 
-                  <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> 
-                  taille: <%= Produit.find(sousarticle.produit_id).taille %>  
-                
+                  <%= @produit.nom %> 
+                  taille: <%= @produit.taille %>  
+                  <%= @produit.description %> 
                 </td>
                 <td></td>
                 <td> </td>
                 <td class="td-doc ended">  
                   <%= number_to_currency(sousarticle.prix_sousarticle, locale: :fr) if sousarticle.prix_sousarticle > 0 %> 
-
                 </td>
               </tr>
             <% end %>       
@@ -92,7 +96,7 @@
 
 <% end %> 
 
-<% if typedoc == "facture_simple"%>
+<% if typedoc == "facture_simple" %>
   <div class="cadre">
       <% totalHt = (Article.commande_courante(@commande).sum_articles + 
                 Article.joins(:sousarticles).commande_courante(@commande).sum_sousarticles) / 1.2 %>

@@ -1,37 +1,39 @@
 <%# reparametrer les articles avec le param local commande passé depuis commande mailer %>
 <% @avoirrembs = Avoirremb.commande_courante(@commande) %>
 
-<% if @avoirrembs.present? %>
-  <h5 class="h5-doc"> AVOIRS REMBOURSEMENTS </h5>
+<div class="section-solidaire"> 
+  <% if @avoirrembs.present? %>
+    <h5 class="h5-doc"> AVOIRS REMBOURSEMENTS </h5>
 
-  <table class="table table-doc table-bordered">
-        <thead class="table th-doc">
-          <tr>
-            <th class="">#</th>
-            <th class="th-doc">Type</th>
-            <th class="th-doc">Date</th>
-            <th class="th-doc">Montant</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <% @avoirrembs.each_with_index do | avoirremb, i | %>
+    <table class="table table-doc table-bordered">
+          <thead class="table th-doc">
             <tr>
-              <td class="td-doc centered"> <%= i + 1 %> </td>
-              <td class="td-doc centered"> <%= avoirremb.typeavoirremb %> </td>
-              <td class="td-doc centered"> <%= avoirremb.created_at.strftime("%d/%m/%y")  %> </td>
-              <td class="td-doc centered"> <%= number_to_currency(avoirremb.montant, locale: :fr) %> </td>
-            </tr> 
-          <% end %>
-        </tbody>
+              <th class="">#</th>
+              <th class="th-doc">Type</th>
+              <th class="th-doc">Date</th>
+              <th class="th-doc">Montant</th>
+            </tr>
+          </thead>
+          <tbody>
 
-        <tfoot>
-          <tr>
-            <td colspan=3 class="tfoot-doc">  TOTAUX  </td>
-            <td class="tfoot-doc centered"> 
-              <%= number_to_currency(Avoirremb.commande_courante(@commande).sum_avoirrembs, locale: :fr) %> 
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-<% end %>
+            <% @avoirrembs.each_with_index do | avoirremb, i | %>
+              <tr>
+                <td class="td-doc centered"> <%= i + 1 %> </td>
+                <td class="td-doc centered"> <%= avoirremb.typeavoirremb %> </td>
+                <td class="td-doc centered"> <%= avoirremb.created_at.strftime("%d/%m/%y")  %> </td>
+                <td class="td-doc centered"> <%= number_to_currency(avoirremb.montant, locale: :fr) %> </td>
+              </tr> 
+            <% end %>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan=3 class="tfoot-doc">  TOTAUX  </td>
+              <td class="tfoot-doc centered"> 
+                <%= number_to_currency(Avoirremb.commande_courante(@commande).sum_avoirrembs, locale: :fr) %> 
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+  <% end %>
+</div>

@@ -80,7 +80,8 @@
   text-align: center;
   font-size: large;
   font-weight: bold;
-  padding: 10px;
+ /* padding: 5px 10px 5px 10px;*/
+ 
 }
 
 .td-doc{
@@ -88,8 +89,14 @@
   color: rgb(0, 0, 0);
   font-size: medium;
   vertical-align: middle;
-  padding: 5px 10px 5px 10px;
+}
 
+.td-doc-valeurs{
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: medium;
+  vertical-align: middle;
+  width: 100px;
 }
 
 .centered{

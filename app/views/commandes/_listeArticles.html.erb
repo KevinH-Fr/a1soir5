@@ -33,11 +33,13 @@
                       edit_article_path(article, produitId: article.produit_id, commandeId: article.commande_id, articleId: article), 
                       class:"text-dark fw-bold" %> 
               
+                <% if Produit.find(article.produit_id).taille.present? %>
+                  <br> taille: <%= Produit.find(article.produit_id).taille  %>
+                <% end %>
 
-              <%# REPRENDRE %>
-                 <% if Produit.find(article.produit_id).taille.present? %>
-                   <br> taille: <%= Produit.find(article.produit_id).taille  %>
-                  <% end %>
+                <% if Produit.find(article.produit_id).description.present? %>
+                  <br> <%= Produit.find(article.produit_id).description  %>
+                <% end %>
 
               </td>
               <td class=""> 
@@ -74,11 +76,14 @@
                     class: "img-min-size-50") if sousarticle.produit_id.present? %>
                 </td>
                 <td colspan="1" class="fst-italic"> 
-                  <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %> |
-                  <%= sousarticle.description %> 
+                  <%= Produit.find(sousarticle.produit_id).nom if sousarticle.produit_id.present? %>
                 
                   <% if  Produit.find(sousarticle.produit_id).taille.present? %>
-                   <br>  taille: <%= Produit.find(sousarticle.produit_id).taille %>
+                     taille: <%= Produit.find(sousarticle.produit_id).taille %>
+                  <% end %>
+
+                  <% if Produit.find(sousarticle.produit_id).description.present? %>
+                    <%= Produit.find(sousarticle.produit_id).description  %>
                   <% end %>
 
                 </td>

@@ -86,7 +86,7 @@ class SousarticlesController < ApplicationController
 
     permitted_array = [:article_id, :produit_id, :prix_sousarticle, :caution_sousarticle]
     if params[:sousarticle]
-      Sousarticle.create(params[:article].permit(permitted_array))
+      Sousarticle.create(params[:sousarticle].permit(permitted_array))
     else
       params[:sousarticles].each do |index, sousarticle_params|
         Sousarticle.create(sousarticle_params.permit(permitted_array))
