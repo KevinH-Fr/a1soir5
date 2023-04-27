@@ -82,7 +82,6 @@ class Produit < ApplicationRecord
         end
     end
       
-
     def statut_vitrine
         if self.vitrine == true
             "vrai_icon.png"

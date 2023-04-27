@@ -41,7 +41,6 @@ class ProduitsController < ApplicationController
     datefin = DateTime.parse(params[:fin]) if params[:fin].present?
     @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
     @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
-
     @initial = Produit.find(@produitId).quantite
 
     #totaux hors filtres :
@@ -59,12 +58,12 @@ class ProduitsController < ApplicationController
     
       # ajotuer les osus articles car les produits peuvent passer en sous article ?
       @nbTotal =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).compte_articles
-      @locations = @articlesFiltres.articlesLoues.compte_articles
-      @ventes = @articlesFiltres.articlesVendus.compte_articles
-      @valTotal = @articlesFiltres.sum_articles
-      @valLocations = @articlesFiltres.articlesLoues.sum_articles
-      @valVentes = @articlesFiltres.articlesVendus.sum_articles
-      @groupedByDateProduit = @articlesFiltres.group('DATE(created_at)').sum('total')
+      @locations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
+      @ventes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles
+      @valTotal = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).sum_articles
+      @valLocations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.sum_articles
+      @valVentes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.sum_articles
+      @groupedByDateProduit = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).group('DATE(commandes.created_at)').sum('total')
 
   end
 

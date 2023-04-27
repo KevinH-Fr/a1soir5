@@ -26,13 +26,13 @@
 
                   <div class="col">
 
-                  <% if @articleLocVente == "location" %>
-                    <% prixSousArticle = @produits_ids[index].prixlocation %>
-                    <% cautionSousArticle = @produits_ids[index].caution %>
-                  <% else %>
-                    <% prixSousArticle = @produits_ids[index].prix %>
-                    <% cautionSousArticle = 0 %>
-                  <% end %>
+                    <% if @articleLocVente == "location" %>
+                      <% prixSousArticle = @produits_ids[index].prixlocation %>
+                      <% cautionSousArticle = @produits_ids[index].caution %>
+                    <% else %>
+                      <% prixSousArticle = @produits_ids[index].prix %>
+                      <% cautionSousArticle = 0 %>
+                    <% end %>
 
                     <div class="input-group input-group-sm mb-2 justify-content-center">
                       <%= sousarticle_fields.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>

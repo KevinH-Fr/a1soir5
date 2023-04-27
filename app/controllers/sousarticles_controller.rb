@@ -22,8 +22,12 @@ class SousarticlesController < ApplicationController
     @typelocvente = ["location", "vente"]
    # @natures = Modelsousarticle.distinct.pluck(:nature)
 
-    if @produitId.present?
-      @valPrix = Produit.find(@produitId).prix
+    if @produitId.present? && @articleId.present?
+      if Article.find(@articleId).locvente == "location"
+        @valPrix = Produit.find(@produitId).prixlocation
+      else
+        @valPrix = Produit.find(@produitId).prix
+      end
     end
 
     categorieVal = params[:categorieVal]
