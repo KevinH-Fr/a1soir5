@@ -39,11 +39,6 @@
               <div data-controller="form-element">
                 <%= form.button "Validate", formaction: new_sousarticle_path(commandeId: @commandeId, produitId: @produitId, 
                 articleId: @articleId), formmethod: :get, data: { turbo_frame: :total_field, form_element_target: "submitbtn" } %> 
-
-                <div class="input-group input-group-sm mb-2 justify-content-center">
-                  <%= form.label :description, class:"input-group-text bg-secondary text-light label-sized" %>
-                  <%= form.text_area :description, class:"form-control text-center input-sized" %>
-                </div>
       
                 <div class="input-group input-group-sm mb-2 justify-content-center">
                     <%= form.label :prix, class:"input-group-text bg-secondary text-light label-sized" %>
@@ -56,6 +51,10 @@
                      <% end %>
                 </div>
 
+                <div class="input-group input-group-sm mb-2 justify-content-center">
+                  <%= form.label :commentaire, class:"input-group-text bg-primary text-light label-sized" %>
+                  <%= form.text_area :commentaire, class:"form-control text-dark input-sized" %>
+                </div>
 
 
               </div>

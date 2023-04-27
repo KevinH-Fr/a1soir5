@@ -12,9 +12,8 @@
       <div class="col-5 m-0 ">  
         <%= Produit.find(sousarticle.produit_id).nom %> | 
         <%= sousarticle.prix_sousarticle %> |
-        <%= Produit.find(sousarticle.produit_id).taille %> 
-        <br>
-        <%= sousarticle.description %>
+        <%= Produit.find(sousarticle.produit_id).taille %> |
+        <%= sousarticle.commentaire %>
       </div>
 
       <%# @commandeId = Article.find(sousarticle.article_id).commande_id %>

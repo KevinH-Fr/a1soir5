@@ -25,7 +25,7 @@
         <tr>
           <% @articles.each_with_index do | article, i | %>
             <% @produit = Produit.find(article.produit_id) if Produit.find(article.produit_id).present? %>
-            <td class="td-doc centered"> <%= i + 1 %> </td>
+            <td class="td-doc centered" style="width: 40px;"> <%= i + 1 %> </td>
             <td class="td-doc centered" style="width: 70px;"> 
               <%= image_tag(@produit.default_image, style: "width: 80px; display: block", 
                class: "img-fluid rounded") %> 
@@ -38,6 +38,7 @@
               <span class="td-doc-normal"> 
                 <%= @produit.description %> 
                 taille: <%= @produit.taille %>  
+                <%= article.commentaire %>
                 <%= "location longue durée" if article.longueduree == true %>  
               </span>
             </td>
@@ -61,6 +62,7 @@
                   <%= @produit.nom %> 
                   taille: <%= @produit.taille %>  
                   <%= @produit.description %> 
+                  <%= sousarticle.commentaire %> 
                 </td>
                 <td></td>
                 <td> </td>

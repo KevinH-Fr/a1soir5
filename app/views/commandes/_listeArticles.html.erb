@@ -38,8 +38,10 @@
                 <% end %>
 
                 <% if Produit.find(article.produit_id).description.present? %>
-                  <br> <%= Produit.find(article.produit_id).description  %>
+                  <br> <%= Produit.find(article.produit_id).description  %> <br>
                 <% end %>
+
+                <%= article.commentaire  %>
 
               </td>
               <td class=""> 
@@ -82,9 +84,8 @@
                      taille: <%= Produit.find(sousarticle.produit_id).taille %>
                   <% end %>
 
-                  <% if Produit.find(sousarticle.produit_id).description.present? %>
-                    <%= Produit.find(sousarticle.produit_id).description  %>
-                  <% end %>
+                  <%= Produit.find(sousarticle.produit_id).description if Produit.find(sousarticle.produit_id).description.present?  %>
+                  <%= sousarticle.commentaire  %>
 
                 </td>
                 <td></td>

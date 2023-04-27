@@ -84,7 +84,7 @@ class SousarticlesController < ApplicationController
 
    # @produitId = Article.find(@sousarticle.article_id).produit_id
 
-    permitted_array = [:article_id, :produit_id, :prix_sousarticle, :caution_sousarticle]
+    permitted_array = [:article_id, :produit_id, :prix_sousarticle, :caution_sousarticle, :commentaire]
     if params[:sousarticle]
       Sousarticle.create(params[:sousarticle].permit(permitted_array))
     else
@@ -164,6 +164,6 @@ class SousarticlesController < ApplicationController
 
     def sousarticle_params
       params.fetch(:sousarticle, {}).permit(:article_id, :produit_id, :nature, :description, 
-        :prix_sousarticle, :caution_sousarticle, :taille)
+        :prix_sousarticle, :caution_sousarticle, :taille, :commentaire)
     end
 end

@@ -107,7 +107,7 @@ class ArticlesController < ApplicationController
 
     @commandeId =  session[:commandeId]
 
-    permitted_array = [:commande_id, :produit_id, :quantite, :locvente, :longueduree, :prix, :caution, :prixlocation, :total, :totalcaution]
+    permitted_array = [:commande_id, :produit_id, :quantite, :locvente, :longueduree, :prix, :caution, :prixlocation, :total, :totalcaution, :commentaire]
     if params[:article]
       Article.create(params[:article].permit(permitted_array))
     else

@@ -96,6 +96,12 @@
                           data: { action: "change->totalupdate#updateTotal", 
                                   target: "totalupdate.totalcaution", totalupdate_target: "totalcaution" } } %>   
                     </div>
+
+                    <div class="input-group input-group-sm mb-2 justify-content-center">
+                      <%= article_fields.label :commentaire, class:"input-group-text bg-primary text-light label-sized" %>
+                      <%= article_fields.text_area :commentaire, class:"form-control text-dark input-sized" %>
+                    </div>
+
                   </div>
                 </div>
               </div>

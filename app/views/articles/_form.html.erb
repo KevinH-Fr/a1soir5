@@ -30,12 +30,6 @@
             <%= form.hidden_field :prixvente, name:'prixVenteInitial', value: @valPrixInitial %>
             <%= form.hidden_field :prixcaution, name:'prixCautionInitial', value: @valPrixCautionInitial %>
 
-           
-            <div class="input-group input-group-sm mb-2 justify-content-center">
-              <%= form.label :commentaire, class:"input-group-text text-light label-sized" %>
-              <%= form.text_field :commentaire, class:"input-group-text text-light field-sized" %>
-            </div>
-
             <div class="input-group input-group-sm mb-2 justify-content-center">
               <%= form.label :type, class:"input-group-text bg-primary text-light label-sized" %>
            
@@ -106,6 +100,11 @@
                   class: "form-control bg-dark text-white text-center input-sized", 
                   data: { action: "change->totalupdate#updateTotal", 
                           target: "totalupdate.totalcaution", totalupdate_target: "totalcaution" } } %>   
+            </div>
+   
+            <div class="input-group input-group-sm mb-2 justify-content-center">
+              <%= form.label :commentaire, class:"input-group-text bg-primary text-light label-sized" %>
+              <%= form.text_area :commentaire, class:"form-control text-dark input-sized" %>
             </div>
 
           
