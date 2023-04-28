@@ -29,86 +29,54 @@ class ProduitsController < ApplicationController
     produits = @q.result(distinct: true).order(created_at: :desc)
     @pagy, @produits = pagy_countless(produits, items: 2)
 
+    first_day = Date.current.beginning_of_month
+    last_day = Date.current.end_of_month
+  
+    if params[:debut].present?
+      @datedebut = DateTime.parse(params[:debut])
+    else
+      @datedebut = first_day
+    end
+
+    if params[:fin].present?
+      @datefin = DateTime.parse(params[:fin]) 
+    else
+      @datefin = last_day
+    end
+
   end
 
   def show
     @produitId = params[:id]
     session[:produitId] = @produitId
 
-    @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
-    @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+    first_day = Date.current.beginning_of_month
+    last_day = Date.current.end_of_month
   
+    if params[:debut].present?
+      @datedebut = DateTime.parse(params[:debut])
+    else
+      @datedebut = DateTime.parse(first_day)
+    end
 
- # stock général avant filtre date et graphique :
-  # stocks sur articles : #totaux hors filtres avec Articles correspondant au produit :
-  #  @articlesFiltres = Article.produit_courant(@produitId)
-  #  @totLocations =  @articlesFiltres.articlesLoues.compte_articles
-  #  @totVentes =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles 
-  #  @louesTermines = Commande.hors_devis.termine.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
-  #  @louesAvenir = Commande.hors_devis.a_venir.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
-
- #   @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis
-  #  @totLocationsSousArticles =  @sousarticlesFiltres.joins(:article).locvente("location").count
-  #  @totVentesSousArticles =  @sousarticlesFiltres.joins(:article).locvente("vente").count
-  #  @louesTerminesSousArticles = Commande.hors_devis.termine.joins(articles: :sousarticles)
-  #    .merge(@sousarticlesFiltres).count
-  #  @louesAvenirSousArticles = Commande.hors_devis.a_venir.joins(articles: :sousarticles)
-  #    .merge(@sousarticlesFiltres).count
-   
-# stock dans les graphiques avec filtre
-
-  # filtres analyses
- # datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
- # datefin = DateTime.parse(params[:fin]) if params[:fin].present?
-#  @initial = Produit.find(@produitId).quantite
-
-  #  if datedebut.present? && datefin.present? 
-  #    @articlesFiltres = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin)
-  #    @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis.filtredatedebut(datedebut).filtredatefin(datefin)
-  #  else
-  #    @articlesFiltres = Article.produit_courant(@produitId)
-  #    @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis
-  #  end
-
-    # stocks sur articles dans graph avec ou sans dates
-    #  @nbTotal =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).compte_articles 
-   #   @locations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
-   #   @ventes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles
-   #   @valTotal = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).sum_articles
-   #   @valLocations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.sum_articles
-   #   @valVentes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.sum_articles
-   #   @groupedByDateProduit = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).group('DATE(commandes.created_at)').sum('total')
-
-    #  stocks sur sous articles dans graph avec ou sans dates
-   #   @nbTotalSousArticles = @sousarticlesFiltres.count
-   #   @locationsSousArticles = @sousarticlesFiltres.joins(:article).locvente("location").count
-   #   @ventesSousArticles = @sousarticlesFiltres.joins(:article).locvente("vente").count
-   #   @valTotalSousArticles = @sousarticlesFiltres.joins(:article).sum_sousarticles
-   #   @valLocationsSousArticles  = @sousarticlesFiltres.joins(:article).locvente("location").sum_sousarticles
-   #   @valVentesSousArticles  = @sousarticlesFiltres.joins(:article).locvente("vente").sum_sousarticles
-   #   @groupedByDateProduitSousArticles = @sousarticlesFiltres.group("DATE(created_at)").sum(:prix_sousarticle)
-
-    # totaux article et sous articles :
-   #   @totalLocations = @locations + @locationsSousArticles
-   #   @totalVentes = @ventes + @ventesSousArticles
-   #   @totalValLocations = @valLocations + @valLocationsSousArticles
-   #   @totalValVentes = @valVentes + @valVentesSousArticles
-    #  @combinedHash = @groupedByDateProduit.merge(@groupedByDateProduitSousArticles) { |date, total1, total2| total1 + total2 }
+    if params[:fin].present?
+      @datefin = DateTime.parse(params[:fin]) 
+    else
+      @datefin = DateTime.parse(last_day)
+    end
 
   end
-
 
   def new
     @produit = Produit.new  
     @fournisseurs = Fournisseur.all
 
-        # valeur si duplicaiton produit 
-        if params[:produitbase].present? 
-          @produitbase = Produit.find(params[:produitbase]) 
-        
-          @produit.image1.attach(@produitbase.image1.blob) if @produitbase&.image1&.attached?
-        end
-
+    # valeur si duplicaiton produit 
+    if params[:produitbase].present? 
+      @produitbase = Produit.find(params[:produitbase]) 
+    
+      @produit.image1.attach(@produitbase.image1.blob) if @produitbase&.image1&.attached?
+    end
   end
 
   def edit
@@ -130,13 +98,6 @@ class ProduitsController < ApplicationController
   
     respond_to do |format|
       if @produit.save
-
-      #    format.turbo_stream do
-      #      render turbo_stream: [
-      #        turbo_stream.prepend("produits", partial: "produits/produit",
-      #        locals: {produit: @produit }),
-      #      ]
-      #    end
         
         format.html { redirect_to produit_url(@produit), notice: "Produit was successfully created." }
         format.json { render :show, status: :created, location: @produit }
@@ -184,8 +145,6 @@ class ProduitsController < ApplicationController
         ]
       end
 
-    #  format.html { redirect_to produits_url, notice: "Produit was successfully destroyed." }
-    #  format.json { head :no_content }
     end
   end
 
@@ -198,7 +157,6 @@ class ProduitsController < ApplicationController
       @produitBase = Produit.find(params[:produitbase]) 
 
       # préparer un nouveau produit qui contient les memes datas que le courant
-      #tester full duplication
       original = @produitBase
       copy = original.dup
       copy.nom = "#{original.nom}_new" # append "new" to the original name
@@ -213,14 +171,11 @@ class ProduitsController < ApplicationController
           filename: image.filename,
           content_type: image.content_type
       end
-
       copy.save!
 
     end
-
       redirect_to produits_path(),
       notice: "Duplication du produit !"
-
   end 
 
   private
@@ -234,25 +189,21 @@ class ProduitsController < ApplicationController
   def authenticate_admin!
     unless current_user && (current_user.admin?)
      # redirect_to clients_path, alert: "Vous n'avez pas accès à cette fonction."
-
       flash.now[:notice] = "Vous n'avez pas accès à cette fonction."
       respond_to do |format|
         format.html { redirect_to produits_path }
         format.turbo_stream { render turbo_stream:   turbo_stream.update("flash", partial: "layouts/flash") }
       end
-
     end
   end
   
-    def set_produit
-      @produit = Produit.find(params[:id])
-    end
+  def set_produit
+    @produit = Produit.find(params[:id])
+  end
 
-    def produit_params
-      params.require(:produit).permit(:nom, :prix, :prixlocation, :caution, :description, :categorie, 
-          :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :fournisseur_id, :dateachat, :prixachat, :typearticle, images: [])
-    end
+  def produit_params
+    params.require(:produit).permit(:nom, :prix, :prixlocation, :caution, :description, :categorie, 
+        :couleur, :image1, :vitrine, :eshop, :handle, :reffrs, :taille, :quantite, :nomfrs, :fournisseur_id, :dateachat, :prixachat, :typearticle, images: [])
+  end
 
-   
 end
-

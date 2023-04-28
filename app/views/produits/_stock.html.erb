@@ -17,9 +17,7 @@
     <%= form_tag url_for, method: :get do %>
 
       <div class="input-group mb-1">
-        <% first_day = Date.current.beginning_of_month %>
-        <% last_day = Date.current.end_of_month %>
-
+  
         <%= label_tag :début, "début", class:"input-group-text label-with-format centered" %>
         <%= date_field_tag :debut, params[:debut] || first_day, class:"form-control centered" %>
 
@@ -33,11 +31,15 @@
 
     <% end %>
 
-    <% if @datedebut.present? && @datefin.present? %>
+<%
+=begin%>
+     <% if @datedebut.present? && @datefin.present? %>
       <div class="fw-bold">
         filtre actif: <%= @datedebut.strftime("%d/%m/%y")  %> - <%= @datefin.strftime("%d/%m/%y") %>
       </div>
-    <% end %>
+    <% end %> 
+<%
+=end%>
   </div>
 </div>
 

@@ -9,6 +9,23 @@ class AccueilAdminController < ApplicationController
       @produits = Produit.all
       @commandes = Commande.all
       @meetings = Meeting.all
+
+      # gestion dates pour liens vers produits
+      first_day = Date.current.beginning_of_month
+      last_day = Date.current.end_of_month
+    
+      if params[:debut].present?
+        @datedebut = DateTime.parse(params[:debut])
+      else
+        @datedebut = first_day
+      end
+  
+      if params[:fin].present?
+        @datefin = DateTime.parse(params[:fin]) 
+      else
+        @datefin = last_day
+      end
+
     end
 
     def stock

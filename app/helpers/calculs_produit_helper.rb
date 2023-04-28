@@ -16,13 +16,13 @@ module CalculsProduitHelper
     end
 
     def louesTermines(produit)
-        Article.produit_courant(produit).hors_devis.termine.compte_articles +
-        Sousarticle.produit_courant(produit).hors_devis.termine.compte_sousarticles
+        Article.produit_courant(produit).hors_devis.articlesLoues.termine.compte_articles +
+        Sousarticle.produit_courant(produit).hors_devis.sousarticlesLoues.termine.compte_sousarticles
     end
 
     def louesAvenir(produit)
-        Article.produit_courant(produit).hors_devis.a_venir.compte_articles +
-        Sousarticle.produit_courant(produit).hors_devis.a_venir.compte_sousarticles
+        Article.produit_courant(produit).hors_devis.articlesLoues.a_venir.compte_articles +
+        Sousarticle.produit_courant(produit).hors_devis.sousarticlesLoues.a_venir.compte_sousarticles
     end
 
     def restant(produit)

@@ -6,7 +6,7 @@
         <div class="col-2">
           <%#= image_tag(produit.image1, class:"img-fluid rounded-start image-produit-sized") if produit.image1.present? %> 
           <%= link_to image_tag(produit.default_image, class:"img-fluid rounded-start image-produit-sized"), 
-                produit_path(produit), data: { turbo: false }   %> 
+                produit_path(produit, debut: @datedebut, fin: @datefin), data: { turbo: false }   %> 
         </div>
 
 
@@ -17,7 +17,8 @@
             <div class="row">
               <div class="col-8">
                 <%= link_to highlight(produit.nom, 
-                params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), produit_path(produit),
+                params.dig(:q, :nom_or_reffrs_or_categorie_or_couleur_cont)), 
+                produit_path(produit, debut: @datedebut, fin: @datefin),
                 class:"titre-record", data: { turbo: false } %>
               </div>
               <div class="col-4 text-center">
