@@ -67,9 +67,7 @@ class Commande < ApplicationRecord
       created_at.strftime("%d/%m/%y")
     end 
 
-    def texte_record
-      "n°#{id}  #{type_locvente} #{created_at.strftime("%d/%m/%y")}" 
-    end
+
 
     def texte_record_nom_client
       "n°#{id}  #{type_locvente} #{created_at.strftime("%d/%m/%y")} | #{Client.find(client_id).full_name}" 
@@ -86,6 +84,25 @@ class Commande < ApplicationRecord
           "location & vente"
         end
       end
+    end
+
+    def texte_record 
+      # afficher date commande pour vente ou date location pour location
+      dateValueDebut = debutloc.strftime("%d/%m/%y") if debutloc.present?
+      dateValueFin = finloc.strftime("%d/%m/%y") if finloc.present?
+      dateValue = dateevenement.strftime("%d/%m/%y") if dateevenement.present?
+       
+       if type_locvente  == "location"
+          "n°#{id}  #{type_locvente} #{dateValueDebut} - #{dateValueFin} " 
+      else
+        if type_locvente  == "vente"
+           "n°#{id}  #{type_locvente} #{dateValue} " 
+        else # location vente
+          "n°#{id}  #{type_locvente} #{dateValueDebut} - #{dateValueFin} " 
+        end
+      end
+       #
+ 
     end
 
 
