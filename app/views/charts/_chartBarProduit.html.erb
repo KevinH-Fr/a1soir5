@@ -3,7 +3,9 @@
     <canvas id="myChartBarProduit"></canvas>
   </div>
 
-  <% @data = [@valLocations, @valVentes] %>
+  <% locations = valLocationsFiltreDates(@produitId, @datedebut, @datefin)  %>
+  <% ventes = valVentesFiltreDates(@produitId, @datedebut, @datefin)  %>
+  <% @data = [locations, ventes] %>
 
 <script>
    

@@ -32,40 +32,71 @@ class ProduitsController < ApplicationController
   end
 
   def show
-
     @produitId = params[:id]
     session[:produitId] = @produitId
 
-    #filtres analyses
-    datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
-    datefin = DateTime.parse(params[:fin]) if params[:fin].present?
     @datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
     @datefin = DateTime.parse(params[:fin]) if params[:fin].present?
-    @initial = Produit.find(@produitId).quantite
+  
 
-    #totaux hors filtres :
-    @articlesFiltres = Article.produit_courant(@produitId)
-    @totLocations =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
-    @totVentes =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles 
-    @louesTermines = Commande.hors_devis.termine.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
-    @louesAvenir = Commande.hors_devis.a_venir.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
+ # stock général avant filtre date et graphique :
+  # stocks sur articles : #totaux hors filtres avec Articles correspondant au produit :
+  #  @articlesFiltres = Article.produit_courant(@produitId)
+  #  @totLocations =  @articlesFiltres.articlesLoues.compte_articles
+  #  @totVentes =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles 
+  #  @louesTermines = Commande.hors_devis.termine.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
+  #  @louesAvenir = Commande.hors_devis.a_venir.joins(:articles).merge(@articlesFiltres.articlesLoues).sum(:quantite) 
 
-    if datedebut.present? && datefin.present? 
-      @articlesFiltres = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin)
-    else
-      @articlesFiltres = Article.produit_courant(@produitId)
-    end
-    
-      # ajotuer les osus articles car les produits peuvent passer en sous article ?
-      @nbTotal =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).compte_articles
-      @locations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
-      @ventes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles
-      @valTotal = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).sum_articles
-      @valLocations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.sum_articles
-      @valVentes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.sum_articles
-      @groupedByDateProduit = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).group('DATE(commandes.created_at)').sum('total')
+ #   @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis
+  #  @totLocationsSousArticles =  @sousarticlesFiltres.joins(:article).locvente("location").count
+  #  @totVentesSousArticles =  @sousarticlesFiltres.joins(:article).locvente("vente").count
+  #  @louesTerminesSousArticles = Commande.hors_devis.termine.joins(articles: :sousarticles)
+  #    .merge(@sousarticlesFiltres).count
+  #  @louesAvenirSousArticles = Commande.hors_devis.a_venir.joins(articles: :sousarticles)
+  #    .merge(@sousarticlesFiltres).count
+   
+# stock dans les graphiques avec filtre
+
+  # filtres analyses
+ # datedebut = DateTime.parse(params[:debut]) if params[:debut].present?
+ # datefin = DateTime.parse(params[:fin]) if params[:fin].present?
+#  @initial = Produit.find(@produitId).quantite
+
+  #  if datedebut.present? && datefin.present? 
+  #    @articlesFiltres = Article.produit_courant(@produitId).filtredatedebut(datedebut).filtredatefin(datefin)
+  #    @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis.filtredatedebut(datedebut).filtredatefin(datefin)
+  #  else
+  #    @articlesFiltres = Article.produit_courant(@produitId)
+  #    @sousarticlesFiltres = Sousarticle.produit_courant(@produitId).hors_devis
+  #  end
+
+    # stocks sur articles dans graph avec ou sans dates
+    #  @nbTotal =  @articlesFiltres.joins(:commande).merge(Commande.hors_devis).compte_articles 
+   #   @locations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.compte_articles
+   #   @ventes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.compte_articles
+   #   @valTotal = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).sum_articles
+   #   @valLocations = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesLoues.sum_articles
+   #   @valVentes = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).articlesVendus.sum_articles
+   #   @groupedByDateProduit = @articlesFiltres.joins(:commande).merge(Commande.hors_devis).group('DATE(commandes.created_at)').sum('total')
+
+    #  stocks sur sous articles dans graph avec ou sans dates
+   #   @nbTotalSousArticles = @sousarticlesFiltres.count
+   #   @locationsSousArticles = @sousarticlesFiltres.joins(:article).locvente("location").count
+   #   @ventesSousArticles = @sousarticlesFiltres.joins(:article).locvente("vente").count
+   #   @valTotalSousArticles = @sousarticlesFiltres.joins(:article).sum_sousarticles
+   #   @valLocationsSousArticles  = @sousarticlesFiltres.joins(:article).locvente("location").sum_sousarticles
+   #   @valVentesSousArticles  = @sousarticlesFiltres.joins(:article).locvente("vente").sum_sousarticles
+   #   @groupedByDateProduitSousArticles = @sousarticlesFiltres.group("DATE(created_at)").sum(:prix_sousarticle)
+
+    # totaux article et sous articles :
+   #   @totalLocations = @locations + @locationsSousArticles
+   #   @totalVentes = @ventes + @ventesSousArticles
+   #   @totalValLocations = @valLocations + @valLocationsSousArticles
+   #   @totalValVentes = @valVentes + @valVentesSousArticles
+    #  @combinedHash = @groupedByDateProduit.merge(@groupedByDateProduitSousArticles) { |date, total1, total2| total1 + total2 }
 
   end
+
 
   def new
     @produit = Produit.new  

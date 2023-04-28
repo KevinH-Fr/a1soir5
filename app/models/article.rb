@@ -9,6 +9,8 @@ class Article < ApplicationRecord
   scope :commande_courante, ->  (commande_courante) { where("commande_id = ?", commande_courante)}
   scope :produit_courant, ->  (produit_courant) { where("produit_id = ?", produit_courant)}
 
+  scope :hors_devis, -> { joins(:commande).where("commandes.devis = ?", false) }
+  
   # differencier le prix appelé en pmt ou caution
   scope :sum_caution, -> {sum('caution')}
   
@@ -19,6 +21,9 @@ class Article < ApplicationRecord
   scope :articlesLoues, -> { where("Locvente = ?", "location")}
   scope :articlesVendus, -> { where("Locvente = ?", "vente")}
 
+  scope :a_venir, -> { joins(:commande).where('commandes.finloc >= ?', Date.current) }
+  scope :termine, -> { joins(:commande).where('commandes.finloc <= ?', Date.current) }
+  
   # filtres analyses
   scope :filtredatedebut, -> (debut) { where("articles.created_at >= ?", debut) }
   scope :filtredatefin, -> (fin) { where("articles.created_at <= ?", fin) }

@@ -3,6 +3,8 @@
     <canvas id="myChartLineProduit"></canvas>
   </div>
 
+  <% @data = groupByDateTotal(@produitId, @datedebut, @datefin) %>
+
 <script>
    
   var couleur1 = 'rgb(116, 159, 130)';
@@ -11,7 +13,7 @@
 // CHART BAR
     var dataLineProduit = {
       datasets: [{
-        data: <%= @groupedByDateProduit.to_json.html_safe %>,
+        data: <%= @data.to_json.html_safe %>,
         fill: true,
         backgroundColor: [couleur2, couleur1],
         borderWidth: 1

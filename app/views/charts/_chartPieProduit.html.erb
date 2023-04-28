@@ -3,13 +3,16 @@
     <canvas id="myChartPieProduit"></canvas>
   </div>
 
-  <% @data = [@locations, @ventes] %>
+  <% locations = locationsFiltreDates(@produitId, @datedebut, @datefin)  %>
+  <% ventes = ventesFiltreDates(@produitId, @datedebut, @datefin)  %>
+  <% @data = [locations, ventes] %>
+  <% @nbTotal = @data.sum %>
 
 <script>
   var couleur1 = 'rgb(116, 159, 130)';
   var couleur2 = 'rgb(66, 95, 87)';
 
-  var nbTotal = <%= @nbTotal %>;
+  var nbTotal = <%= @nbTotal %>; // a changer par la somme article sous article
 
   var centerTextDoghnutProduit = {
     id: 'centerTextDoghnutProduit',

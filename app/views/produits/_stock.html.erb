@@ -1,18 +1,13 @@
 
 <div class="bloc-record">
   <div class="cadre-interieur">
-
     <strong> STOCK </strong> <br>
-   
-    initial : <%= @initial %> /
-    restant : <%= @initial.to_i - @louesAvenir.to_i - @ventes.to_i %> <br>
-  
-    nb locations : <%= @totLocations %> 
-    nb ventes : <%= @totVentes %> <br>
-  
-    loc terminées: <%= @louesTermines  %> /
-    loc à venir: <%= @louesAvenir %> <br>
-
+    initial : <%= stockInitial(@produitId) %> /
+    restant : <%= restant(@produitId)  %> <br>
+    nb locations : <%= totLocations(@produitId) %> 
+    nb ventes : <%= totVentes(@produitId)%> <br>
+    loc terminées: <%= louesTermines(@produitId) %> /
+    loc à venir: <%= louesAvenir(@produitId) %> <br>
   </div>
 </div>
 
@@ -22,11 +17,14 @@
     <%= form_tag url_for, method: :get do %>
 
       <div class="input-group mb-1">
+        <% first_day = Date.current.beginning_of_month %>
+        <% last_day = Date.current.end_of_month %>
+
         <%= label_tag :début, "début", class:"input-group-text label-with-format centered" %>
-        <%= date_field_tag :debut, params[:debut], class:"form-control field-with-format" %>
+        <%= date_field_tag :debut, params[:debut] || first_day, class:"form-control centered" %>
 
         <%= label_tag :fin, "fin", class:"input-group-text label-with-format centered" %>
-        <%= date_field_tag :fin, params[:fin], class:"form-control field-with-format" %>
+        <%= date_field_tag :fin, params[:fin] || last_day, class:"form-control centered" %>
 
         <%= link_to "Effacer", url_for(), class:"btn btn-sm btn-outline-danger rounded mx-1" %> 
 

@@ -8,17 +8,14 @@
 
 <div class="bloc-entete-model">
   <div class="card card-header entete-index m-0 p-1">
-    <div class="container p-0 m-0">
-      <div class="row m-0 p-0">
-        <div class="col-6 text-start fw-bold m-0 p-1"> Nouveau sous-article </div>
-        <div class="col-6 text-end m-0 p-1">
-          <span class="badge text-bg-primary"> <%= Produit.find(Article.find(@articleId).produit_id).nom if @articleId.present? %> </span> 
-          <span class="badge text-bg-secondary"> <%= Commande.find(@commandeId).texte_record if @commandeId.present? %> </span> 
-          <span class="badge text-bg-secondary"> <%= Client.find(@clientId).full_name if @clientId.present? %> </span> 
-          
-        </div>
+   
+      <h3 class="text-center fw-bold m-0 p-1"> Nouveau sous-article </h3>
+      <div class="text-end m-0 p-1">
+        <span class="badge text-bg-primary"> <%= Produit.find(Article.find(@articleId).produit_id).nom if @articleId.present? %> </span> 
+        <span class="badge text-bg-secondary"> <%= Commande.find(@commandeId).texte_record if @commandeId.present? %> </span> 
+        <span class="badge text-bg-secondary"> <%= Client.find(@clientId).full_name if @clientId.present? %> </span> 
       </div>
-    </div>
+ 
   </div>
 </div>
 
