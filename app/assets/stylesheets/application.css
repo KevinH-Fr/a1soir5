@@ -140,8 +140,8 @@ input:invalid {
   padding-right: 1em;
   padding-left: 1em;
   margin: 0em;
-  width: 50%;
-  height: 4vh;
+ /* width: 50%;
+  height: 4vh; */
   font-size: medium;
 }
 
