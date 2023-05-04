@@ -92,7 +92,7 @@
 
       <%#= link_to "Fermer", "#", data: { turbo_frame: "modal", controller: "close-modal", action: "click->close-modal#hideModal" } %>
 
-      <%= button_tag( :class => "btn btn-validate") do %>
+      <%= button_tag( :class => "btn btn-validate", data: { turbo: false }) do %>
         <i class="fa-regular fa-thumbs-up fa-bounce"></i>
       <% end %>
       <%#= form.submit "", class: "fa-regular fa-thumbs-up btn btn-success btn-sm", data: { turbo: false } %>
