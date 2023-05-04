@@ -49,7 +49,7 @@ class MessagemailMailer < ApplicationMailer
         mail(
           to: @messagemail.mail,
           subject: @mailobject, 
-          cc: "kevin.hoffman.france@gmail.com"
+          cc: "contact@a1soir.com"
           
         )
     

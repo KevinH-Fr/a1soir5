@@ -2,7 +2,6 @@ class CommandeMailer < ApplicationMailer
 
   # default from: "from@example.com"
 
-
   helper CommandeHelper #rendre disponible l'helper commande pour calculs synthese
 
   def commande_created(commande, typedoc)
