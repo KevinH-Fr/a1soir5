@@ -40,7 +40,6 @@ class CommandeMailer < ApplicationMailer
     attachments["#{typedoc}_#{commande.id}.pdf"] = @pdf 
 
     mail(
-      from: "contact@a1soir.com",
       to:  @clientMail,
       subject: @mailobject, 
       cc: "contact@a1soir.com"
